@@ -260,7 +260,7 @@ details.regras .r{font-size:.9rem;padding:6px 0;border-bottom:1px solid var(--li
 <div class="mod" id="modViagens">
  <div class="wrap">
   <header class="nv-head">
-   <div class="nv-row"><h1>Nossas viagens</h1><span class="nv-sp"></span><button class="btn sm" id="vExp" type="button" hidden>Exportar</button><button class="btn sm" id="vImp" type="button" hidden>Importar</button><input type="file" id="vImpF" accept="application/json,.json" hidden><button class="btn sm pri" id="vNova" type="button">Nova viagem</button></div>
+   <div class="nv-row"><h1>Nossas viagens</h1><span class="nv-sp"></span><button class="btn sm" id="vExp" type="button" hidden>Exportar</button><button class="btn sm" id="vImp" type="button" hidden>Importar</button><input type="file" id="vImpF" accept="application/json,.json,text/plain,.txt" hidden><button class="btn sm pri" id="vNova" type="button">Nova viagem</button></div>
    <div class="sub" id="vSync">Carregando…</div>
   </header>
   <main id="vMain"></main>
@@ -1346,14 +1346,83 @@ q("#vExp").addEventListener("click", () => {
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); aviso("Arquivo exportado");
 });
 q("#vImp").addEventListener("click", () => q("#vImpF").click());
+/* importação tolerante: aceita o formato deste app e o de versões anteriores (lista, mapa, chaves em inglês etc.) */
+const IMP = (() => {
+  const low = o => Object.fromEntries(Object.entries(o||{}).map(([k,v]) => [nz(k).replace(/ /g,"_"), v]));
+  const pega = (o, ...ks) => { for(const k of ks){ const v=o[k]; if(v!==undefined && v!==null && v!=="") return v; } return undefined; };
+  const data = v => {
+    if(v==null || v==="") return "";
+    if(typeof v==="number") v = new Date(v).toISOString();
+    const s = String(v).trim();
+    let m = s.match(/^(\d{4})-(\d{2})-(\d{2})/); if(m) return `${m[1]}-${m[2]}-${m[3]}`;
+    m = s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);
+    if(m){ const y = m[3].length===2 ? "20"+m[3] : m[3]; return `${y}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`; }
+    const d = new Date(s); return isNaN(d) ? "" : d.toISOString().slice(0,10);
+  };
+  const txt = v => v==null ? "" : Array.isArray(v) ? v.map(x => typeof x==="object" ? Object.values(x).filter(Boolean).join(" · ") : x).join("\n") : typeof v==="object" ? Object.entries(v).map(([k,x]) => `${k}: ${typeof x==="object"?JSON.stringify(x):x}`).join("\n") : String(v);
+  const lista = v => v==null || v==="" ? [] : Array.isArray(v) ? v : typeof v==="object" ? Object.entries(v).map(([k,x]) => (typeof x==="object" && x) ? {dia:k, ...x} : {dia:k, texto:x}) : String(v).split(/\n+/).filter(Boolean);
+  const pend = v => lista(v).map(p => typeof p==="string" ? {txt:p.replace(/^\[x\]\s*/i,""), ok:/^\[x\]/i.test(p)} : {txt: String(pega(low(p),"txt","texto","text","titulo","title","descricao","item","nome") ?? txt(p)), ok: !!pega(low(p),"ok","feito","done","concluido","checked")});
+  const rot = v => lista(v).map(r => typeof r==="string" ? (r.includes("|") ? {dia:r.split("|")[0].trim(), texto:r.split("|").slice(1).join("|").trim()} : {dia:"", texto:r}) : (o => ({dia: String(pega(o,"dia","data","day","date") ?? ""), texto: String(pega(o,"texto","programa","descricao","atividades","text","plano","title","titulo") ?? txt(o))}))(low(r)));
+  const voo = v => lista(v).map(x => typeof x==="string" ? (p => ({voo:p[0]||"", trecho:p[1]||"", saida:p[2]||"", chegada:p[3]||""}))(x.split("|").map(s=>s.trim())) : (o => ({voo:String(pega(o,"voo","numero","flight","codigo")??""), trecho:String(pega(o,"trecho","rota","route","de_para")??[pega(o,"origem","from"),pega(o,"destino","to")].filter(Boolean).join(" → ")), saida:String(pega(o,"saida","partida","departure","hora_saida")??""), chegada:String(pega(o,"chegada","arrival","hora_chegada")??"")}))(low(x)));
+  const CONHECIDOS = new Set(["id","titulo","title","nome","name","viagem","destino","destination","local","cidade","inicio","data_inicio","datainicio","ida","start","start_date","startdate","de","partida","fim","data_fim","datafim","volta","end","end_date","enddate","ate","retorno","sigla_origem","origem","from","sigla_destino","aeroportos","airports","transporte","transport","viajantes","pessoas","travelers","participantes","hospedagem","hotel","hospedagens","lodging","reserva","reservas","booking","localizador","voos","flights","roteiro","itinerario","dias","itinerary","pendencias","tarefas","todo","todos","checklist","notas","observacoes","obs","notes","atualizado","updated","updated_at"]);
+  function viagem(raw, idx){
+    const o = low(raw);
+    const titulo = String(pega(o,"titulo","title","nome","name","viagem") ?? pega(o,"destino","destination","cidade","local") ?? `Viagem ${idx+1}`);
+    const extras = Object.entries(raw).filter(([k]) => !CONHECIDOS.has(nz(k).replace(/ /g,"_")));
+    const notas = [txt(pega(o,"notas","observacoes","obs","notes")), extras.length ? "Campos do app anterior:\n" + extras.map(([k,v]) => `${k}: ${typeof v==="object"?JSON.stringify(v):v}`).join("\n") : ""].filter(Boolean).join("\n\n");
+    const aer = pega(o,"aeroportos","airports");
+    const v = {
+      titulo, destino: txt(pega(o,"destino","destination","cidade","local") ?? ""),
+      inicio: data(pega(o,"inicio","data_inicio","datainicio","ida","start","start_date","startdate","de","partida")),
+      fim: data(pega(o,"fim","data_fim","datafim","volta","end","end_date","enddate","ate","retorno")),
+      sigla_origem: String(pega(o,"sigla_origem","origem","from") ?? "").slice(0,5).toUpperCase(),
+      sigla_destino: String(pega(o,"sigla_destino") ?? "").slice(0,5).toUpperCase(),
+      aeroportos: Array.isArray(aer) ? aer.map(String) : String(aer||"").toUpperCase().split(/[\s,;]+/).filter(Boolean),
+      transporte: txt(pega(o,"transporte","transport")), viajantes: txt(pega(o,"viajantes","pessoas","travelers","participantes")),
+      hospedagem: txt(pega(o,"hospedagem","hotel","hospedagens","lodging")), reserva: txt(pega(o,"reserva","reservas","booking","localizador")),
+      voos: voo(pega(o,"voos","flights")), roteiro: rot(pega(o,"roteiro","itinerario","dias","itinerary")),
+      pendencias: pend(pega(o,"pendencias","tarefas","todo","todos","checklist")), notas,
+      atualizado: new Date().toISOString()
+    };
+    const id = String(pega(o,"id") ?? (nz(titulo).replace(/ /g,"-").slice(0,40) + "-" + (v.inicio || idx)));
+    return [id, v];
+  }
+  const pareceViagem = x => x && typeof x==="object" && !Array.isArray(x) && Object.keys(low(x)).some(k => ["titulo","title","nome","name","destino","destination","inicio","start","data_inicio","ida","roteiro","voos"].includes(k));
+  function acha(d, prof=0){       // procura a lista de viagens em qualquer nível do arquivo
+    if(prof>4 || d==null) return null;
+    if(typeof d==="string" && /^\s*[\[{]/.test(d)){ try{ return acha(JSON.parse(d), prof+1); }catch(e){ return null; } }   // dumps de localStorage guardam JSON como texto
+    if(Array.isArray(d)) return d.filter(pareceViagem).length ? d.filter(pareceViagem) : null;
+    if(typeof d!=="object") return null;
+    for(const k of ["viagens","trips","travels","items","dados","data"]) if(d[k]!=null){ const r=acha(d[k],prof+1); if(r) return r; }
+    const vals = Object.values(d); if(vals.length && vals.every(pareceViagem)) return Object.entries(d).map(([id,v]) => ({id, ...v}));
+    for(const v of vals){ const r=acha(v,prof+1); if(r) return r; }
+    return null;
+  }
+  function lerTexto(t){
+    t = t.replace(/^\uFEFF/,"").trim();
+    try{ return JSON.parse(t); }catch(e){}
+    const a = Math.min(...["{","["].map(c => t.indexOf(c)).filter(i => i>=0)), b = Math.max(t.lastIndexOf("}"), t.lastIndexOf("]"));
+    if(isFinite(a) && b>a) return JSON.parse(t.slice(a, b+1));   // JSON dentro de texto
+    throw new Error("nao-json");
+  }
+  return { ler(texto){
+    const d = lerTexto(texto); const lst = acha(d);
+    if(!lst || !lst.length){ const ch = d && typeof d==="object" ? Object.keys(d).slice(0,8).join(", ") : typeof d; const e=new Error("sem-viagens"); e.chaves=ch; throw e; }
+    return Object.fromEntries(lst.map(viagem));
+  } };
+})();
 q("#vImpF").addEventListener("change", async e => {
   const f = e.target.files?.[0]; e.target.value = ""; if(!f) return;
   try{
-    const d = JSON.parse(await f.text()); const v = d?.viagens;
-    if(!v || typeof v!=="object" || Array.isArray(v)) throw new Error("formato");
-    if(!confirm(`Substituir as viagens deste aparelho pelas ${Object.keys(v).length} do arquivo?`)) return;
-    LocalDB.substitui(v); aviso("Viagens importadas");
-  }catch(err){ aviso("Arquivo inválido: use um JSON exportado por este app"); }
+    const novas = IMP.ler(await f.text()); const n = Object.keys(novas).length, atuais = LocalDB.todos();
+    const repetidas = Object.keys(novas).filter(id => atuais[id]).length;
+    if(!confirm(`Importar ${n} viagem(ns) de "${f.name}"?` + (repetidas ? `\n${repetidas} já existe(m) aqui e será(ão) atualizada(s).` : "") + "\nAs demais viagens deste aparelho são mantidas.")) return;
+    LocalDB.substitui({...atuais, ...novas}); aviso(`${n} viagem(ns) importada(s)`);
+  }catch(err){
+    if(err.message==="nao-json") aviso("Não consegui ler o arquivo: ele não está em formato JSON");
+    else if(err.message==="sem-viagens") aviso(`Não achei viagens no arquivo (chaves encontradas: ${err.chaves||"nenhuma"})`);
+    else aviso("Erro ao importar: " + (err.message||"desconhecido"));
+  }
 });
 
 /* ---------- salas VIP ---------- */

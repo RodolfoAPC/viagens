@@ -1,7 +1,7 @@
 /* Service worker do Nossas Viagens: abre offline (útil em aeroporto sem sinal).
    Ao mudar o index.html, aumente a VERSAO para forçar a atualização no celular.
    O dados/salas-vip.json é buscado na rede primeiro, então a base nova chega sem mexer aqui. */
-const VERSAO = "nv-v1";
+const VERSAO = "nv-v2";
 const ARQUIVOS = ["./", "index.html", "dados/salas-vip.json", "manifest.webmanifest",
   "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png",
   "icons/apple-touch-icon.png", "icons/favicon-32.png"];
