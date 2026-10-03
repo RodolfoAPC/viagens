@@ -1,0 +1,3017 @@
+{
+  "meta": {
+    "nome": "Salas VIP — aeroportos brasileiros",
+    "versao": "1.1",
+    "atualizado_em": "2026-10-03",
+    "aba_app": "Salas VIP",
+    "status_legenda": {
+      "ilimitado": "Grátis sem limite",
+      "condicional": "Grátis se cumprir gasto mínimo",
+      "cota": "Consome a cota anual",
+      "pago": "Entra pagando",
+      "nao": "Sem acesso pelo cartão"
+    },
+    "avisos": [
+      "Convênios mudam com frequência (C6 trocou LoungeKey por DragonPass em dez/2024; Inter trocou LoungeKey por Priority Pass em jun/2024; Mastercard passou a exigir gasto mínimo em GRU). Reconfirmar no app do banco antes de cada viagem.",
+      "Marcação LK foi inferida da lista Priority Pass (mesma rede no Brasil).",
+      "Localização: campo local_verificado=true indica portão/andar confirmado em fonte; false indica só o setor. Coordenadas são do terminal, não da sala (o app pode usar para o pin e abrir a planta oficial quando houver).",
+      "Restaurantes conveniados e serviços (Bluma, SiestaBOX) ficaram fora desta versão."
+    ],
+    "fontes": [
+      "https://www.c6bank.com.br/salas-vip/",
+      "https://ajuda.inter.co/cartao/quais-sao-as-regras-de-acesso-a-sala-vip",
+      "https://www.cartoesdecredito.me/guias-salas-vip/guia-todas-as-salas-vip-dos-aeroportos-no-brasil/",
+      "https://www.cartoesdecredito.me/guias-salas-vip/salas-vip-dragonpass-no-brasil-2026/",
+      "https://www.melhorescartoes.com.br/priority-pass-salas-vip.html",
+      "https://www.melhoresdestinos.com.br/milhas/qual-a-melhor-e-a-pior-sala-vip-do-aeroporto-de-fortaleza",
+      "https://www.cartoesdecredito.me/salas/formas-de-acesso-as-salas-vip-w-premium-lounge/",
+      "https://www.gru.com.br/en/passenger/discover-gru/relax/vip-lounges",
+      "https://assets.bradesco/content/dam/portal-bradesco/assets/common/pdf/termos_condicoes_salas_vip.pdf",
+      "https://www.itatiaia.com.br/turismo/guia-atualizado-das-salas-vip-e-restaurantes-do-aeroporto-do-galeao-gig-confira/"
+    ]
+  },
+  "programas": {
+    "PP": {
+      "nome": "Priority Pass",
+      "dono": "Collinson",
+      "obs": "Acesso por QR Code (app do banco ou do PP) + documento + cartão de embarque. Restaurantes conveniados contam como 1 acesso."
+    },
+    "LK": {
+      "nome": "LoungeKey",
+      "dono": "Collinson",
+      "obs": "No Brasil a rede de salas é praticamente igual à do Priority Pass (mesmo grupo). Marcação LK nesta base foi inferida da lista PP; confirmar no app Mastercard Airport Experiences."
+    },
+    "DP": {
+      "nome": "DragonPass / Visa Airport Companion",
+      "dono": "DragonPass",
+      "obs": "Cartões Visa acessam pelo app Visa Airport Companion; Mastercard (ex.: C6) pelo QR Code do app do banco. Pelo C6 NÃO inclui restaurantes."
+    },
+    "WP": {
+      "nome": "W Premium (convênio direto)",
+      "dono": "W Premium Group",
+      "obs": "C6 Carbon/Graphene entram com cartão físico ou carteira digital (Brasil) e QR Code (exterior)."
+    },
+    "INTER": {
+      "nome": "Inter Lounge (sala própria)",
+      "dono": "Banco Inter",
+      "obs": "Exclusiva Inter Prime/Win; não aceita PP, LK nem DP. Avulso por pontos Inter Loop."
+    },
+    "C6": {
+      "nome": "Espaço C6 Bank",
+      "dono": "C6 Bank",
+      "obs": "Só GRU T3, perto do portão 328, 24h."
+    },
+    "MCB": {
+      "nome": "Salas Mastercard Black GRU",
+      "dono": "Mastercard",
+      "obs": "Sala VIP Lounge (mezanino) e Lounge Mastercard Black (térreo), GRU T3. Desde 2025/2026 a gratuidade exige R$ 15 mil em compras nos 3 meses anteriores (regra da bandeira)."
+    },
+    "DP_VISA": {
+      "nome": "Visa Airport Companion (só cartões Visa)",
+      "dono": "Visa",
+      "obs": "Aparece na rede DragonPass, mas a entrada é para cartões Visa; marcado à parte para não contar como DragonPass do C6."
+    },
+    "AMEX": {
+      "nome": "Cartões American Express",
+      "dono": "Amex",
+      "obs": ""
+    },
+    "BRADESCO": {
+      "nome": "Bradesco Lounge",
+      "dono": "Bradesco",
+      "obs": "Cartões Bradesco elegíveis."
+    },
+    "CIA": {
+      "nome": "Companhia aérea / classe / status",
+      "dono": "cias",
+      "obs": "Executiva/primeira ou status de aliança."
+    },
+    "AVULSO": {
+      "nome": "Pagamento avulso (day use)",
+      "dono": "-",
+      "obs": ""
+    }
+  },
+  "cartoes": {
+    "c6_carbon": {
+      "nome": "C6 Carbon Mastercard Black",
+      "emissor": "C6 Bank",
+      "bandeira": "Mastercard Black",
+      "regras": {
+        "DP": {
+          "status": "cota",
+          "detalhe": "4 acessos/ano somando DragonPass + W Premium + Espaço C6, divididos entre titular e convidados; do 5º em diante R$ 200 na fatura. Ilimitado no mês seguinte se a média de gastos dos últimos 3 meses for R$ 20 mil.",
+          "como": "App C6 > Cartões > Acesso Sala VIP > QR Code DragonPass (convidado: QR próprio, nome igual ao da passagem)."
+        },
+        "WP": {
+          "status": "cota",
+          "detalhe": "Mesma cota de 4/ano (compartilhada com DragonPass e Espaço C6); R$ 200 a partir do 5º.",
+          "como": "Cartão físico ou carteira digital no Brasil; QR Code no exterior."
+        },
+        "C6": {
+          "status": "cota",
+          "detalhe": "Mesma cota de 4/ano.",
+          "como": "Cartão físico ou carteira digital + cartão de embarque."
+        },
+        "MCB": {
+          "status": "condicional",
+          "detalhe": "Ilimitado se somar R$ 15 mil no crédito nos 3 meses anteriores ao mês do acesso; até 3 acompanhantes pagos.",
+          "como": "Somente cartão físico."
+        },
+        "LK": {
+          "status": "pago",
+          "detalhe": "US$ 35 por acesso, cobrado pela Mastercard na fatura (desde fev/2025).",
+          "como": "Somente cartão físico."
+        },
+        "PP": {
+          "status": "nao",
+          "detalhe": "Sem Priority Pass."
+        },
+        "INTER": {
+          "status": "nao",
+          "detalhe": ""
+        }
+      },
+      "variante_1mi": "Com R$ 1 milhão investido no C6: DragonPass, W Premium, Espaço C6 e LoungeKey ilimitados para titular, adicionais e acompanhantes; Mastercard Black ilimitado para o portador (reembolso na fatura).",
+      "fonte": "https://www.c6bank.com.br/salas-vip/"
+    },
+    "inter_prime": {
+      "nome": "Inter Prime Mastercard (Black)",
+      "emissor": "Banco Inter",
+      "bandeira": "Mastercard (Black na maioria dos casos — confirmar no seu cartão)",
+      "regras": {
+        "INTER": {
+          "status": "ilimitado",
+          "detalhe": "Ilimitado para titular e adicionais (adicional Prime não tem QR próprio, entra junto com o titular). Salas em GRU, CNF, CWB e FOR.",
+          "como": "Super App Inter > Sala VIP > QR Code. Pode haver pré-autorização de US$ 1; exige R$ 50 de limite livre e compras online habilitadas."
+        },
+        "PP": {
+          "status": "cota",
+          "detalhe": "6 acessos gratuitos a cada 12 meses, compartilhados entre titular e adicionais; depois disso, cobrança integral no cartão do titular.",
+          "como": "QR Code no Super App Inter + documento + cartão de embarque. Não vale no desembarque."
+        },
+        "MCB": {
+          "status": "condicional",
+          "detalhe": "Só se o cartão for Mastercard Black. A regra da bandeira exige R$ 15 mil em compras no trimestre; o Inter não publicou regra própria — confirmar.",
+          "como": "Cartão físico + cartão de embarque."
+        },
+        "LK": {
+          "status": "nao",
+          "detalhe": "Inter trocou LoungeKey por Priority Pass em jun/2024."
+        },
+        "DP": {
+          "status": "nao",
+          "detalhe": ""
+        },
+        "WP": {
+          "status": "nao",
+          "detalhe": "Só entra em W Premium que aceite Priority Pass (consome a cota de 6)."
+        },
+        "C6": {
+          "status": "nao",
+          "detalhe": ""
+        }
+      },
+      "fonte": "https://ajuda.inter.co/cartao/quais-sao-as-regras-de-acesso-a-sala-vip"
+    }
+  },
+  "aeroportos": [
+    {
+      "iata": "FOR",
+      "nome": "Pinto Martins",
+      "cidade": "Fortaleza",
+      "uf": "CE",
+      "salas": [
+        {
+          "nome": "Inter Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "local": "Logo após o raio-x, em frente ao portão 12",
+          "horario": "06h–22h",
+          "acessos": [
+            "INTER"
+          ],
+          "avulso": "4.000 pontos Inter Loop",
+          "obs": "Duchas sem custo, espaço kids. Inaugurada em 04/03/2026.",
+          "local_verificado": true,
+          "id": "FOR-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "ilimitado",
+              "via": "INTER"
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Club",
+          "tipo": "sala",
+          "setor": "domestico",
+          "local": "Terminal 1, após o raio-x vire à esquerda depois da Dufry; perto do portão 8",
+          "horario": "24h",
+          "acessos": [
+            "PP",
+            "LK",
+            "AMEX"
+          ],
+          "avulso": "R$ 220 / 4h",
+          "obs": "Aceita também Bradesco Aeternum e Elo Diners. Costuma lotar.",
+          "local_verificado": true,
+          "id": "FOR-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Club",
+          "tipo": "sala",
+          "setor": "internacional",
+          "local": "Após o controle de passaportes, em frente ao portão 3",
+          "horario": "Conforme os voos internacionais (fonte antiga indicava 04h–22h)",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": true,
+          "id": "FOR-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "local": "Área de embarque, após a segurança, perto do portão 14",
+          "horario": "24h",
+          "acessos": [
+            "DP",
+            "WP",
+            "AMEX"
+          ],
+          "avulso": "W Pass R$ 220 (kids R$ 110)",
+          "local_verificado": true,
+          "id": "FOR-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge – Iracema",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "DP",
+            "WP"
+          ],
+          "avulso": "W Pass R$ 320",
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "FOR-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge – Beira-Mar",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "DP",
+            "WP"
+          ],
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "FOR-06",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "W Arrival Lounge",
+          "tipo": "sala",
+          "setor": "desembarque",
+          "horario": "24h",
+          "acessos": [
+            "DP",
+            "WP"
+          ],
+          "avulso": "W Pass R$ 160",
+          "local": "Área pública do desembarque",
+          "local_verificado": true,
+          "id": "FOR-07",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "W Airport Rooms",
+          "tipo": "descanso",
+          "setor": "publica",
+          "acessos": [
+            "DP",
+            "WP"
+          ],
+          "obs": "Quartos para descanso.",
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "FOR-08",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -3.7763,
+        "lng": -38.5326,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-3.7763,-38.5326"
+      }
+    },
+    {
+      "iata": "GIG",
+      "nome": "Galeão – Tom Jobim",
+      "cidade": "Rio de Janeiro",
+      "uf": "RJ",
+      "salas": [
+        {
+          "nome": "Plaza Premium Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "terminal": "T2",
+          "local": "2º andar do edifício-garagem",
+          "horario": "24h",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "AMEX"
+          ],
+          "avulso": "R$ 205 adulto / R$ 78 criança 2–12",
+          "local_verificado": true,
+          "id": "GIG-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Plaza Premium Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "local": "Portões B27/B28",
+          "horario": "24h",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "AMEX"
+          ],
+          "avulso": "R$ 240 adulto / R$ 82 criança",
+          "local_verificado": true,
+          "id": "GIG-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Plaza Premium Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T2",
+          "horario": "24h",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "AMEX"
+          ],
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "GIG-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Lounge GOL Smiles",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "local": "Portões B36/B37",
+          "horario": "06h–22h (qua e sex até 23h)",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "CIA"
+          ],
+          "local_verificado": true,
+          "id": "GIG-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Lounge GOL Smiles",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T2",
+          "local": "3º andar do Píer Sul",
+          "horario": "05h–23h",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "CIA"
+          ],
+          "local_verificado": true,
+          "id": "GIG-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Admirals Club",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T2",
+          "horario": "14h–23h30",
+          "acessos": [
+            "CIA",
+            "AVULSO"
+          ],
+          "obs": "Executiva American ou status oneworld.",
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "GIG-06",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Star Alliance Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T2",
+          "acessos": [
+            "CIA"
+          ],
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "GIG-07",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -22.809,
+        "lng": -43.2506,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-22.809,-43.2506"
+      }
+    },
+    {
+      "iata": "SDU",
+      "nome": "Santos Dumont",
+      "cidade": "Rio de Janeiro",
+      "uf": "RJ",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "SDU-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "ADVT VIP Lounge Consulado",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "SDU-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Bradesco Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "BRADESCO"
+          ],
+          "local": "Pré-embarque, 1º andar",
+          "horario": "05h30–22h30",
+          "local_verificado": true,
+          "id": "SDU-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Emerald VIP Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "SDU-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Harmony Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "SDU-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -22.9105,
+        "lng": -43.1631,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-22.9105,-43.1631"
+      }
+    },
+    {
+      "iata": "GRU",
+      "nome": "Guarulhos",
+      "cidade": "São Paulo",
+      "uf": "SP",
+      "salas": [
+        {
+          "nome": "W Premium Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T1",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP"
+          ],
+          "local": "Terminal 1, mezanino",
+          "horario": "24h",
+          "avulso": "R$ 200",
+          "local_verificado": true,
+          "id": "GRU-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Banco Inter VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "acessos": [
+            "INTER"
+          ],
+          "local": "T2 doméstico, mezanino",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "ilimitado",
+              "via": "INTER"
+            }
+          }
+        },
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "T2 doméstico, após o controle de segurança, à direita",
+          "horario": "24h",
+          "avulso": "R$ 180 / 3h",
+          "local_verificado": true,
+          "id": "GRU-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "The Lounge São Paulo Nacional",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "T2 doméstico, mezanino, entre as salas da GOL e do Bradesco",
+          "horario": "24h",
+          "avulso": "R$ 200",
+          "obs": "Crianças até 11 anos grátis (1 por adulto pagante); sem limite de permanência.",
+          "local_verificado": true,
+          "id": "GRU-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge – The West",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP"
+          ],
+          "avulso": "W Pass R$ 220",
+          "local": "T2 embarque doméstico Oeste, ao lado da Dufry, perto do portão 201",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Plaza Premium Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "acessos": [
+            "DP"
+          ],
+          "local": "T2, logo após o raio-x, ao lado da Casa do Pão de Queijo (portões 209–224)",
+          "horario": "05h–23h",
+          "avulso": "R$ 240 / 3h",
+          "local_verificado": true,
+          "id": "GRU-06",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Lounge GOL Smiles",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "acessos": [
+            "DP",
+            "CIA"
+          ],
+          "local": "T2 doméstico, mezanino",
+          "horario": "06h–00h",
+          "local_verificado": true,
+          "id": "GRU-07",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Bradesco Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "terminal": "T2",
+          "acessos": [
+            "BRADESCO"
+          ],
+          "local": "T2 doméstico Oeste, mezanino (1º andar)",
+          "obs": "Site do GRU informa fechamento temporário para obras.",
+          "local_verificado": true,
+          "id": "GRU-08",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Plaza Premium Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "terminal": "T2",
+          "acessos": [
+            "DP"
+          ],
+          "local": "T2, área pública, Check-in D",
+          "horario": "05h–22h",
+          "avulso": "R$ 195 / 3h",
+          "local_verificado": true,
+          "id": "GRU-09",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Urban Lounge & Cowork",
+          "tipo": "sala",
+          "setor": "publica",
+          "terminal": "T2",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "T2, Check-in E, 2º andar, acima da LATAM",
+          "horario": "24h",
+          "avulso": "R$ 165 / 3h",
+          "local_verificado": true,
+          "id": "GRU-10",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "The Lounge | SkyTeam",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T2",
+          "acessos": [
+            "PP",
+            "LK",
+            "CIA"
+          ],
+          "local": "T2 internacional, mezanino, logo após o controle de passaporte",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-11",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Lounge GOL Smiles",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T2",
+          "acessos": [
+            "DP",
+            "CIA"
+          ],
+          "local": "T2 internacional, área de embarque",
+          "horario": "05h–01h",
+          "local_verificado": true,
+          "id": "GRU-12",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge – The Pier",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP",
+            "AMEX",
+            "CIA"
+          ],
+          "avulso": "W Pass R$ 320",
+          "obs": "Preferencial Amex; aceita também executiva Air France/KLM.",
+          "local": "T3 embarque internacional, perto dos portões 323–324",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-13",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Espaço C6 Bank",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "local": "T3, perto do portão 328",
+          "horario": "24h",
+          "acessos": [
+            "C6"
+          ],
+          "avulso": "R$ 200 (C6 Black)",
+          "local_verificado": true,
+          "id": "GRU-14",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "C6"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Sala VIP Lounge (Mastercard)",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "local": "T3, mezanino (Black 1)",
+          "acessos": [
+            "MCB"
+          ],
+          "horario": "10h–23h30",
+          "obs": "Dependentes diretos até 12 anos entram grátis; acompanhante R$ 200.",
+          "local_verificado": true,
+          "id": "GRU-15",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "condicional",
+              "via": "MCB"
+            },
+            "inter_prime": {
+              "status": "condicional",
+              "via": "MCB"
+            }
+          }
+        },
+        {
+          "nome": "Lounge Mastercard Black",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "local": "T3, piso de embarque, corredor comercial (Black 2)",
+          "acessos": [
+            "MCB"
+          ],
+          "horario": "10h–23h30",
+          "obs": "Dependentes diretos até 12 anos entram grátis; acompanhante R$ 200.",
+          "local_verificado": true,
+          "id": "GRU-16",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "condicional",
+              "via": "MCB"
+            },
+            "inter_prime": {
+              "status": "condicional",
+              "via": "MCB"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge – 5th Avenue",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [
+            "AMEX"
+          ],
+          "local": "T3, entre as lojas Havaianas e Heineken",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-17",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "LATAM Lounge São Paulo",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [
+            "CIA",
+            "DP"
+          ],
+          "obs": "O site do GRU lista clientes de cartão DragonPass entre os elegíveis; confirmar no app C6 antes de contar com ela.",
+          "local": "T3, mezanino",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-18",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Visa Infinite Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [
+            "DP_VISA"
+          ],
+          "obs": "Para cartões Visa Infinite; via C6 (Mastercard) provavelmente não vale.",
+          "horario": "24h",
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "GRU-19",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Admirals Club",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [
+            "CIA"
+          ],
+          "local": "T3, mezanino",
+          "horario": "11h15–23h45",
+          "local_verificado": true,
+          "id": "GRU-20",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Nubank Ultravioleta Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [],
+          "obs": "Exclusiva Nubank.",
+          "local": "T3, perto do portão 329",
+          "horario": "06h–23h",
+          "local_verificado": true,
+          "id": "GRU-21",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Pedra Preta Itaú",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [],
+          "obs": "Exclusiva Itaú alta renda.",
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "GRU-22",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Bradesco Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [
+            "BRADESCO"
+          ],
+          "local": "T3, 1º andar",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-23",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Casa BB",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [],
+          "obs": "Exclusiva Banco do Brasil.",
+          "local": "T3, mezanino",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-24",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Nomad Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "terminal": "T3",
+          "acessos": [],
+          "obs": "Exclusiva Nomad.",
+          "local": "T3, ao lado do portão 303",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "GRU-25",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -23.4356,
+        "lng": -46.4731,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-23.4356,-46.4731",
+        "planta_oficial": {
+          "T1": "https://www.gru.com.br/en/passenger/discover-gru/airport-maps/terminal-1",
+          "T2": "https://www.gru.com.br/en/passenger/discover-gru/airport-maps/terminal-2",
+          "T3": "https://www.gru.com.br/en/passenger/discover-gru/airport-maps/terminal-3"
+        }
+      }
+    },
+    {
+      "iata": "CGH",
+      "nome": "Congonhas",
+      "cidade": "São Paulo",
+      "uf": "SP",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "1º andar, logo após a conferência do cartão de embarque e ANTES do raio-x (tem fast track)",
+          "local_verificado": true,
+          "id": "CGH-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Club",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "Área de embarque, em frente ao portão 8",
+          "horario": "04h–23h",
+          "local_verificado": true,
+          "id": "CGH-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge Congonhas",
+          "tipo": "sala",
+          "setor": "publica",
+          "local": "Pré-embarque, nível 1, ao lado dos Achados e Perdidos",
+          "acessos": [
+            "DP",
+            "WP"
+          ],
+          "horario": "04h–23h",
+          "local_verificado": true,
+          "id": "CGH-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Emerald VIP Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "CGH-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Bradesco Lounge – portão 5",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "BRADESCO"
+          ],
+          "local": "Pós-embarque, em frente ao portão 5",
+          "horario": "04h–23h",
+          "local_verificado": true,
+          "id": "CGH-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Bradesco Lounge – portão 8",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "BRADESCO"
+          ],
+          "local": "Pós-embarque, em frente ao portão 8",
+          "horario": "04h–23h",
+          "local_verificado": true,
+          "id": "CGH-06",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -23.6261,
+        "lng": -46.6564,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-23.6261,-46.6564"
+      }
+    },
+    {
+      "iata": "VCP",
+      "nome": "Viracopos",
+      "cidade": "Campinas",
+      "uf": "SP",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "VCP-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Club",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "Após o raio-x, perto do corredor de acesso aos portões",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "VCP-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "The Lounge Viracopos",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "VCP-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Lounge Azul",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK",
+            "CIA"
+          ],
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "VCP-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "BRT Lounges",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "VCP-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -23.0074,
+        "lng": -47.1345,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-23.0074,-47.1345"
+      }
+    },
+    {
+      "iata": "BSB",
+      "nome": "Juscelino Kubitschek",
+      "cidade": "Brasília",
+      "uf": "DF",
+      "salas": [
+        {
+          "nome": "Aeroportos VIP Club",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP"
+          ],
+          "local": "Pós-embarque, 2º andar",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "BSB-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Aeroportos VIP Club",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP"
+          ],
+          "local": "Pós-embarque, térreo, abaixo do raio-x",
+          "horario": "Conforme os voos internacionais",
+          "local_verificado": true,
+          "id": "BSB-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "VIP Express Club Píer Norte",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP"
+          ],
+          "local": "Píer Norte, perto do portão 11",
+          "horario": "06h–22h",
+          "local_verificado": true,
+          "id": "BSB-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "VIP Express Club Píer Sul",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP"
+          ],
+          "local": "Píer Sul, perto do portão 43",
+          "horario": "06h–22h",
+          "local_verificado": true,
+          "id": "BSB-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "BRB VIP Club",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [],
+          "obs": "Cartões BRB.",
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "BSB-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -15.8697,
+        "lng": -47.9208,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-15.8697,-47.9208"
+      }
+    },
+    {
+      "iata": "CNF",
+      "nome": "Confins – Tancredo Neves",
+      "cidade": "Belo Horizonte",
+      "uf": "MG",
+      "salas": [
+        {
+          "nome": "BRT / Banco Inter Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "INTER",
+            "DP"
+          ],
+          "obs": "Sala Inter compartilhada com a BRT; Inter Prime entra pelo QR do Inter.",
+          "local": "Embarque doméstico, perto do portão 1",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "CNF-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "ilimitado",
+              "via": "INTER"
+            }
+          }
+        },
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "2º andar: elevador/escada em frente ao portão 2 (quem embarca em BH entra pelo fast track, ao lado do terraço panorâmico)",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "CNF-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Lounge Confins",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP"
+          ],
+          "local": "Após o raio-x, à direita, perto do portão 7 e do embarque remoto",
+          "horario": "24h (fonte Bradesco: 04h30–23h)",
+          "local_verificado": true,
+          "id": "CNF-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Lounge Confins 2",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "DP"
+          ],
+          "local": "Após o raio-x, à esquerda, em frente ao portão 2, ao lado da Dufry",
+          "horario": "04h30–23h",
+          "local_verificado": true,
+          "id": "CNF-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Lounge Confins",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP"
+          ],
+          "local": "Terminal 2, após o controle de passaportes, perto do portão 60",
+          "local_verificado": true,
+          "id": "CNF-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "BRT Lounges",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "DP"
+          ],
+          "local": "Lado terra, mezanino/2º andar, perto do acesso ao embarque doméstico",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "CNF-06",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -19.6244,
+        "lng": -43.9719,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-19.6244,-43.9719"
+      }
+    },
+    {
+      "iata": "CWB",
+      "nome": "Afonso Pena",
+      "cidade": "Curitiba",
+      "uf": "PR",
+      "salas": [
+        {
+          "nome": "Banco Inter VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "INTER"
+          ],
+          "local": "Saguão de embarque doméstico, em frente ao portão 13",
+          "horario": "06h–22h",
+          "local_verificado": true,
+          "id": "CWB-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "ilimitado",
+              "via": "INTER"
+            }
+          }
+        },
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "Após a validação do cartão de embarque, ANTES do raio-x, à esquerda",
+          "local_verificado": true,
+          "id": "CWB-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "Após segurança e imigração, à direita",
+          "local_verificado": true,
+          "id": "CWB-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge Curitiba",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "DP",
+            "WP"
+          ],
+          "local": "Logo após o raio-x, à esquerda, em frente ao portão 5",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "CWB-04",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Break Travel Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "CWB-05",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        },
+        {
+          "nome": "Bradesco Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "BRADESCO"
+          ],
+          "local": "Pós-embarque, terminal doméstico",
+          "horario": "05h30–22h30",
+          "local_verificado": true,
+          "id": "CWB-06",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "nao",
+              "via": null
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -25.5285,
+        "lng": -49.1758,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-25.5285,-49.1758"
+      }
+    },
+    {
+      "iata": "SSA",
+      "nome": "Luís Eduardo Magalhães",
+      "cidade": "Salvador",
+      "uf": "BA",
+      "salas": [
+        {
+          "nome": "Ambaar Club",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "Antes do raio-x, perto do acesso aos portões, à direita",
+          "horario": "07h–19h",
+          "local_verificado": true,
+          "id": "SSA-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Club",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "Após o raio-x, saindo da Dufry, à direita, sentido portões 18–23",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "SSA-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "obs": "DragonPass em SSA só tem restaurantes — e pelo C6 restaurante não vale.",
+      "mapa": {
+        "lat": -12.9086,
+        "lng": -38.3225,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-12.9086,-38.3225"
+      }
+    },
+    {
+      "iata": "POA",
+      "nome": "Salgado Filho",
+      "cidade": "Porto Alegre",
+      "uf": "RS",
+      "salas": [
+        {
+          "nome": "Ambaar Club",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "Após o raio-x, perto dos portões 117 e 118 (mezanino)",
+          "horario": "05h–23h",
+          "local_verificado": true,
+          "id": "POA-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Ambaar Club",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "Terminal internacional, 2º andar, perto dos portões 101 e 102",
+          "horario": "Conforme os voos internacionais",
+          "local_verificado": true,
+          "id": "POA-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge Porto Alegre",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "DP",
+            "WP"
+          ],
+          "avulso": "W Pass R$ 220",
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "POA-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -29.9939,
+        "lng": -51.1711,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-29.9939,-51.1711"
+      }
+    },
+    {
+      "iata": "FLN",
+      "nome": "Hercílio Luz",
+      "cidade": "Florianópolis",
+      "uf": "SC",
+      "salas": [
+        {
+          "nome": "The Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "2º andar, em frente ao portão 6 (após a inspeção, à esquerda; escada/elevador)",
+          "horario": "04h–21h",
+          "avulso": "a partir de R$ 180",
+          "local_verificado": true,
+          "id": "FLN-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "The Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local": "2º andar, à esquerda após o controle de passaportes",
+          "horario": "06h–00h (varia com os voos)",
+          "local_verificado": true,
+          "id": "FLN-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "AMAE Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "FLN-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -27.6702,
+        "lng": -48.5477,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-27.6702,-48.5477"
+      }
+    },
+    {
+      "iata": "REC",
+      "nome": "Guararapes",
+      "cidade": "Recife",
+      "uf": "PE",
+      "salas": [
+        {
+          "nome": "W Premium Lounge – São João",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP"
+          ],
+          "avulso": "W Pass R$ 220",
+          "local": "Após a segurança, vire à esquerda; em frente ao portão 7",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "REC-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge – Frevo",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP"
+          ],
+          "avulso": "W Pass R$ 320",
+          "local": "2º andar, acima do portão B17",
+          "horario": "24h",
+          "local_verificado": true,
+          "id": "REC-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Airport Rooms",
+          "tipo": "descanso",
+          "setor": "publica",
+          "acessos": [
+            "DP",
+            "WP"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "REC-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -8.1265,
+        "lng": -34.9236,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-8.1265,-34.9236"
+      }
+    },
+    {
+      "iata": "NAT",
+      "nome": "Aluízio Alves",
+      "cidade": "Natal",
+      "uf": "RN",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "NAT-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "NAT-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -5.7681,
+        "lng": -35.3761,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-5.7681,-35.3761"
+      }
+    },
+    {
+      "iata": "JPA",
+      "nome": "Castro Pinto",
+      "cidade": "João Pessoa",
+      "uf": "PB",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "JPA-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -7.1458,
+        "lng": -34.9486,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-7.1458,-34.9486"
+      }
+    },
+    {
+      "iata": "MCZ",
+      "nome": "Zumbi dos Palmares",
+      "cidade": "Maceió",
+      "uf": "AL",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "MCZ-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -9.5108,
+        "lng": -35.7917,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-9.5108,-35.7917"
+      }
+    },
+    {
+      "iata": "AJU",
+      "nome": "Santa Maria",
+      "cidade": "Aracaju",
+      "uf": "SE",
+      "salas": [
+        {
+          "nome": "Ambaar Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "AJU-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -10.984,
+        "lng": -37.0703,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-10.984,-37.0703"
+      }
+    },
+    {
+      "iata": "JJD",
+      "nome": "Comandante Ariston Pessoa",
+      "cidade": "Jericoacoara (Cruz)",
+      "uf": "CE",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "JJD-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -2.9067,
+        "lng": -40.3581,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-2.9067,-40.3581"
+      }
+    },
+    {
+      "iata": "JDO",
+      "nome": "Orlando Bezerra",
+      "cidade": "Juazeiro do Norte",
+      "uf": "CE",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "JDO-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -7.2189,
+        "lng": -39.2701,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-7.2189,-39.2701"
+      }
+    },
+    {
+      "iata": "SLZ",
+      "nome": "Cunha Machado",
+      "cidade": "São Luís",
+      "uf": "MA",
+      "salas": [
+        {
+          "nome": "The Lounge São Luís",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "SLZ-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -2.5854,
+        "lng": -44.2341,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-2.5854,-44.2341"
+      }
+    },
+    {
+      "iata": "THE",
+      "nome": "Petrônio Portella",
+      "cidade": "Teresina",
+      "uf": "PI",
+      "salas": [
+        {
+          "nome": "The Lounge Teresina",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "THE-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -5.0599,
+        "lng": -42.8235,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-5.0599,-42.8235"
+      }
+    },
+    {
+      "iata": "BEL",
+      "nome": "Val de Cans",
+      "cidade": "Belém",
+      "uf": "PA",
+      "salas": [
+        {
+          "nome": "W Premium Lounge Belém",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "BEL-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge Belém",
+          "tipo": "sala",
+          "setor": "internacional",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP"
+          ],
+          "local_verificado": false,
+          "local": "Embarque internacional (após o controle de passaportes); ponto exato não verificado",
+          "id": "BEL-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -1.3792,
+        "lng": -48.4763,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-1.3792,-48.4763"
+      }
+    },
+    {
+      "iata": "MAO",
+      "nome": "Eduardo Gomes",
+      "cidade": "Manaus",
+      "uf": "AM",
+      "salas": [
+        {
+          "nome": "Harmony Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "MAO-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -3.0386,
+        "lng": -60.0497,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-3.0386,-60.0497"
+      }
+    },
+    {
+      "iata": "VIX",
+      "nome": "Eurico de Aguiar Salles",
+      "cidade": "Vitória",
+      "uf": "ES",
+      "salas": [
+        {
+          "nome": "The Lounge Vitória",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "VIX-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -20.2581,
+        "lng": -40.2864,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-20.2581,-40.2864"
+      }
+    },
+    {
+      "iata": "GYN",
+      "nome": "Santa Genoveva",
+      "cidade": "Goiânia",
+      "uf": "GO",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "GYN-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "W Premium Lounge Goiânia",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "GYN-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -16.632,
+        "lng": -49.2207,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-16.632,-49.2207"
+      }
+    },
+    {
+      "iata": "IGU",
+      "nome": "Cataratas",
+      "cidade": "Foz do Iguaçu",
+      "uf": "PR",
+      "salas": [
+        {
+          "nome": "ADVT VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "IGU-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "The Lounge Cataratas",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "IGU-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "Emerald VIP Lounge",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "IGU-03",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "nao",
+              "via": null
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -25.6003,
+        "lng": -54.485,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-25.6003,-54.485"
+      }
+    },
+    {
+      "iata": "NVT",
+      "nome": "Victor Konder",
+      "cidade": "Navegantes",
+      "uf": "SC",
+      "salas": [
+        {
+          "nome": "W Premium Lounge Navegantes",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP",
+            "WP"
+          ],
+          "avulso": "W Pass R$ 180",
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "NVT-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        },
+        {
+          "nome": "The Lounge Navegantes",
+          "tipo": "sala",
+          "setor": "domestico",
+          "acessos": [
+            "PP",
+            "LK"
+          ],
+          "local_verificado": false,
+          "local": "Embarque doméstico (após o raio-x); ponto exato não verificado",
+          "id": "NVT-02",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "pago",
+              "via": "LK"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -26.88,
+        "lng": -48.6514,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-26.88,-48.6514"
+      }
+    },
+    {
+      "iata": "FEN",
+      "nome": "Carlos Wilson",
+      "cidade": "Fernando de Noronha",
+      "uf": "PE",
+      "salas": [
+        {
+          "nome": "Blue Lounge",
+          "tipo": "sala",
+          "setor": "publica",
+          "acessos": [
+            "PP",
+            "LK",
+            "DP"
+          ],
+          "local_verificado": false,
+          "local": "Área pública, antes do raio-x; ponto exato não verificado",
+          "id": "FEN-01",
+          "acesso_cartoes": {
+            "c6_carbon": {
+              "status": "cota",
+              "via": "DP"
+            },
+            "inter_prime": {
+              "status": "cota",
+              "via": "PP"
+            }
+          }
+        }
+      ],
+      "mapa": {
+        "lat": -3.8549,
+        "lng": -32.4233,
+        "precisao": "terminal (aprox.)",
+        "google_maps": "https://www.google.com/maps/search/?api=1&query=-3.8549,-32.4233"
+      }
+    }
+  ]
+}

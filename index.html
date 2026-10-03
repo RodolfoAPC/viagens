@@ -1,0 +1,1451 @@
+<!doctype html><html lang="pt-BR"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#4B2D73"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Viagens"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nossas Viagens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: app de uma coluna, touch-first — busca fixa no topo, conteúdo em "etiquetas de preço", navegação inferior com 4 abas */
+:root{
+  --bg:#F2F1F6; --surface:#FFFFFF; --surface-2:#E9E7F0; --ink:#1D1A2B; --muted:#5E5970; --line:#D6D2E2;
+  --oud:#9A5A00; --oud-soft:#F6E7CF; --plum:#4B2D73; --plum-soft:#ECE4F7;
+  --ok:#1F7A4D; --ok-soft:#DDF1E6; --warn:#9A5A00; --bad:#B3261E; --bad-soft:#F9DEDC;
+  --shadow:0 1px 2px rgba(29,26,43,.06),0 6px 18px rgba(29,26,43,.06);
+  --f-display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --f-body:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px; --tap:48px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14121C; --surface:#1E1B29; --surface-2:#292537; --ink:#EEEBF6; --muted:#A9A3BC; --line:#363149;
+  --oud:#E9A642; --oud-soft:#3A2B14; --plum:#C7AEF0; --plum-soft:#2E2445;
+  --ok:#6FD3A0; --ok-soft:#173527; --warn:#E9A642; --bad:#F2A49E; --bad-soft:#3E1D1B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14121C; --surface:#1E1B29; --surface-2:#292537; --ink:#EEEBF6; --muted:#A9A3BC; --line:#363149;
+  --oud:#E9A642; --oud-soft:#3A2B14; --plum:#C7AEF0; --plum-soft:#2E2445;
+  --ok:#6FD3A0; --ok-soft:#173527; --warn:#E9A642; --bad:#F2A49E; --bad-soft:#3E1D1B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--f-body);-webkit-tap-highlight-color:transparent}
+a{color:var(--plum)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--oud);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:0 calc(96px + env(safe-area-inset-bottom,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand h1{font:700 1.4rem/1.1 var(--f-display);margin:0;letter-spacing:-.01em}
+.brand h1 i{font-style:italic;font-weight:500;color:var(--oud)}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted);background:var(--surface-2);border-radius:999px;padding:4px 10px;min-height:28px}
+.mode b{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block}
+.mode.live b{background:var(--ok)}
+form.busca{display:flex;gap:8px;margin-top:8px}
+.campo{flex:1;min-width:0;position:relative}
+.campo input{width:100%;height:52px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);padding:0 44px 0 14px;font-size:1.05rem}
+.campo input:focus{border-color:var(--plum);outline:none;box-shadow:0 0 0 3px var(--plum-soft)}
+.limpar{position:absolute;right:2px;top:2px;width:48px;height:48px;border:0;background:none;color:var(--muted);font-size:1.3rem;border-radius:10px;cursor:pointer}
+.btn{min-height:var(--tap);border-radius:12px;border:1.5px solid var(--line);background:var(--surface);padding:0 16px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink)}
+.btn.pri{background:var(--plum);border-color:var(--plum);color:var(--surface)}
+.btn.sm{min-height:44px;padding:0 12px;font-size:.92rem}
+.btn:disabled{opacity:.55;cursor:default}
+.btn.go{height:52px}
+.sugest{position:absolute;left:0;right:0;top:56px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);z-index:6;max-height:50vh;overflow:auto}
+.sugest button{display:flex;width:100%;text-align:left;min-height:var(--tap);border:0;background:none;padding:8px 14px;gap:10px;align-items:center;cursor:pointer;border-bottom:1px solid var(--line)}
+.sugest button:last-child{border-bottom:0}
+.sugest button:hover,.sugest button.on{background:var(--plum-soft)}
+.sugest small{color:var(--muted);margin-left:auto;font-size:.78rem;white-space:nowrap}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-block:10px 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;min-height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);padding:0 14px;cursor:pointer;font-size:.92rem;white-space:nowrap}
+main section{margin-top:18px}
+.eyebrow{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 8px}
+h2{font:700 1.45rem/1.15 var(--f-display);margin:0;text-wrap:balance}
+h3{font:700 1.08rem/1.25 var(--f-body);margin:0;text-wrap:balance}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.hero{display:grid;gap:10px}
+.marca{color:var(--muted);font-size:.9rem}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap;flex:0 0 auto}
+.tag.alta{background:var(--ok-soft);color:var(--ok)}
+.tag.media{background:var(--oud-soft);color:var(--oud)}
+.tag.claude{background:var(--plum-soft);color:var(--plum)}
+.tag.exemplo{background:var(--surface-2);color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.preco{font:600 1.35rem/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.preco small{font:500 .82rem var(--f-mono);color:var(--muted);margin-left:6px}
+.status{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.92rem;min-height:28px}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--line);border-top-color:var(--plum);animation:g 0.9s linear infinite;flex:0 0 auto}
+@keyframes g{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}}
+.ofertas{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.of{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-top:1px dashed var(--line);align-items:center}
+.of:first-child{border-top:0}
+.of .loja{font-weight:700;min-width:0}
+.of .loja small{display:block;font-weight:400;color:var(--muted);font-size:.82rem;overflow-wrap:anywhere}
+.of .acoes{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.of.melhor .loja::before{content:"Menor preço";display:inline-block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;background:var(--ok-soft);color:var(--ok);border-radius:6px;padding:1px 6px;margin-right:8px;vertical-align:2px}
+.dupes{display:grid;gap:12px}
+.dupe{display:grid;gap:8px}
+.dupe .top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.dupe .top>div{min-width:0}
+.nota{color:var(--muted);font-size:.9rem;margin:0}.insp{display:grid;gap:8px;justify-items:start}.eco{display:inline-block;background:var(--ok-soft);color:var(--ok);font-weight:700;border-radius:8px;padding:2px 8px;font-size:.85rem;margin-left:6px}
+.atalhos{display:grid;grid-template-columns:1fr 1fr;gap:8px}.atalhos .btn{text-align:center;padding:6px 10px;line-height:1.2}.atalhos .btn:first-child{grid-column:1/-1}
+.aviso{background:var(--oud-soft);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:.92rem}
+.aviso.bad{background:var(--bad-soft)}
+.vazio{text-align:center;color:var(--muted);padding:28px 8px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:7;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .in{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:720px}
+nav.tabs button{min-height:60px;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.8rem;color:var(--muted);cursor:pointer;position:relative}
+nav.tabs button svg{width:24px;height:24px}
+nav.tabs button[aria-selected="true"]{color:var(--plum);font-weight:700}
+.badge{position:absolute;top:6px;left:calc(50% + 6px);background:var(--oud);color:var(--surface);font-size:.7rem;border-radius:999px;min-width:18px;height:18px;line-height:18px;padding:0 5px;font-weight:700}
+.cota{display:grid;gap:8px}
+.barra{height:14px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.barra i{display:block;height:100%;background:var(--ok);border-radius:999px;transition:width .3s}
+.barra.over i{background:var(--bad)}.barra.quase i{background:var(--oud)}
+.item{display:grid;grid-template-columns:1fr auto;gap:6px 10px;padding:12px 0;border-top:1px solid var(--line);align-items:center}
+.item:first-child{border-top:0}
+.item .nm{min-width:0;font-weight:700}
+.item .nm small{display:block;font-weight:400;color:var(--muted)}
+.qtd{display:flex;align-items:center;gap:4px}
+.qtd button{width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);font-size:1.2rem;cursor:pointer}
+.qtd span{min-width:26px;text-align:center;font:600 1rem var(--f-mono)}
+.usdin{width:110px;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--surface);padding:0 10px;font:500 1rem var(--f-mono);text-align:right}
+.lojas{display:grid;gap:12px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--surface-2);border-radius:12px;padding:4px;margin-top:12px}
+.seg button{min-height:44px;border:0;border-radius:9px;background:none;font-weight:700;color:var(--muted);cursor:pointer}
+.seg button[aria-checked="true"]{background:var(--surface);color:var(--plum);box-shadow:var(--shadow)}
+.clt{font:700 1.2rem/1.2 var(--f-display)}
+.ficha{border-top:1px solid var(--line);padding-top:8px}
+.ficha summary{min-height:48px;display:flex;align-items:center;font-weight:700;color:var(--plum);cursor:pointer;list-style:none;gap:8px}
+.ficha summary::-webkit-details-marker{display:none}
+.ficha summary::before{content:"▸";transition:transform .2s}
+.ficha[open] summary::before{transform:rotate(90deg)}
+.fbody{display:grid;gap:10px}
+.fbody p{margin:0}
+.fbody h4{font:700 1rem/1.3 var(--f-display);margin:8px 0 0}
+.kv{display:grid;grid-template-columns:1fr;gap:2px 12px;margin:0}.kv dd+dt{margin-top:6px}@media (min-width:480px){.kv{grid-template-columns:130px 1fr;gap:6px 12px}.kv dd+dt{margin-top:0}}
+.kv dt{font-weight:700;font-size:.88rem}.kv dd{margin:0;color:var(--muted);font-size:.92rem;min-width:0}
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.cmpl{background:var(--surface-2);border-radius:12px;padding:10px 12px;display:grid;gap:2px}
+.cmpl span{font-size:.8rem;color:var(--muted)}.cmpl b{font:600 1.15rem var(--f-mono)}.cmpl small{font-size:.8rem;color:var(--muted)}
+.cmpl.best{background:var(--ok-soft)}.cmpl.best small,.cmpl.best span{color:var(--ok)}
+.tab{list-style:none;margin:0;padding:0}
+.tab li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px dashed var(--line);align-items:baseline}
+.tab li:first-child{border-top:0}
+.tab li span{min-width:0}.tab li small{color:var(--muted);font-size:.82rem}
+.tab li b{font:600 .95rem var(--f-mono);white-space:nowrap}
+.tab li.col{flex-direction:column;gap:2px}
+.eqv{background:var(--ok-soft);border-radius:12px;padding:12px;display:grid;gap:8px}
+.eqv .nota{color:var(--ink);opacity:.8}
+.acoes2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.acoes2 .btn:first-child{grid-column:1/-1}
+.loja-c{display:grid;gap:6px}
+.loja-c .cid{font-size:.82rem;color:var(--muted)}
+.config{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.config label{font-weight:700}
+.config input{width:110px;height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);padding:0 10px;font:500 1.05rem var(--f-mono);text-align:right}
+.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;z-index:9;max-width:calc(100% - 32px);text-align:center;box-shadow:var(--shadow)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.foot{color:var(--muted);font-size:.82rem;margin-top:22px}
+@media (min-width:560px){.brand h1{font-size:2rem}}
+@media (orientation:landscape) and (max-height:500px){header.top{position:static}}
+</style>
+
+<style>
+/* ===== Shell "Nossas Viagens": módulos Viagens / Salas VIP / Perfumes ===== */
+.mod[hidden]{display:none!important}
+nav.appnav{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.appnav .in{display:grid;grid-template-columns:repeat(3,1fr);width:100%;max-width:720px}
+nav.appnav button{min-height:62px;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.8rem;color:var(--muted);cursor:pointer}
+nav.appnav button svg{width:24px;height:24px}
+nav.appnav button[aria-selected="true"]{color:var(--plum);font-weight:700}
+/* sub-abas do módulo Perfumes (antiga barra inferior) */
+#modPerf header.top nav.tabs{position:static;border:0;background:none;padding:0;margin-top:8px;display:block}
+#modPerf header.top nav.tabs .in{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:none}
+#modPerf header.top nav.tabs button{min-height:40px;flex-direction:row;gap:6px;font-size:.84rem;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+#modPerf header.top nav.tabs button svg{width:18px;height:18px}
+#modPerf header.top nav.tabs button[aria-selected="true"]{background:var(--plum-soft);border-color:var(--plum)}
+#modPerf header.top nav.tabs .badge{position:static;margin-left:2px}
+/* cabeçalho dos módulos novos */
+.nv-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px 10px;border-bottom:1px solid var(--line)}
+.nv-head h1{font:700 1.5rem/1.1 var(--f-display);margin:0;letter-spacing:-.01em}
+.nv-head .sub{color:var(--muted);font-size:.86rem;margin-top:2px}
+.nv-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nv-sp{flex:1}
+.nv-note{font-size:.86rem;color:var(--muted)}
+.nv-aviso{background:var(--oud-soft);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:.9rem}
+/* cartão de embarque (próxima viagem) */
+.pass{display:grid;grid-template-columns:1fr auto;background:var(--plum);color:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;border:0;width:100%;text-align:left;padding:0;font:inherit}
+.pass .main{padding:18px 18px 16px;min-width:0}
+.pass .stub{padding:18px 16px;border-left:2px dashed rgba(255,255,255,.45);display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:96px;position:relative}
+.pass .stub::before,.pass .stub::after{content:"";position:absolute;left:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.pass .stub::before{top:-10px}.pass .stub::after{bottom:-10px}
+.pass .rota{font:700 2.6rem/1 var(--f-display);letter-spacing:.02em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pass .rota svg{width:28px;height:28px;flex:0 0 auto;opacity:.85}
+.pass .dest{font:500 1.05rem/1.3 var(--f-body);margin-top:6px;opacity:.95}
+.pass .datas{font-size:.88rem;opacity:.85;margin-top:10px}
+.pass .n{font:700 2.4rem/1 var(--f-display)}
+.pass .l{font-size:.78rem;opacity:.85;text-align:center}
+.pass.jeri .rota{font-size:2rem}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pass{background:#3A2560}}
+:root[data-theme="dark"] .pass{background:#3A2560}
+.trip{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;font:inherit;color:inherit}
+.trip .dt{font:700 1.05rem/1 var(--f-display);min-width:58px;color:var(--oud)}
+.trip .t{font-weight:700}
+.trip small{display:block;color:var(--muted)}
+.nv-list{display:grid;gap:8px}
+/* detalhe */
+.det h2{margin-bottom:4px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.95rem}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;overflow-wrap:anywhere}
+.tbl{overflow-x:auto}
+.tbl table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:420px}
+.tbl th,.tbl td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{color:var(--muted);font-weight:500}
+.tbl td:first-child,.tbl td:nth-child(3),.tbl td:nth-child(4){white-space:nowrap}
+.dia{display:grid;grid-template-columns:76px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.dia b{color:var(--plum)}
+.pend{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.pend input{width:22px;height:22px;margin-top:2px;accent-color:var(--plum);flex:0 0 auto}
+.pend.ok span{text-decoration:line-through;color:var(--muted)}
+.nv-sec{margin-top:18px}
+.nv-sec>h3{margin-bottom:8px}
+.form-v label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 4px}
+.form-v label small{font-weight:400;color:var(--muted)}
+.form-v input,.form-v textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);padding:10px 12px;font-size:1rem}
+.form-v textarea{min-height:88px;resize:vertical;font-size:.95rem}
+.form-v .duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* salas VIP */
+.vip-busca{display:flex;gap:8px;margin-top:10px}
+.vip-busca input{flex:1;min-width:0;height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);padding:0 14px;font-size:1rem}
+.vip-busca input:focus{border-color:var(--plum);outline:none;box-shadow:0 0 0 3px var(--plum-soft)}
+.vseg{display:flex;gap:6px;overflow-x:auto;padding-top:8px;scrollbar-width:none}
+.vseg::-webkit-scrollbar{display:none}
+.vseg button{flex:0 0 auto;min-height:38px;border-radius:999px;border:1px solid var(--line);background:var(--surface);padding:0 12px;font-size:.88rem;cursor:pointer}
+.vseg button[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:var(--surface)}
+.mapa{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px;margin-top:14px}
+.mapa svg{width:100%;height:auto;display:block;max-height:52vh}
+.mapa .pais{fill:var(--surface-2);stroke:var(--line);stroke-width:1.2}
+.mapa .pin{cursor:pointer}
+.mapa .pin circle{stroke:var(--surface);stroke-width:1.5}
+.mapa text.rot{pointer-events:none;font:700 9px var(--f-body);fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:3px}
+.mapa .pin.sel circle{stroke:var(--ink);stroke-width:2.5}
+.leg{display:flex;flex-wrap:wrap;gap:10px;font-size:.8rem;color:var(--muted);padding:6px 4px 2px}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.ap{margin-top:16px}
+.ap-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.ap-h .iata{font:700 1.9rem/1 var(--f-display);color:var(--plum)}
+.ap-h .cid{font-weight:700}
+.ap-h .nm{color:var(--muted);font-size:.88rem}
+.ap .links{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.sala{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:8px}
+.sala h3{font-size:1rem}
+.sala .onde{font-size:.9rem;margin-top:4px}
+.sala .onde.nv{color:var(--muted);font-style:italic}
+.sala .meta{font-size:.84rem;color:var(--muted);margin-top:4px}
+.sala .acc{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.st{display:inline-flex;gap:4px;align-items:center;font-size:.8rem;font-weight:700;border-radius:8px;padding:3px 8px;border:1px solid transparent}
+.st.ilimitado{background:var(--ok-soft);color:var(--ok)}
+.st.condicional{background:var(--plum-soft);color:var(--plum)}
+.st.cota{background:var(--oud-soft);color:var(--oud)}
+.st.pago{background:var(--surface-2);color:var(--muted)}
+.st.nao{background:none;color:var(--muted);border-color:var(--line);font-weight:500}
+.prog{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.sala .obs{font-size:.84rem;margin-top:6px}
+details.regras{margin-top:14px}
+details.regras summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+details.regras .r{font-size:.9rem;padding:6px 0;border-bottom:1px solid var(--line)}
+.vazio{text-align:center;color:var(--muted);padding:28px 8px}
+</style>
+<div class="mod" id="modViagens">
+ <div class="wrap">
+  <header class="nv-head">
+   <div class="nv-row"><h1>Nossas viagens</h1><span class="nv-sp"></span><button class="btn sm" id="vExp" type="button" hidden>Exportar</button><button class="btn sm" id="vImp" type="button" hidden>Importar</button><input type="file" id="vImpF" accept="application/json,.json" hidden><button class="btn sm pri" id="vNova" type="button">Nova viagem</button></div>
+   <div class="sub" id="vSync">Carregando…</div>
+  </header>
+  <main id="vMain"></main>
+ </div>
+</div>
+
+<div class="mod" id="modVip" hidden>
+ <div class="wrap">
+  <header class="nv-head">
+   <h1>Salas VIP</h1>
+   <div class="sub" id="vipBase"></div>
+   <form class="vip-busca" id="vipForm" autocomplete="off" role="search">
+    <label for="vipQ" class="sr">Buscar cidade, aeroporto ou sala</label>
+    <input id="vipQ" type="search" inputmode="search" enterkeyhint="search" placeholder="Cidade, código ou sala" maxlength="60">
+    <button class="btn sm" type="button" id="vipLimpa">Limpar</button>
+   </form>
+   <div class="vseg" id="vipCartao" aria-label="Cartão">
+    <button type="button" data-c="todos" aria-pressed="true">Os dois cartões</button>
+    <button type="button" data-c="c6_carbon" aria-pressed="false">C6 Carbon</button>
+    <button type="button" data-c="inter_prime" aria-pressed="false">Inter Prime</button>
+    <button type="button" data-c="entro" aria-pressed="false">Só onde entro</button>
+   </div>
+   <div class="vseg" id="vipSetor" aria-label="Setor">
+    <button type="button" data-s="" aria-pressed="true">Todos os setores</button>
+    <button type="button" data-s="domestico" aria-pressed="false">Embarque doméstico</button>
+    <button type="button" data-s="internacional" aria-pressed="false">Internacional</button>
+    <button type="button" data-s="publica" aria-pressed="false">Antes do raio-x</button>
+   </div>
+  </header>
+  <main>
+   <div class="vseg" id="vipMeus" aria-label="Aeroportos das próximas viagens"></div>
+   <div class="mapa" id="vipMapa"></div>
+   <div id="vipRes"></div>
+   <details class="regras" id="vipRegras"></details>
+  </main>
+ </div>
+</div>
+
+<div class="mod" id="modPerf" hidden>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Cheiro do <i>Paraguai</i></h1>
+      <span class="mode" id="modo" role="status"><b></b><span id="modoTxt">Atalhos</span></span>
+    </div>
+    <form class="busca" id="formBusca" autocomplete="off">
+      <div class="campo">
+        <label for="q" class="sr">Nome do perfume</label>
+        <input id="q" type="search" inputmode="search" enterkeyhint="search" placeholder="Nome do perfume (ex.: Sauvage)" aria-autocomplete="list" aria-controls="sugest" maxlength="80">
+        <button type="button" class="limpar" id="limpar" aria-label="Limpar busca" hidden>×</button>
+        <div class="sugest" id="sugest" role="listbox" hidden></div>
+      </div>
+      <button class="btn pri go" id="btnBuscar" type="submit">Buscar</button>
+    </form>
+    <nav class="tabs" aria-label="Seções de perfumes">
+  <div class="in" role="tablist">
+    <button role="tab" id="tbBuscar" aria-selected="true" data-pg="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Buscar</button>
+    <button role="tab" id="tbClassicos" aria-selected="false" data-pg="Classicos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3h6v3l2 2v12a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8l2-2z"/><path d="M7 12h10"/></svg>Clássicos</button>
+    <button role="tab" id="tbLista" aria-selected="false" data-pg="Lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>Lista<span class="badge" id="badge" hidden>0</span></button>
+    <button role="tab" id="tbLojas" aria-selected="false" data-pg="Lojas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Lojas</button>
+  </div>
+</nav>
+  </header>
+
+  <main>
+    <div class="chips" id="chips" aria-label="Buscas rápidas"></div>
+    <div id="pgBuscar"></div>
+    <div id="pgClassicos" hidden></div>
+    <div id="pgLista" hidden></div>
+    <div id="pgLojas" hidden></div>
+  </main>
+</div>
+
+</div><!-- /modPerf -->
+<nav class="appnav" aria-label="Módulos">
+ <div class="in" role="tablist">
+  <button role="tab" data-mod="Viagens" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 16l20-8-6 12-3-5z"/><path d="M13 15l-3 5"/></svg>Viagens</button>
+  <button role="tab" data-mod="Vip" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 18v-6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6"/><path d="M2 18h20"/><path d="M6 9V6h12v3"/></svg>Salas VIP</button>
+  <button role="tab" data-mod="Perf" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3h6v3l2 2v12a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8l2-2z"/><path d="M7 12h10"/></svg>Perfumes</button>
+ </div>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+/* ===================== BASE DE CONTRATIPOS =====================
+   Formato: [nome do original, marca, gênero M/F/U, apelidos, [[contratipo, marca, confiança 2=alta 1=média, nota]]]
+   Fontes cruzadas (set/2026): SniffALike, Loweelo, MelissaJaneLee e Mundo dos Reviews. Semelhança é referência de comunidade. */
+const BASE = [
+ ["Sauvage","Dior","M",["sauvage edt","sauvage edp","savage"],[["Salvo","Maison Alhambra",2,"Versão EDT"],["Salvo Intense","Maison Alhambra",1,"Mais próximo do EDP"],["Ventana Pour Homme","Armaf",1,""]]],
+ ["Sauvage Elixir","Dior","M",["savage elixir"],[["Asad","Lattafa",2,"O contratipo mais vendido do Paraguai"],["Salvo Elixir","Maison Alhambra",2,""],["Club de Nuit Urban Man Elixir","Armaf",1,"Fontes divergem"]]],
+ ["Aventus","Creed","M",["aventus creed"],[["Club de Nuit Intense Man","Armaf",2,"Clássico; esfumaçado no início"],["L'Aventure","Al Haramain",2,""],["Supremacy Silver","Afnan",1,""]]],
+ ["Bleu de Chanel","Chanel","M",["bleu","blue de chanel","bleu chanel"],[["Club de Nuit Iconic","Armaf",2,""],["Blue de Chance","Maison Alhambra",2,""]]],
+ ["Ultra Male","Jean Paul Gaultier","M",["le male ultra","ultra male jpg"],[["9PM","Afnan",2,"Muito popular"],["Glacier Ultra","Maison Alhambra",1,""]]],
+ ["Le Male Elixir","Jean Paul Gaultier","M",["jpg elixir"],[["The Kingdom","Lattafa",2,""],["Club de Nuit Lionheart Man","Armaf",1,""]]],
+ ["Le Male Le Parfum","Jean Paul Gaultier","M",["le male parfum"],[["Glacier Le Noir","Maison Alhambra",1,""]]],
+ ["Le Beau Le Parfum","Jean Paul Gaultier","M",["le beau"],[["Glacier Bold","Maison Alhambra",1,""],["Asad Zanzibar","Lattafa",1,""]]],
+ ["Scandal Pour Homme","Jean Paul Gaultier","M",["scandal masculino"],[["Odyssey Mandarin Sky","Armaf",2,""],["Candid Pour Homme","Maison Alhambra",1,""]]],
+ ["Invictus","Paco Rabanne","M",["invictus rabanne"],[["Victorioso","Maison Alhambra",1,""],["Najdia","Lattafa",1,""]]],
+ ["Invictus Victory","Paco Rabanne","M",[],[["Victorioso Victory","Maison Alhambra",1,""]]],
+ ["Invictus Aqua","Paco Rabanne","M",[],[["Hawas for Him","Rasasi",2,""],["Hayaati","Lattafa",1,""]]],
+ ["1 Million","Paco Rabanne","M",["one million","1million"],[["Club de Nuit Man","Armaf",1,""]]],
+ ["1 Million Parfum","Paco Rabanne","M",[],[["Fakhar Extrait","Lattafa",1,""]]],
+ ["Phantom","Paco Rabanne","M",[],[["Hayaati Al Maleky","Lattafa",2,""]]],
+ ["Black XS","Paco Rabanne","M",[],[["Qaed Al Fursan","Lattafa",1,""]]],
+ ["Y Eau de Parfum","Yves Saint Laurent","M",["y edp","ysl y"],[["Fakhar Black","Lattafa",2,""],["Odyssey Mega","Armaf",1,""]]],
+ ["Eros","Versace","M",["versace eros"],[["Musamam","Lattafa",1,""],["Blue Sapphire","Lattafa",1,""]]],
+ ["Acqua di Giò Profumo","Giorgio Armani","M",["acqua di gio profumo","adg profumo"],[["Jorge Di Profumo","Maison Alhambra",1,""],["Suqraat","Lattafa",1,""]]],
+ ["Stronger With You","Emporio Armani","M",["stronger with you"],[["Your Touch","Maison Alhambra",1,""],["Odyssey Homme","Armaf",1,"Fontes divergem"]]],
+ ["Armani Code","Giorgio Armani","M",["code"],[["Hayaati Gold Elixir","Lattafa",1,""]]],
+ ["Bad Boy","Carolina Herrera","M",[],[["B.A.D. Homme","Maison Alhambra",1,""]]],
+ ["CH Men Privé","Carolina Herrera","M",["ch prive"],[["Maahir Gold","Lattafa",1,""]]],
+ ["The Most Wanted","Azzaro","M",["most wanted"],[["Asad Bourbon","Lattafa",2,""]]],
+ ["Dior Homme Intense","Dior","M",[],[["His Confession","Lattafa",1,""],["Dark Door Intense","Maison Alhambra",1,""]]],
+ ["Terre d'Hermès","Hermès","M",["terre d hermes"],[["Toro Pour Homme","Maison Alhambra",1,""]]],
+ ["Man in Black","Bvlgari","M",["bvlgari man in black"],[["Maahir Black Edition","Lattafa",1,""],["Signature Night","Armaf",1,""]]],
+ ["Aqva Pour Homme","Bvlgari","M",["bvlgari aqva"],[["Aquilo","Maison Alhambra",1,""]]],
+ ["Tygar","Bvlgari","M",[],[["Al Qiam Silver","Lattafa",2,""],["Sceptre Bronzite","Maison Alhambra",1,""]]],
+ ["Green Irish Tweed","Creed","M",[],[["Tres Nuit","Armaf",2,""]]],
+ ["Silver Mountain Water","Creed","M",[],[["Club de Nuit Sillage","Armaf",2,""]]],
+ ["Millésime Impérial","Creed","M",["millesime imperial"],[["Club de Nuit Milestone","Armaf",2,""]]],
+ ["Allure Homme Sport","Chanel","M",[],[["Alpine Homme Sport","Maison Alhambra",1,""]]],
+ ["Fahrenheit","Dior","M",[],[["Fortnight","Maison Alhambra",1,""]]],
+ ["Gentleman Réserve Privée","Givenchy","M",["gentleman reserve privee"],[["Qaa'ed Intense","Lattafa",1,""],["Exquisite Privé","Maison Alhambra",1,""]]],
+ ["Layton","Parfums de Marly","M",[],[["North Stag","Paris Corner",1,""],["Royal Bleu","Orientica",1,""]]],
+ ["Althaïr","Parfums de Marly","M",["althair"],[["Liquid Brun","French Avenue",2,""]]],
+ ["Herod","Parfums de Marly","M",[],[["Hercules","Maison Alhambra",1,""]]],
+ ["Hacivat","Nishane","U",[],[["Supremacy Not Only Intense","Afnan",1,""]]],
+ ["Tobacco Vanille","Tom Ford","U",["tobacco vanilla"],[["Tobacco Touch","Maison Alhambra",2,""],["Amber Oud Tobacco Edition","Al Haramain",1,""]]],
+ ["Oud Wood","Tom Ford","U",[],[["Dark Aoud","Maison Alhambra",1,""]]],
+ ["Ombré Leather","Tom Ford","U",["ombre leather"],[["Amber & Leather","Maison Alhambra",1,""]]],
+ ["Lost Cherry","Tom Ford","U",[],[["Lovely Cherie","Maison Alhambra",1,""],["Mayar Cherry","Lattafa",1,""]]],
+ ["Bitter Peach","Tom Ford","U",[],[["Bright Peach","Maison Alhambra",1,""]]],
+ ["Black Orchid","Tom Ford","F",[],[["Black Origami","Maison Alhambra",1,""]]],
+ ["Angels' Share","Kilian","U",["angels share","kilian angels"],[["Khamrah","Lattafa",2,"Muito popular"],["Kismet Angel","Maison Alhambra",1,""]]],
+ ["Oud for Greatness","Initio","U",[],[["Bade'e Al Oud Oud for Glory","Lattafa",2,""],["Odyssey Aoud","Armaf",2,""]]],
+ ["Paragon","Initio","M",[],[["Vintage Radio","Lattafa",1,""]]],
+ ["Baccarat Rouge 540","Maison Francis Kurkdjian","U",["br540","br 540","baccarat"],[["Club de Nuit Untold","Armaf",2,""],["Ana Abiyedh Rouge","Lattafa",1,""],["Barakkat Rouge 540","Fragrance World",1,""],["Amber Oud Ruby Edition","Al Haramain",1,""],["Baroque Rouge Extrait","Maison Alhambra",1,"Inspirado na versão Extrait"]]],
+ ["Grand Soir","Maison Francis Kurkdjian","U",[],[["Amber D'Or","Fragrance World",1,""]]],
+ ["Erba Pura","Xerjoff","U",[],[["Philos Pura","Maison Alhambra",2,""],["Amber Oud Gold Edition","Al Haramain",2,""]]],
+ ["Ombre Nomade","Louis Vuitton","U",["lv ombre nomade"],[["Jean Lowe Noir","Maison Alhambra",2,""],["Al Qiam Gold","Lattafa",1,""]]],
+ ["Imagination","Louis Vuitton","M",["lv imagination"],[["Art of Arabia I","Lattafa",1,""],["Amber Oud Aqua Dubai","Al Haramain",1,""]]],
+ ["Afternoon Swim","Louis Vuitton","U",[],[["Jean Lowe Azure","Maison Alhambra",1,""],["Odyssey Limoni Fresh Edition","Armaf",1,""]]],
+ ["Tuxedo","Yves Saint Laurent","U",[],[["Winsome","Maison Alhambra",1,""]]],
+ ["Santal 33","Le Labo","U",[],[["Amber Noir","Orientica",1,""]]],
+ ["Gris Charnel","BDK Parfums","U",[],[["Liam Grey","Lattafa",2,""]]],
+ ["Instant Crush","Mancera","U",[],[["Super Crush","Paris Corner",1,""],["Infrad Luxe","Zimaya",1,""]]],
+ ["Coco Mademoiselle","Chanel","F",["coco"],[["Club de Nuit Woman","Armaf",2,"Muito popular"],["Como Moiselle","Maison Alhambra",1,""]]],
+ ["Chance Eau Tendre","Chanel","F",["chance tendre"],[["Chants Tenderina","Maison Alhambra",1,""]]],
+ ["La Vie Est Belle","Lancôme","F",["la vie est belle","lavie"],[["La Vita Bella","Maison Alhambra",1,""],["Vanity Femme Essence","Armaf",1,""]]],
+ ["Idôle","Lancôme","F",["idole"],[["Dazzling","Armaf",1,""]]],
+ ["Good Girl","Carolina Herrera","F",["good girl"],[["B.A.D. Femme","Maison Alhambra",1,""],["Qimmah for Women","Lattafa",1,""]]],
+ ["Very Good Girl","Carolina Herrera","F",[],[["Hayaati Florence","Lattafa",1,""],["Club de Nuit Maleka","Armaf",1,"Fontes divergem"]]],
+ ["Black Opium","Yves Saint Laurent","F",[],[["Opera Noir","Maison Alhambra",1,""],["Effects of Uniq","Armaf",1,""]]],
+ ["Libre Le Parfum","Yves Saint Laurent","F",["libre"],[["Leonie Intense","Maison Alhambra",1,""],["Tharwah Gold","Lattafa",1,"Mais perto do Libre Intense"]]],
+ ["My Way","Giorgio Armani","F",[],[["La Voie","Maison Alhambra",1,""],["Emaan","Lattafa",2,""],["Ameerat Al Arab","Asdaaf",1,""]]],
+ ["Sì Passione","Giorgio Armani","F",["si passione"],[["La Charmante","Maison Alhambra",1,""]]],
+ ["J'adore","Dior","F",["jadore"],[["Jardin de Paris","Maison Alhambra",1,""],["Belle","Armaf",1,""]]],
+ ["Scandal","Jean Paul Gaultier","F",["scandal feminino"],[["Candid","Maison Alhambra",1,""]]],
+ ["La Belle Le Parfum","Jean Paul Gaultier","F",["la belle"],[["Glacier Bella","Maison Alhambra",1,""]]],
+ ["Narciso Poudrée","Narciso Rodriguez","F",["narciso poudree"],[["Narissa Poudrée","Maison Alhambra",1,""],["Ana Abiyedh Poudrée","Lattafa",1,""]]],
+ ["For Her","Narciso Rodriguez","F",["narciso for her"],[["Narissa For Her","Maison Alhambra",1,""]]],
+ ["Light Blue","Dolce & Gabbana","F",[],[["Tag Her","Armaf",1,""]]],
+ ["Devotion","Dolce & Gabbana","F",[],[["Victoria","Lattafa",2,""]]],
+ ["Perfect Intense","Marc Jacobs","F",[],[["Yara Moi","Lattafa",2,""]]],
+ ["Goddess","Burberry","F",["burberry goddess"],[["Angham","Lattafa",1,""],["Athena","Maison Alhambra",1,""]]],
+ ["Yum Pistachio Gelato 33","Kayali","F",["kayali pistachio"],[["Khair Pistachio","Paris Corner",1,""],["Affection","Lattafa",1,""]]],
+ ["Yum Boujee Marshmallow 81","Kayali","F",["kayali marshmallow"],[["Marshmallow Blush","Paris Corner",1,""]]],
+ ["Bianco Latte","Giardini di Toscana","U",[],[["Eclaire","Lattafa",2,"Gourmand de caramelo e leite"]]],
+ ["Paradoxe","Prada","F",[],[["Pink Eclipse","Maison Alhambra",1,""]]],
+ ["Flowerbomb","Viktor & Rolf","F",[],[["La Rosa","Armaf",1,""]]],
+ ["Born in Roma Intense","Valentino","F",["donna born in roma"],[["Mia Dolcezza","Maison Alhambra",1,""]]],
+ ["L'Interdit","Givenchy","F",["linterdit"],[["Fakhar Rose","Lattafa",1,""]]],
+ ["Gucci Bloom","Gucci","F",["bloom"],[["Floral Bloom","Maison Alhambra",1,""]]],
+ ["Bombshell","Victoria's Secret","F",[],[["Pink Shimmer Secret","Maison Alhambra",1,""]]],
+ ["Delina","Parfums de Marly","F",[],[["Delilah","Maison Alhambra",1,""],["Ameerat Al Arab Privé Rose","Asdaaf",1,""]]],
+ ["Sì","Giorgio Armani","F",["si armani"],[["La Charmante Éclatant","Maison Alhambra",1,""]]],
+ ["Acqua di Giò","Giorgio Armani","M",["acqua di gio","adg","acqua di gio edt"],[["Jorge di Profumo Aqua","Maison Alhambra",2,"Mesma pirâmide do original; 85-90% segundo a comunidade"],["Blue Touch","Franck Olivier",1,"Mais verde e amadeirado"],["360° Red","Perry Ellis",1,"Mais especiado; raro no Paraguai"],["Voyage","Nautica",1,"Aquático com maçã verde, mais simples"]]],
+ ["212 VIP Men","Carolina Herrera","M",["212 vip","212 vip masculino"],[]],
+ ["212 Men","Carolina Herrera","M",["212 masculino","212 men"],[]],
+ ["Le Male","Jean Paul Gaultier","M",["le male edt","jpg le male"],[]],
+ ["Cool Water","Davidoff","M",["coolwater"],[]],
+ ["Polo Blue","Ralph Lauren","M",["polo azul"],[]],
+ ["Boss Bottled","Hugo Boss","M",["bottled","hugo boss bottled"],[]],
+ ["Azzaro Pour Homme","Azzaro","M",["azzaro"],[]],
+ ["Nº 5","Chanel","F",["chanel n5","chanel no 5","chanel numero 5","n5"],[]],
+ ["Angel","Mugler","F",["angel thierry mugler"],[]],
+ ["212 VIP Rosé","Carolina Herrera","F",["212 vip rose","212 rose"],[]],
+ ["Miss Dior","Dior","F",[],[]],
+ ["Olympéa","Paco Rabanne","F",["olympea"],[]],
+ ["Lady Million","Paco Rabanne","F",[],[]],
+ ["Daisy","Marc Jacobs","F",[],[]],
+ ["Polo","Ralph Lauren","M",["polo verde","polo green"],[]],
+ ["Eau Sauvage","Dior","M",["eau sauvage dior"],[]],
+ ["Kouros","Yves Saint Laurent","M",["kouros ysl"],[]],
+ ["Eternity for Men","Calvin Klein","M",["eternity masculino","eternity men"],[]],
+ ["CK One","Calvin Klein","U",["ckone","ck one calvin klein"],[]],
+ ["L'Eau d'Issey pour Homme","Issey Miyake","M",["issey miyake masculino","leau dissey homme"],[]],
+ ["Dolce & Gabbana Pour Homme","Dolce & Gabbana","M",["d&g pour homme","dolce gabbana pour homme"],[]],
+ ["The One for Men","Dolce & Gabbana","M",["the one masculino","the one men"],[]],
+ ["La Nuit de L'Homme","Yves Saint Laurent","M",["la nuit de lhomme","ysl la nuit"],[]],
+ ["Shalimar","Guerlain","F",[],[]],
+ ["Opium","Yves Saint Laurent","F",["opium ysl"],[]],
+ ["Hypnotic Poison","Dior","F",["poison"],[["Craze","Armaf",1,""]]],
+ ["Trésor","Lancôme","F",["tresor"],[]],
+ ["L'Eau d'Issey","Issey Miyake","F",["issey miyake feminino","leau dissey"],[]],
+ ["212","Carolina Herrera","F",["212 feminino","212 nyc","212 women"],[]],
+ ["Chance","Chanel","F",["chanel chance"],[]],
+ ["Alien","Mugler","F",["alien thierry mugler"],[]],
+ ["Euphoria","Calvin Klein","F",["euphoria ck"],[]]
+];
+
+/* ===================== CLÁSSICOS (curadoria 01/10/2026) =====================
+   Cruzamento de rankings: O Hoje, Magazine Feminina, Rituais de Banho, Curta Mais.
+   ref = preço "a partir de" no Compras Paraguai em 01/10/2026 (versão indicada em v). */
+const CLASSICOS = [
+ {g:"M",n:"Acqua di Giò",m:"Giorgio Armani",a:1996,f:"Aromático aquático",no:"Notas marinhas, bergamota, jasmim e almíscar",v:"EDT 100 ml",bq:"Acqua di Gio",mq:"Giorgio Armani Acqua di Gio Eau de Toilette Masculino 100ML",ref:{usd:56.99,of:15,url:"https://www.comprasparaguai.com.br/perfume-giorgio-armani-acqua-di-gio-eau-de-toilette-masculino-100ml_3570/"},
+  ficha:{
+   data:"01/10/2026",
+   resumo:"Lançado em 1996, virou o modelo do perfume masculino “fresco de verão”: cítricos da costa italiana, um acorde marinho (calone) e um fundo limpo de almíscar, cedro e patchouli. Foi inspirado na ilha de Pantelleria, onde Giorgio Armani passava as férias.",
+   autores:"Alberto Morillas, Annick Menardo e Christian Dussoulier",
+   piramide:[["Saída","Lima, limão, bergamota, laranja, mandarina, neroli e jasmim"],["Coração","Notas marinhas, calone, alecrim, pêssego, frésia, jacinto, cíclame, violeta, coentro, rosa, noz-moscada e reseda"],["Fundo","Almíscar branco, cedro, musgo de carvalho, patchouli e âmbar"]],
+   desempenho:[["Fixação","3 a 5 horas na pele (votação mais frequente na Fragrantica)"],["Projeção","Moderada; vira cheiro de pele em 1 a 2 horas"],["Quando usar","Dia, calor, trabalho e passeio"],["Nota da comunidade","4,13 de 5 (25.837 votos na Fragrantica); 4,5 de 5 na Sephora (451 avaliações)"]],
+   versoes:"Da mesma linha existem EDP, Parfum e Profondo (EDT, EDP e Parfum). O Profumo de 2015 saiu de linha. Esta ficha trata só do EDT original, frasco fosco com tampa preta.",
+   py:{fonte:"Compras Paraguai, 15 ofertas",url:"https://www.comprasparaguai.com.br/perfume-giorgio-armani-acqua-di-gio-eau-de-toilette-masculino-100ml_3570/",min:56.99,max:100,
+       lojas:[["Prime Shop",56.99,""],["Star Company",57.00,""],["Avanza",62.70,""],["Toku Importados",65.00,""],["New Zone",65.00,""],["Elegancia Company",66.00,""],["LG Importados",67.00,"Salto del Guairá"],["Shopping China",70.00,""]],
+       nota:"No Compara Paraguai o mesmo frasco aparece a partir de US$ 65 em 3 lojas."},
+   br:[["Webcontinental",581.40,"https://www.zoom.com.br/busca/giorgio+armani+acqua+di+gio+100ml"],["Magazine Luiza (loja parceira)",611.00,"https://www.zoom.com.br/busca/giorgio+armani+acqua+di+gio+100ml"],["Beleza na Web (de R$ 818,90)",660.00,"https://www.belezanaweb.com.br/giorgio-armani-perfume-masculino-acqua-di-gio-pour-homme-eau-de-toilette/"],["Sephora",885.00,"https://www.sephora.com.br/perfume-giorgio-armani-acqua-di-gio-masculino-eau-de-toilette-prd00338-8334.html"]],
+   equiv:{nome:"Jorge di Profumo Aqua",marca:"Maison Alhambra",v:"EDP 100 ml",usd:17,lojas:"2 lojas, menor preço na Atlantico Shop (a outra cobra US$ 19)",url:"https://www.comparaparaguai.com/produto/perfume-maison-alhambra-jorge-di-profumo-aqua-eau-de-parfum-100ml",
+     porque:"É o único contratipo que copia a pirâmide inteira do Acqua di Giò EDT, nota por nota. Na Fragrantica tem 4,27 de 5 e os usuários falam em 85% a 90% de semelhança. A fixação é a mesma do original (3 a 5 horas).",
+     contra:"Alguns acham a abertura de limão mais “metálica” e sintética. A comunidade recomenda deixar o frasco descansar (macerar) por um mês antes de usar."},
+   outros:[["Blue Touch","Franck Olivier","US$ 40 (2 lojas)","Mais verde e amadeirado, com fixação maior"],["Voyage","Nautica","US$ 18 (várias lojas)","Aquático com maçã verde, mais simples e mais curto"],["Suqraat","Lattafa","US$ 10 a 19 (4 lojas)","Inspirado no Profumo, a versão com incenso; não é cópia do EDT"]],
+   fontes:[["Fragrantica: Acqua di Giò","https://www.fragrantica.com/perfume/Giorgio-Armani/Acqua-di-Gio-410.html"],["Fragrantica: Jorge di Profumo Aqua","https://www.fragrantica.com/perfume/Maison-Alhambra/Jorge-di-Profumo-Aqua-95872.html"],["ScentClones: alternativas","https://scentclones.com/armani-acqua-di-gio-alternatives/"],["Fórum Fragrantica: dupes","https://www.fragrantica.com/board/viewtopic.php?id=346980"]]
+  }},
+ {g:"M",n:"212 VIP Men",m:"Carolina Herrera",a:2011,f:"Oriental especiado",no:"Vodca, gengibre, couro e âmbar",v:"EDT 100 ml",bq:"212 VIP Men",mq:"Carolina Herrera 212 Vip Eau de Toilette Masculino 100ML",ref:{usd:59.90,of:24,url:"https://www.comprasparaguai.com.br/perfume-carolina-herrera-212-vip-eau-de-toilette-masculino-100ml_3681/"}},
+ {g:"M",n:"212 Men",m:"Carolina Herrera",a:1999,f:"Aromático verde",no:"Toranja, gengibre, sândalo e almíscar",v:"EDT 100 ml",bq:"212 Men Carolina Herrera",mq:"Carolina Herrera 212 Eau de Toilette Masculino 100ML",ref:{usd:55.00,of:25,url:"https://www.comprasparaguai.com.br/perfume-carolina-herrera-212-eau-de-toilette-masculino-100ml_801/"}},
+ {g:"M",n:"1 Million",m:"Paco Rabanne",a:2008,f:"Especiado amadeirado",no:"Toranja, canela, couro e âmbar",v:"EDT 100 ml",bq:"1 Million Paco Rabanne",mq:"Paco Rabanne 1 Million Eau de Toilette Masculino 100ML",ref:{usd:53.00,of:26,url:"https://www.comprasparaguai.com.br/perfume-paco-rabanne-1-million-eau-de-toilette-masculino-100ml_3215/"}},
+ {g:"M",n:"Invictus",m:"Paco Rabanne",a:2013,f:"Aquático amadeirado",no:"Toranja, notas marinhas, louro e âmbar-gris",v:"EDT 100 ml",bq:"Invictus Paco Rabanne",mq:"Paco Rabanne Invictus Eau de Toilette Masculino 100ML",ref:{usd:49.25,of:19,url:"https://www.comprasparaguai.com.br/perfume-paco-rabanne-invictus-eau-de-toilette-masculino-100ml_6920/"}},
+ {g:"M",n:"Sauvage",m:"Dior",a:2015,f:"Aromático fougère",no:"Bergamota, pimenta e ambroxan",v:"EDT 100 ml",bq:"Sauvage",mq:"Christian Dior Sauvage Eau de Toilette Masculino 100ML",ref:{usd:77.25,of:24,url:"https://www.comprasparaguai.com.br/perfume-christian-dior-sauvage-eau-de-toilette-masculino-100ml_15199/"}},
+ {g:"M",n:"Bleu de Chanel",m:"Chanel",a:2010,f:"Amadeirado aromático",no:"Toranja, incenso, cedro e sândalo",v:"EDP 100 ml",bq:"Bleu de Chanel",mq:"Chanel Bleu de Chanel Eau de Parfum Masculino 100ML",ref:{usd:128.00,of:6,url:"https://www.comprasparaguai.com.br/perfume-chanel-bleu-de-chanel-eau-de-parfum-masculino-100ml_20374/"}},
+ {g:"M",n:"Fahrenheit",m:"Dior",a:1988,f:"Amadeirado couro",no:"Violeta, noz-moscada, couro e vetiver",v:"EDT 100 ml",bq:"Fahrenheit Dior",mq:"Christian Dior Fahrenheit Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"Le Male",m:"Jean Paul Gaultier",a:1995,f:"Oriental fougère",no:"Lavanda, menta, baunilha e fava-tonka",v:"EDT 125 ml",bq:"Le Male Jean Paul Gaultier",mq:"Jean Paul Gaultier Le Male Eau de Toilette Masculino 125ML"},
+ {g:"M",n:"Cool Water",m:"Davidoff",a:1988,f:"Aquático aromático",no:"Menta, lavanda, notas marinhas e almíscar",v:"EDT 125 ml",bq:"Cool Water Davidoff",mq:"Davidoff Cool Water Eau de Toilette Masculino 125ML"},
+ {g:"M",n:"Polo Blue",m:"Ralph Lauren",a:2003,f:"Aquático",no:"Melão, pepino, manjericão e camurça",v:"EDT 125 ml",bq:"Polo Blue Ralph Lauren",mq:"Ralph Lauren Polo Blue Eau de Toilette Masculino 125ML"},
+ {g:"M",n:"Terre d'Hermès",m:"Hermès",a:2006,f:"Amadeirado mineral",no:"Laranja, pimenta, vetiver e cedro",v:"EDT 100 ml",bq:"Terre d Hermes",mq:"Hermes Terre d Hermes Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"Boss Bottled",m:"Hugo Boss",a:1998,f:"Amadeirado especiado",no:"Maçã, canela, sândalo e baunilha",v:"EDT 100 ml",bq:"Boss Bottled",mq:"Hugo Boss Boss Bottled Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"Eros",m:"Versace",a:2012,f:"Aromático fougère",no:"Menta, maçã verde, fava-tonka e baunilha",v:"EDT 100 ml",bq:"Versace Eros",mq:"Versace Eros Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"Azzaro Pour Homme",m:"Azzaro",a:1978,f:"Fougère aromático",no:"Lavanda, anis, vetiver e musgo de carvalho",v:"EDT 100 ml",bq:"Azzaro Pour Homme",mq:"Azzaro Pour Homme Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"Polo",m:"Ralph Lauren",a:1978,f:"Aromático verde",no:"Pinho, artemísia, couro, tabaco e musgo de carvalho",v:"EDT 118 ml",bq:"Polo Ralph Lauren",mq:"Ralph Lauren Polo Eau de Toilette Masculino 118ML"},
+ {g:"M",n:"Eau Sauvage",m:"Dior",a:1966,f:"Cítrico aromático",no:"Limão, manjericão, jasmim e vetiver",v:"EDT 100 ml",bq:"Eau Sauvage Dior",mq:"Christian Dior Eau Sauvage Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"Kouros",m:"Yves Saint Laurent",a:1981,f:"Fougère animálico",no:"Aldeídos, cravo, mel, incenso e couro",v:"EDT 100 ml",bq:"Kouros Yves Saint Laurent",mq:"Yves Saint Laurent Kouros Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"Eternity for Men",m:"Calvin Klein",a:1989,f:"Aromático fougère",no:"Lavanda, mandarina, sálvia e sândalo",v:"EDT 100 ml",bq:"Eternity Calvin Klein masculino",mq:"Calvin Klein Eternity For Men Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"CK One",m:"Calvin Klein",a:1994,f:"Cítrico aromático (unissex)",no:"Limão, bergamota, chá verde e almíscar",v:"EDT 100 ml",bq:"CK One Calvin Klein",mq:"Calvin Klein CK One Eau de Toilette Unissex 100ML"},
+ {g:"M",n:"L'Eau d'Issey pour Homme",m:"Issey Miyake",a:1994,f:"Amadeirado aquático",no:"Yuzu, noz-moscada, sândalo e vetiver",v:"EDT 125 ml",bq:"L'Eau d'Issey pour Homme",mq:"Issey Miyake L Eau d Issey Pour Homme Eau de Toilette Masculino 125ML"},
+ {g:"M",n:"Dolce & Gabbana Pour Homme",m:"Dolce & Gabbana",a:1994,f:"Aromático fougère",no:"Lavanda, tabaco, sálvia e cedro",v:"EDT 125 ml",bq:"Dolce Gabbana Pour Homme",mq:"Dolce Gabbana Pour Homme Eau de Toilette Masculino 125ML"},
+ {g:"M",n:"Armani Code",m:"Giorgio Armani",a:2004,f:"Oriental especiado",no:"Limão, anis-estrelado, flor de oliveira e fava-tonka",v:"EDT 125 ml",bq:"Armani Code masculino",mq:"Giorgio Armani Armani Code Eau de Toilette Masculino 125ML"},
+ {g:"M",n:"The One for Men",m:"Dolce & Gabbana",a:2008,f:"Oriental especiado",no:"Toranja, cardamomo, tabaco e âmbar",v:"EDT 100 ml",bq:"The One for Men Dolce Gabbana",mq:"Dolce Gabbana The One For Men Eau de Toilette Masculino 100ML"},
+ {g:"M",n:"La Nuit de L'Homme",m:"Yves Saint Laurent",a:2009,f:"Oriental especiado",no:"Cardamomo, lavanda, cedro e vetiver",v:"EDT 100 ml",bq:"La Nuit de L'Homme",mq:"Yves Saint Laurent La Nuit de L Homme Eau de Toilette Masculino 100ML"},
+ {g:"F",n:"Nº 5",m:"Chanel",a:1921,f:"Floral aldeídico",no:"Aldeídos, ylang-ylang, jasmim, rosa e sândalo",v:"EDP 100 ml",bq:"Chanel N5",mq:"Chanel N5 Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"Coco Mademoiselle",m:"Chanel",a:2001,f:"Chipre floral",no:"Laranja, rosa, jasmim e patchouli",v:"EDP 100 ml",bq:"Coco Mademoiselle",mq:"Chanel Coco Mademoiselle Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"J'adore",m:"Dior",a:1999,f:"Floral frutado",no:"Pera, jasmim, rosa e ylang-ylang",v:"EDP 100 ml",bq:"J'adore Dior",mq:"Christian Dior J'adore Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"La Vie Est Belle",m:"Lancôme",a:2012,f:"Floral gourmand",no:"Pera, íris, praliné e baunilha",v:"EDP 100 ml",bq:"La Vie Est Belle",mq:"Lancome La Vie Est Belle Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"Angel",m:"Mugler",a:1992,f:"Gourmand",no:"Algodão-doce, mel, chocolate e patchouli",v:"EDP 100 ml",bq:"Angel Mugler",mq:"Mugler Angel Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"Black Opium",m:"Yves Saint Laurent",a:2014,f:"Oriental baunilha",no:"Café, flor de laranjeira e baunilha",v:"EDP 90 ml",bq:"Black Opium",mq:"Yves Saint Laurent Black Opium Eau de Parfum Feminino 90ML"},
+ {g:"F",n:"Light Blue",m:"Dolce & Gabbana",a:2001,f:"Cítrico floral",no:"Limão-siciliano, maçã verde, bambu e cedro",v:"EDT 100 ml",bq:"Light Blue Dolce Gabbana",mq:"Dolce Gabbana Light Blue Eau de Toilette Feminino 100ML"},
+ {g:"F",n:"Good Girl",m:"Carolina Herrera",a:2016,f:"Oriental floral",no:"Amêndoa, café, tuberosa e cacau",v:"EDP 80 ml",bq:"Good Girl Carolina Herrera",mq:"Carolina Herrera Good Girl Eau de Parfum Feminino 80ML"},
+ {g:"F",n:"212 VIP Rosé",m:"Carolina Herrera",a:2010,f:"Floral frutado",no:"Champanhe rosé, pêssego e almíscar",v:"EDP 80 ml",bq:"212 VIP Rose",mq:"Carolina Herrera 212 Vip Rose Eau de Parfum Feminino 80ML"},
+ {g:"F",n:"Miss Dior",m:"Dior",a:1947,f:"Floral chipre",no:"Rosa, mandarina e patchouli",v:"EDP 100 ml",bq:"Miss Dior",mq:"Christian Dior Miss Dior Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"Flowerbomb",m:"Viktor & Rolf",a:2005,f:"Floral oriental",no:"Chá, jasmim, orquídea, rosa e patchouli",v:"EDP 100 ml",bq:"Flowerbomb",mq:"Viktor Rolf Flowerbomb Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"Olympéa",m:"Paco Rabanne",a:2015,f:"Oriental floral",no:"Jasmim-d'água, flor de sal e baunilha",v:"EDP 80 ml",bq:"Olympea Paco Rabanne",mq:"Paco Rabanne Olympea Eau de Parfum Feminino 80ML"},
+ {g:"F",n:"Lady Million",m:"Paco Rabanne",a:2010,f:"Floral amadeirado",no:"Framboesa, neroli, jasmim e mel",v:"EDP 80 ml",bq:"Lady Million",mq:"Paco Rabanne Lady Million Eau de Parfum Feminino 80ML"},
+ {g:"F",n:"Sì",m:"Giorgio Armani",a:2013,f:"Chipre frutado",no:"Cassis, rosa, baunilha e patchouli",v:"EDP 100 ml",bq:"Armani Si",mq:"Giorgio Armani Si Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"Daisy",m:"Marc Jacobs",a:2007,f:"Floral",no:"Morango, violeta, jasmim e baunilha",v:"EDT 100 ml",bq:"Daisy Marc Jacobs",mq:"Marc Jacobs Daisy Eau de Toilette Feminino 100ML"},
+ {g:"F",n:"Shalimar",m:"Guerlain",a:1925,f:"Oriental baunilha",no:"Bergamota, íris, baunilha e fava-tonka",v:"EDP 90 ml",bq:"Shalimar Guerlain",mq:"Guerlain Shalimar Eau de Parfum Feminino 90ML"},
+ {g:"F",n:"Opium",m:"Yves Saint Laurent",a:1977,f:"Oriental especiado",no:"Mandarina, cravo, mirra e baunilha",v:"EDP 90 ml",bq:"Opium Yves Saint Laurent feminino",mq:"Yves Saint Laurent Opium Eau de Parfum Feminino 90ML"},
+ {g:"F",n:"Trésor",m:"Lancôme",a:1990,f:"Floral oriental",no:"Rosa, damasco, íris e baunilha",v:"EDP 100 ml",bq:"Tresor Lancome",mq:"Lancome Tresor Eau de Parfum Feminino 100ML"},
+ {g:"F",n:"L'Eau d'Issey",m:"Issey Miyake",a:1992,f:"Floral aquático",no:"Lótus, melão, peônia e almíscar",v:"EDT 100 ml",bq:"L'Eau d'Issey feminino",mq:"Issey Miyake L Eau d Issey Eau de Toilette Feminino 100ML"},
+ {g:"F",n:"212",m:"Carolina Herrera",a:1997,f:"Floral almiscarado",no:"Camélia, gardênia, sândalo e almíscar",v:"EDT 100 ml",bq:"212 Carolina Herrera feminino",mq:"Carolina Herrera 212 Eau de Toilette Feminino 100ML",ref:{usd:63.25,of:29,url:"https://www.comprasparaguai.com.br/perfume-carolina-herrera-212-eau-de-toilette-feminino-100ml_3675/"}},
+ {g:"F",n:"Hypnotic Poison",m:"Dior",a:1998,f:"Oriental baunilha",no:"Amêndoa, jasmim-sambac, baunilha e almíscar",v:"EDT 100 ml",bq:"Hypnotic Poison Dior",mq:"Christian Dior Hypnotic Poison Eau de Toilette Feminino 100ML"},
+ {g:"F",n:"Chance",m:"Chanel",a:2002,f:"Chipre floral",no:"Pimenta-rosa, jasmim, patchouli e almíscar",v:"EDT 100 ml",bq:"Chanel Chance",mq:"Chanel Chance Eau de Toilette Feminino 100ML"},
+ {g:"F",n:"For Her",m:"Narciso Rodriguez",a:2003,f:"Almiscarado floral",no:"Rosa, pêssego, almíscar e âmbar",v:"EDT 100 ml",bq:"Narciso Rodriguez For Her",mq:"Narciso Rodriguez For Her Eau de Toilette Feminino 100ML"},
+ {g:"F",n:"Alien",m:"Mugler",a:2005,f:"Amadeirado floral âmbar",no:"Jasmim-sambac, cashmeran e âmbar branco",v:"EDP 60 ml",bq:"Alien Mugler",mq:"Mugler Alien Eau de Parfum Feminino 60ML"},
+ {g:"F",n:"Euphoria",m:"Calvin Klein",a:2005,f:"Oriental floral",no:"Romã, caqui, orquídea-negra e âmbar",v:"EDP 100 ml",bq:"Euphoria Calvin Klein feminino",mq:"Calvin Klein Euphoria Eau de Parfum Feminino 100ML"}
+];
+const REF_DATA = "01/10/2026";
+
+/* ===================== LOJAS (endereços conferidos no Compras Paraguai, set/2026) ===================== */
+const LOJAS = [
+ {slug:"shopping-china",n:"Shopping China",cid:"Ciudad del Este · Pedro Juan Caballero · Salto del Guairá",end:"Av. Dr. Luis María Argaña (CDE); Rua V e Callejón Internacional (PJC); Av. Paraguay (Salto)",h:"Todos os dias, 7h–20h (Brasília)",site:"https://www.shoppingchina.com.py",tel:"+595 981 701701",busca:q=>"https://www.shoppingchina.com.py/site/search?query="+encodeURIComponent(q)},
+ {slug:"nissei",n:"Nissei",cid:"Ciudad del Este",end:"Galeria Hijazi Center",h:"Seg–sáb, 6h30–15h45",site:"https://nissei.com/br/",tel:"+595 994 902000"},
+ {slug:"mega-eletronicos",n:"Mega Eletrônicos",cid:"Ciudad del Este",end:"Av. Monseñor Rodríguez, esquina Itá Ybaté",h:"Seg–sex 6h30–16h; sáb 6h–15h",site:"https://www.megaeletronicos.com",tel:"+595 973 924466"},
+ {slug:"cellshop",n:"Cellshop",cid:"Ciudad del Este",end:"Shopping Ibiza, térreo, Rua Carlos Antonio López, 8",h:"Seg–sex 6h30–17h; sáb 6h–16h30; dom 8h–14h",site:"https://www.cellshop.com",tel:"+595 994 193150"},
+ {slug:"madrid-center",n:"Madrid Center",cid:"Ciudad del Este",end:"Galeria San Blás, Av. San Blás",h:"Seg–sex 6h–16h; sáb 5h–15h",site:"https://madridcenter.com",tel:"+595 974 314441"},
+ {slug:"elegancia-company",n:"Elegancia Company",cid:"Ciudad del Este",end:"Edifício Victoria, térreo, Rua Abay",h:"Seg–sex 6h30–16h; sáb 6h–15h",site:"https://www.eleganciacompany.com",tel:"+595 972 588700",nota:"Perfumaria especializada, linhas árabes"},
+ {slug:"pontocom",n:"Pontocom",cid:"Ciudad del Este",end:"Av. Adrián Jara",h:"Seg–sex 7h–16h",site:"https://www.pontocom.com",tel:"+595 994 510072",nota:"Perfumaria e cosméticos"},
+ {slug:"atlantico-shop",n:"Atlantico Shop",cid:"Ciudad del Este",end:"Galeria Jebai Center, térreo, sala 3011, Av. Carlos Antonio López",h:"Seg–sáb 7h–16h",site:"https://www.atlanticoshop.com.py",tel:"+595 993 439300"},
+ {slug:"multipass",n:"MultiPass",cid:"Ciudad del Este",end:"Av. Monseñor Rodríguez, 1022",h:"Consulte",site:"https://multipass.com.py",tel:""},
+ {slug:"la-petisquera",n:"La Petisquera",cid:"Ciudad del Este",end:"Av. Monseñor Rodríguez, esquina Reg. Piribebuy",h:"Seg–sáb 6h30–16h",site:"",tel:""},
+ {slug:"sax",n:"SAX Department Store",cid:"Ciudad del Este",end:"Av. San Blás",h:"Seg–sáb 7h30–16h; dom 9h–13h",site:"",tel:"",nota:"Marcas de luxo"}
+];
+const CIDADES = ["Salto del Guairá","Pedro Juan Caballero","Encarnación","Asunción","Ciudad del Este"];
+const COTA_USD = 500;
+
+/* ===================== utilidades ===================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/&/g," e ").replace(/['’`´.]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+const ls = {get(k,d){try{const v=localStorage.getItem("cdp_"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("cdp_"+k,JSON.stringify(v))}catch(e){}}};
+const fmtUSD = n => "US$ " + Number(n).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtBRL = n => "R$ " + Number(n).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const parseNum = s => { const t=String(s).replace(/[^\d.,]/g,""); return Number(t.replace(/\./g,"").replace(",", ".")); };
+const urlCP = q => "https://www.comprasparaguai.com.br/busca/?q=" + encodeURIComponent(q);
+const urlCompara = q => "https://www.comparaparaguai.com/busca?q=" + encodeURIComponent(q);
+const urlGoogle = q => "https://www.google.com/search?q=" + encodeURIComponent(q + " perfume preço Paraguai Ciudad del Este");
+const urlMaps = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+const ext = (href, txt, cls="btn sm") => `<a class="${cls}" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${txt}</a>`;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,2200)}
+
+/* índice de busca */
+const IDX = [];
+BASE.forEach((o,i)=>{
+  IDX.push({tipo:"o",i,nome:o[0],marca:o[1],chave:norm(o[1]+" "+o[0]),curta:norm(o[0]),alias:o[3].map(norm)});
+  o[4].forEach((d,j)=>IDX.push({tipo:"d",i,j,nome:d[0],marca:d[1],chave:norm(d[1]+" "+d[0]),curta:norm(d[0]),alias:[]}));
+});
+function pontua(e,qn){
+  if(!qn) return 0;
+  const toks=qn.split(" ").filter(Boolean);
+  if(e.curta===qn||e.chave===qn||e.alias.includes(qn)) return 100;
+  let s=0;
+  if(e.chave.startsWith(qn)||e.curta.startsWith(qn)) s=80;
+  else if(e.alias.some(a=>a.startsWith(qn))) s=75;
+  else if((" "+e.chave+" ").includes(" "+qn)) s=65;
+  else { const hit=toks.filter(t=>e.chave.includes(t)||e.alias.some(a=>a.includes(t))).length; if(hit===toks.length) s=45+hit; else if(hit && toks.length>1) s=15*hit; }
+  return s - e.chave.length/100;
+}
+function procura(q,lim=8){
+  const qn=norm(q); if(!qn) return [];
+  return IDX.map(e=>({e,s:pontua(e,qn)})).filter(x=>x.s>12).sort((a,b)=>b.s-a.s).slice(0,lim);
+}
+
+/* ===================== estado ===================== */
+const S = {
+  cot: ls.get("cot", 5.22), cotFonte: ls.get("cotFonte","padrão (30/09/2026)"),
+  lista: ls.get("lista", []), recentes: ls.get("recentes", []),
+  live:false, mcp:null, sample:null, tab:null, ctl:null, busy:false, ultimo:null
+};
+const brl = usd => fmtBRL(usd*S.cot);
+
+/* ===================== camada ao vivo (navegador do app Claude) ===================== */
+const HOST = "host:claude_browser";
+async function iniciaCapacidades(){
+  try{
+    if(!window.claude?.use) return;
+    const [mcp, sample] = await Promise.all([window.claude.use("mcp").catch(()=>null), window.claude.use("sample").catch(()=>null)]);
+    S.sample = sample || null;
+    if(mcp){
+      S.mcp = mcp;
+      try{ const r = await mcp.listTools(HOST); S.live = !!r?.servers?.some(s=>s.server===HOST); }catch(e){ S.live=false; }
+    }
+    pintaModo();
+    if(S.ultimo && (S.live || S.sample)) render(S.ultimo.q, S.ultimo.sel, {semVivo:true, exemplo:S.exemplo});
+  }catch(e){}
+}
+function pintaModo(){
+  const m=$("#modo"), t=$("#modoTxt");
+  m.classList.toggle("live",S.live);
+  t.textContent = S.live ? "Ao vivo" : (S.sample ? "Atalhos + Claude" : "Atalhos");
+  m.title = S.live ? "O app Claude lê o Compras Paraguai pelo navegador embutido" : "Os botões abrem a busca pronta nas lojas";
+}
+const espera = ms => new Promise(r=>setTimeout(r,ms));
+function textoDe(res){ if(!res) return ""; if(typeof res.payload==="string") return res.payload; const b=(res.content||[]).filter(c=>c.type==="text").map(c=>c.text); return b.join("\n"); }
+async function host(tool,input,signal){ return S.mcp.callTool(HOST,tool,input,{signal,cache:false}); }
+let FILA=Promise.resolve();
+function abre(url,signal){ const p=FILA.then(()=>abre0(url,signal)); FILA=p.catch(()=>{}); return p; }
+async function abre0(url,signal){
+  if(signal?.aborted) throw {code:"cancelled"};
+  const u = url.replace("://www.comprasparaguai","://mobile.comprasparaguai");
+  if(!S.tab){
+    const r = await host("preview_start",{url:u},signal);
+    const m = textoDe(r).match(/tabId\s+([^\s)]+)\)?/); S.tab = m ? m[1] : null;
+  } else {
+    try{ await host("navigate",{url:u,tabId:S.tab},signal); }
+    catch(e){ if(e?.code==="tool_error"){ S.tab=null; return abre0(url,signal);} throw e; }
+  }
+  await espera(900);
+  let txt="";
+  for(let k=0;k<3;k++){
+    try{ txt = textoDe(await host("read_page",{filter:"all",max_chars:250000,depth:40,...(S.tab?{tabId:S.tab}:{})},signal)); }
+    catch(e){ if(e?.code==="cancelled") throw e; txt=""; }
+    if(/US\$\s?[\d.,]+/.test(txt)) break;
+    await espera(1500);
+  }
+  return txt;
+}
+/* Lê a árvore de acessibilidade do Compras Paraguai (testado em 01/10/2026). */
+function parseCP(txt){
+  const L = String(txt||"").split("\n"); const grupos=[], ofertas=[]; let cur=null, cot=null;
+  const fecha=()=>{ if(cur){ if(cur.tipo==="g"&&cur.usd) grupos.push(cur); if(cur.tipo==="o"&&cur.usd&&cur.loja) ofertas.push(cur);} cur=null; };
+  for(let i=0;i<L.length;i++){
+    const s=L[i]; let m;
+    if(/generic "Dólar hoje:"/.test(s)){ const n=(L[i+1]||"").match(/R\$ ([\d.,]+)/); if(n) cot=parseNum(n[1]); continue; }
+    if((m=s.match(/link "([^"]+)" \[ref_\d+\] href="(\/[a-z0-9-]+_\d+\/)"/))){ fecha(); cur={tipo:"g",nome:m[1],url:"https://www.comprasparaguai.com.br"+m[2]}; continue; }
+    if((m=s.match(/link "([^"]+)" \[ref_\d+\] href="(\/[a-z0-9-]+__\d+\/)"/))){ fecha(); cur={tipo:"o",nome:m[1],url:"https://www.comprasparaguai.com.br"+m[2],cidade:"Ciudad del Este"}; continue; }
+    if(!cur) continue;
+    if((m=s.match(/generic "US\$ ([\d.,]+)"/)) && !cur.usd){ cur.usd=parseNum(m[1]); continue; }
+    if((m=s.match(/button "(\d+) OFERTAS"/i))){ cur.ofertas=+m[1]; continue; }
+    if(cur.tipo!=="o") continue;
+    if((m=s.match(/href="https:\/\/api\.whatsapp\.com\/send\?phone=(\d+)/))){ cur.whats=m[1]; continue; }
+    if((m=s.match(/generic "([^"]+)"/)) && CIDADES.includes(m[1])){ cur.cidade=m[1]; continue; }
+    if((m=s.match(/href="\/lojas\/([a-z0-9-]+)\/"/))){ cur.slug=m[1]; const im=(L[i+1]||"").match(/image "([^"]+)"/); cur.loja=im?im[1]:m[1].replace(/-/g," "); fecha(); continue; }
+    if((m=s.match(/href="(https?:\/\/[^"]+)"/)) && !cur.site && !/whatsapp|comprasparaguai|bit\.ly|linktr\.ee|javascript/.test(m[1])){ cur.site=m[1]; continue; }
+  }
+  fecha();
+  return {grupos,ofertas,cot};
+}
+const RUIDO = /\b(kit|body|creme|cream|desodor|deo|ambientador|hair|mist|miniatura|sabonete|locao|loção|shower|gel|tester|refil|decant|amostra|oleo|óleo|5ml|10ml|25ml)\b/i;
+function melhorGrupo(grupos,q){
+  const toks=norm(q).split(" ").filter(t=>t.length>1);
+  let best=null,bs=-1;
+  for(const g of grupos){
+    if(RUIDO.test(g.nome)) continue;
+    const n=norm(g.nome); let s=toks.filter(t=>(" "+n+" ").includes(" "+t+" ")).length*10;
+    if(s<toks.length*10*0.6) continue;
+    const extras=n.split(" ").filter(w=>!toks.includes(w)&&!["perfume","eau","de","parfum","toilette","masculino","feminino","unissex","edp","edt","ml","100ml","intense"].includes(w)&&!/^\d+ml$/.test(w)).length;
+    s-=extras*3; const vol=(norm(q).match(/\b(\d+)ml\b/)||[])[1]; if(vol){ if(n.includes(vol+"ml")) s+=8; } else if(/100ml/i.test(g.nome)) s+=4; s+=Math.min(g.ofertas||0,40)/10;
+    if(s>bs){bs=s;best=g;}
+  }
+  return best;
+}
+async function precoAoVivo(q,signal,mq){
+  const txt = await abre(urlCP(q),signal);
+  const r = parseCP(txt);
+  if(r.cot && r.cot>3 && r.cot<10){ S.cot=r.cot; S.cotFonte="Compras Paraguai, hoje"; ls.set("cot",S.cot); ls.set("cotFonte",S.cotFonte); }
+  const g = melhorGrupo(r.grupos,mq||q);
+  return {g, avulsos:r.ofertas.filter(o=>!RUIDO.test(o.nome)), lido: txt.length>500};
+}
+async function ofertasAoVivo(g,signal){
+  const txt = await abre(g.url,signal);
+  const r = parseCP(txt);
+  const vistas=new Set();
+  return r.ofertas.filter(o=>!RUIDO.test(o.nome)).sort((a,b)=>a.usd-b.usd).filter(o=>{const k=o.slug||o.loja; if(vistas.has(k)) return false; vistas.add(k); return true;});
+}
+
+/* ===================== Claude: contratipos fora da base ===================== */
+async function perguntaClaude(q,signal){
+  if(!S.sample) return null;
+  const prompt = `Você é um especialista em perfumaria que conhece bem as lojas do Paraguai (Ciudad del Este, Pedro Juan Caballero).
+O usuário digitou: "${q.slice(0,80)}".
+1) Identifique o perfume (nome oficial e marca). Se for um perfume árabe/contratipo, diga em qual original ele é inspirado.
+2) Liste de 2 a 5 alternativas mais baratas comuns nas lojas do Paraguai (Lattafa, Armaf, Maison Alhambra, Al Haramain, Afnan, Rasasi, French Avenue, Paris Corner, Fragrance World, Orientica, Zimaya) que a comunidade (Fragrantica, blogs de dupes) considera inspiradas nele ou muito parecidas.
+Regras: não invente nomes; se não tiver certeza de que um produto existe, não liste. "alta" só quando o par é amplamente citado. Se não reconhecer o perfume, devolva contratipos vazio e explique em observacao.
+Responda somente JSON: {"original":{"nome":"","marca":"","genero":"M|F|U"},"e_contratipo":false,"inspirado_em":{"nome":"","marca":""} ou null,"contratipos":[{"nome":"","marca":"","confianca":"alta|media","nota":"até 12 palavras"}],"observacao":""}`;
+  try{ return await S.sample.json(prompt,{signal,modelTier:"default",cache:{gcTime:86400000}}); }
+  catch(e){ if(e?.code==="not_granted"||e?.code==="sampling_disabled"||e?.code==="not_declared"){ S.sample=null; pintaModo(); } if(e?.code==="cancelled") throw e; return {erro:e?.code||"erro"}; }
+}
+
+/* ===================== render: buscar ===================== */
+const CHIPS = ["Sauvage","Aventus","Baccarat Rouge 540","Bleu de Chanel","Coco Mademoiselle","La Vie Est Belle","Good Girl","Lattafa Asad","Khamrah","1 Million"];
+function pintaChips(){
+  const rec=S.recentes.slice(0,4); const lista=[...rec,...CHIPS.filter(c=>!rec.some(r=>norm(r)===norm(c)))].slice(0,10);
+  $("#chips").innerHTML = lista.map(c=>`<button type="button" class="chip" data-q="${esc(c)}">${rec.includes(c)?"↺ ":""}${esc(c)}</button>`).join("");
+}
+function atalhosHTML(q){
+  return `<div class="atalhos">
+    ${ext(urlCP(q),"Ver preços no Compras Paraguai ↗","btn pri")}
+    ${ext(urlCompara(q),"Compara Paraguai ↗","btn")}
+    ${ext(LOJAS[0].busca(q),"Shopping China ↗","btn")}
+    ${ext(urlGoogle(q),"Google ↗","btn")}
+  </div>`;
+}
+function precoBlocoHTML(id){ return `<div class="precos" id="${id}"></div>`; }
+function dupeHTML(d,k,orig){
+  const q=d.marca+" "+d.nome;
+  const tag = d.fonte==="claude" ? `<span class="tag claude">${d.conf==="alta"?"Claude · muito parecido":"Claude · parecido"}</span>` : `<span class="tag ${d.conf>=2||d.conf==="alta"?"alta":"media"}">${d.conf>=2||d.conf==="alta"?"Muito parecido":"Parecido"}</span>`;
+  return `<article class="card dupe" data-q="${esc(q)}">
+    <div class="top"><div><h3>${esc(d.nome)}</h3><div class="marca">${esc(d.marca)}${orig?` · inspirado em ${esc(orig)}`:""}</div></div>${tag}</div>
+    ${d.nota?`<p class="nota">${esc(d.nota)}</p>`:""}
+    ${precoBlocoHTML("p_d"+k)}
+    <div class="row">
+      ${S.live?`<button class="btn sm pri" data-acao="ofertas" data-k="d${k}">Ver lojas e preços</button>`:ext(urlCP(q),"Ver preços ↗","btn sm pri")}
+      <button class="btn sm" data-acao="lista" data-nome="${esc(q)}">+ Lista</button>
+      <button class="btn sm" data-acao="buscar" data-q="${esc(q)}">Pesquisar</button>
+    </div>
+  </article>`;
+}
+function resolve(q,sel){
+  // sel: entrada do índice escolhida na sugestão
+  const hit = sel || procura(q,1)[0]?.e;
+  if(!hit) return null;
+  const o = BASE[hit.i];
+  const orig = {nome:o[0],marca:o[1],gen:o[2]};
+  const dupes = o[4].map(d=>({nome:d[0],marca:d[1],conf:d[2],nota:d[3],fonte:"base"}));
+  if(hit.tipo==="o") return {principal:{...orig,tipo:"original"},orig,dupes};
+  const d = dupes[hit.j];
+  return {principal:{nome:d.nome,marca:d.marca,tipo:"contratipo",conf:d.conf,nota:d.nota},orig,dupes:dupes.filter((_,j)=>j!==hit.j)};
+}
+let RUN = 0;
+async function render(q,sel,opt={}){
+  q = q.trim(); if(!q) return;
+  S.exemplo = !!opt.exemplo;
+  S.ctl?.abort(); const ctl = S.ctl = new AbortController(); const run = ++RUN;
+  S.ultimo={q,sel}; mostra("Buscar"); fechaSug();
+  const qn=norm(q);
+  let R = resolve(q,sel);
+  const guardaRecente = ()=>{ if(S.exemplo) return; S.recentes=[q,...S.recentes.filter(r=>norm(r)!==qn)].slice(0,6); ls.set("recentes",S.recentes); pintaChips(); };
+  if(R) guardaRecente();
+  const pg=$("#pgBuscar");
+  const desenha = ()=>{
+    if(run!==RUN) return;
+    const P = R?.principal || {nome:q,marca:"",tipo:"livre"};
+    const qPrincipal = (P.marca?P.marca+" ":"")+P.nome;
+    const tipoTxt = P.tipo==="original" ? "Perfume original" : P.tipo==="contratipo" ? "Contratipo (alternativa)" : "Sua busca";
+    pg.innerHTML = `
+    <section aria-labelledby="hP">
+      <p class="eyebrow">${tipoTxt}${S.exemplo?` <span class="tag exemplo">exemplo</span>`:""}</p>
+      <article class="card hero" data-q="${esc(qPrincipal)}">
+        <div class="dupe"><div class="top"><div><h2 id="hP">${esc(P.nome)}</h2>${P.marca?`<div class="marca">${esc(P.marca)}</div>`:""}</div>
+          ${P.tipo==="contratipo"?`<span class="tag ${P.conf>=2?"alta":"media"}">${P.conf>=2?"Muito parecido":"Parecido"}</span>`:""}</div></div>
+        ${P.tipo==="contratipo"&&R?.orig?`<div class="insp"><p class="nota">Inspirado em <b>${esc(R.orig.nome)}</b>${R.orig.marca?` (${esc(R.orig.marca)})`:""}<span id="p_orig"></span></p><button class="btn sm" data-acao="buscar" data-q="${esc((R.orig.marca?R.orig.marca+" ":"")+R.orig.nome)}">Ver o original</button></div>`:""}
+        <div class="precos" id="p_main">${S.live&&opt.semVivo?`<button class="btn pri" data-acao="vivo">Buscar preços ao vivo</button>`:""}</div>
+        ${S.live?"":`<p class="nota">Toque numa fonte para ver lojas e preços de hoje:</p>${atalhosHTML(qPrincipal)}`}
+        <div class="row"><button class="btn sm" data-acao="lista" data-nome="${esc(qPrincipal)}">+ Lista</button>${S.live?ext(urlCP(qPrincipal),"Ver no Compras Paraguai"):""}</div>
+      </article>
+    </section>
+    <section aria-labelledby="hD">
+      <p class="eyebrow" id="hD">${P.tipo==="contratipo"?"Outras alternativas ao mesmo original":"Alternativas mais baratas (contratipos)"}</p>
+      <div id="resumo"></div>
+      <div class="dupes" id="dupes">${(R?.dupes||[]).map((d,k)=>dupeHTML(d,k,P.tipo==="original"?null:R.orig.nome)).join("") || `<div class="card vazio" id="semDupe">${P.tipo==="contratipo"?"A base não tem outras alternativas para este original.":S.sample?"Perguntando ao Claude quais contratipos existem…":R?"Ainda não há contratipos cadastrados para este perfume. Use os botões acima para ver o preço do original.":"Este perfume não está na base de contratipos. Use os botões acima para ver o preço do original."}</div>`}</div>
+    </section>
+    <p class="foot">Semelhança vem de guias e da comunidade (Fragrantica, blogs de “dupes”): é referência, não garantia. Teste na loja antes de comprar. Preços em dólar; R$ pela cotação ${esc(S.cotFonte)}: ${fmtBRL(S.cot)}.</p>`;
+  };
+  desenha();
+  window.scrollTo({top:0,behavior:"auto"});
+
+  // Claude completa quando não há base (ou base pobre)
+  if(S.sample && (!R || (R.dupes.length===0 && R.principal.tipo!=="contratipo"))){
+    const J = await perguntaClaude(q,ctl.signal).catch(()=>null);
+    if(run!==RUN) return;
+    if(J && !J.erro && J.original?.nome){
+      const cl = (J.contratipos||[]).filter(c=>c?.nome&&c?.marca).slice(0,5).map(c=>({nome:String(c.nome),marca:String(c.marca),conf:c.confianca==="alta"?"alta":"media",nota:String(c.nota||""),fonte:"claude"}));
+      if(J.e_contratipo && J.inspirado_em?.nome){
+        R = {principal:{nome:J.original.nome,marca:J.original.marca,tipo:"contratipo",conf:1},orig:{nome:J.inspirado_em.nome,marca:J.inspirado_em.marca||""},dupes:cl.filter(c=>norm(c.nome)!==norm(J.original.nome))};
+      } else {
+        R = {principal:{nome:J.original.nome,marca:J.original.marca,tipo:"original"},orig:{nome:J.original.nome,marca:J.original.marca},dupes:cl};
+      }
+      desenha(); guardaRecente();
+      if(!cl.length){ const sd=$("#semDupe"); if(sd) sd.textContent = J.observacao || "O Claude não encontrou contratipos confiáveis para este perfume."; }
+    } else {
+      const sd=$("#semDupe"); if(sd) sd.textContent = J?.erro==="rate_limited" ? "Muitas perguntas seguidas ao Claude. Tente de novo em alguns minutos." : "Não achei este perfume na base. Confira o nome ou use os botões acima.";
+    }
+  }
+  S.R=R;
+  if(S.live && !opt.semVivo) precosDaTela(R,q,ctl.signal,run);
+}
+
+function statusHTML(t){ return `<div class="status"><span class="spin" aria-hidden="true"></span><span>${esc(t)}</span> <button class="btn sm" data-acao="parar">Parar</button></div>`; }
+function ofertasHTML(ofs,nomeBase,g){
+  if(!ofs.length) return `<p class="nota">Não consegui ler as lojas desta página. ${ext(g.url,"Abrir no Compras Paraguai")}</p>`;
+  return `<ul class="ofertas">${ofs.slice(0,12).map((o,i)=>{
+    const L=LOJAS.find(l=>l.slug===o.slug);
+    const mapa=urlMaps((L?L.n+" "+(L.end||""):o.loja)+" "+(o.cidade||"Ciudad del Este")+" Paraguai");
+    return `<li class="of${i===0?" melhor":""}"${i>=4?" hidden":""}>
+      <div class="loja">${esc(o.loja)}<small>${esc(o.cidade||"Ciudad del Este")}${L?.end?" · "+esc(L.end):""}${o.whats?" · WhatsApp +"+esc(o.whats):""}</small></div>
+      <div class="preco">${fmtUSD(o.usd)}<small>${brl(o.usd)}</small></div>
+      <div class="acoes">
+        ${o.site?ext(o.site,"Site da loja ↗"):""}
+        ${ext(mapa,"Endereço ↗")}
+        ${o.whats?`<button class="btn sm" data-acao="copiar" data-v="+${esc(o.whats)}" aria-label="Copiar WhatsApp de ${esc(o.loja)}">Copiar WhatsApp</button>`:""}
+        <button class="btn sm" data-acao="lista" data-nome="${esc(nomeBase)}" data-usd="${o.usd}" data-loja="${esc(o.loja)}">+ Lista</button>
+      </div></li>`;}).join("")}</ul>
+    <div class="row">${ofs.length>4?`<button class="btn sm" data-acao="mais-of">Mostrar mais ${Math.min(ofs.length,12)-4} lojas</button>`:""}${ext(g.url,`Todas as ${g.ofertas||ofs.length} ofertas ↗`)}</div>`;
+}
+const CACHE = new Map();
+async function precosDaTela(R,q,signal,run){
+  const P = R?.principal; const qP = P ? (P.marca?P.marca+" ":"")+P.nome : q;
+  const box = id => document.getElementById(id);
+  const trata = (id,e) => { const b=box(id); if(!b) return; b.innerHTML = erroHTML(e, id==="p_main"?qP:null); };
+  try{
+    let b=box("p_main"); if(b) b.innerHTML=statusHTML("Lendo lojas do Paraguai…");
+    const r = CACHE.get(norm(qP)) || await precoAoVivo(qP,signal); CACHE.set(norm(qP),r);
+    if(run!==RUN) return;
+    b=box("p_main");
+    if(!r.g){
+      if(b) b.innerHTML = r.avulsos.length ? `<p class="nota">Não achei o produto exato; anúncios parecidos:</p>${ofertasHTML(r.avulsos.sort((a,b)=>a.usd-b.usd),qP,{url:urlCP(qP),ofertas:r.avulsos.length})}` : `<p class="nota">${r.lido?"Nenhuma loja do Compras Paraguai anuncia este perfume agora.":"A página não carregou."} Tente outro nome ou as fontes:</p>${atalhosHTML(qP)}`;
+    } else {
+      if(b) b.innerHTML = `<div class="row"><span class="preco">${fmtUSD(r.g.usd)}<small>${brl(r.g.usd)}</small></span><span class="nota">a partir de · ${r.g.ofertas||"?"} ofertas · ${esc(r.g.nome)}</span></div>`+statusHTML("Abrindo a lista de lojas…").replace('class="status"','class="status" style="margin-top:8px"');
+      const ofs = r.ofs || await ofertasAoVivo(r.g,signal); r.ofs=ofs;
+      if(run!==RUN) return;
+      b=box("p_main"); if(b) b.innerHTML = `<div class="row" style="margin-bottom:6px"><span class="preco">${fmtUSD((ofs[0]||r.g).usd)}<small>${brl((ofs[0]||r.g).usd)}</small></span><span class="nota">${esc(r.g.nome)}</span></div>` + ofertasHTML(ofs,qP,r.g);
+    }
+  }catch(e){ if(e?.code==="cancelled"){ limpaSpins(); return;} trata("p_main",e); if(fatal(e)) return; }
+  // preço do original quando a busca foi um contratipo
+  if(P?.tipo==="contratipo" && R?.orig?.nome){
+    const qo=(R.orig.marca?R.orig.marca+" ":"")+R.orig.nome;
+    try{ const r=CACHE.get(norm(qo)) || await precoAoVivo(qo,signal); CACHE.set(norm(qo),r);
+      if(run!==RUN) return; const sp=box("p_orig");
+      if(sp && r.g){ S.precoOrig=r.g.usd; const meu=CACHE.get(norm(qP)); const m=meu?.ofs?.[0]?.usd||meu?.g?.usd;
+        sp.innerHTML=` · original a partir de ${fmtUSD(r.g.usd)}`+(m&&m<r.g.usd?`<span class="eco">economia de ${Math.round((1-m/r.g.usd)*100)}%</span>`:""); }
+    }catch(e){ if(e?.code==="cancelled"){ limpaSpins(); return;} }
+  } else if(P?.tipo==="original"){ const meu=CACHE.get(norm(qP)); S.precoOrig = meu?.ofs?.[0]?.usd || meu?.g?.usd || null; }
+  // contratipos: preço "a partir de" dos 4 primeiros
+  const dupes=(R?.dupes||[]).slice(0,4);
+  for(let k=0;k<dupes.length;k++){
+    if(run!==RUN||signal.aborted) return;
+    const d=dupes[k], qd=d.marca+" "+d.nome, id="p_d"+k;
+    try{
+      let b=box(id); if(b) b.innerHTML=statusHTML("Buscando preço…");
+      const r = CACHE.get(norm(qd)) || await precoAoVivo(qd,signal); CACHE.set(norm(qd),r);
+      if(run!==RUN) return;
+      b=box(id); if(!b) continue;
+      b.innerHTML = r.g ? `<div class="row"><span class="preco">${fmtUSD(r.g.usd)}<small>${brl(r.g.usd)}</small></span><span class="nota">a partir de · ${r.g.ofertas||"?"} ofertas</span>${ecoHTML(r.g.usd)}</div>` : `<p class="nota">Sem anúncio no Compras Paraguai agora.</p>`;
+      resumoEco();
+    }catch(e){ if(e?.code==="cancelled"){ limpaSpins(); return;} trata(id,e); if(fatal(e)) return; }
+  }
+}
+function resumoEco(){
+  const el=document.getElementById("resumo"); if(!el||!S.precoOrig||S.R?.principal?.tipo!=="original") return;
+  let best=null; (S.R.dupes||[]).forEach(d=>{ const r=CACHE.get(norm(d.marca+" "+d.nome)); const u=r?.ofs?.[0]?.usd||r?.g?.usd; if(u&&(!best||u<best.u)) best={d,u}; });
+  if(best && best.u<S.precoOrig) el.innerHTML=`<div class="aviso" style="margin-bottom:12px"><b>Melhor economia:</b> ${esc(best.d.marca+" "+best.d.nome)} a partir de ${fmtUSD(best.u)}, ${Math.round((1-best.u/S.precoOrig)*100)}% abaixo do original (${fmtUSD(S.precoOrig)}).</div>`;
+}
+function limpaSpins(){ document.querySelectorAll(".precos .status").forEach(s=>s.outerHTML='<p class="nota">Busca interrompida.</p>'); }
+const ecoHTML = usd => (S.R?.principal?.tipo==="original" && S.precoOrig && usd < S.precoOrig) ? `<span class="eco">${Math.round((1-usd/S.precoOrig)*100)}% mais barato que o original</span>` : "";
+function fatal(e){ return ["not_in_manifest","server_not_connected","not_granted","capability_disabled","blocked_by_policy","cancelled"].includes(e?.code); }
+function erroHTML(e,q){
+  const c=e?.code;
+  let msg = "Não consegui ler as lojas agora.";
+  if(c==="server_not_connected"||c==="capability_disabled"||c==="not_granted"){ msg="O navegador do app Claude não está disponível aqui. Use os atalhos."; S.live=false; pintaModo(); }
+  else if(c==="not_in_manifest") msg="Você não permitiu o uso do navegador para esta página. Use os atalhos.";
+  else if(c==="server_unavailable"||c==="upstream_error") msg="O navegador demorou para responder. Toque em Buscar de novo daqui a pouco.";
+  else if(c==="tool_error") msg="O site não abriu no navegador do app.";
+  return `<p class="nota">${msg}</p>${q?atalhosHTML(q):""}`;
+}
+async function abreOfertasDupe(k){
+  const card=document.querySelectorAll("#dupes .dupe")[k]; if(!card) return;
+  const q=card.dataset.q, id="p_d"+k, b=document.getElementById(id);
+  const ctl=new AbortController(); S.ctlD=ctl; const run=RUN;
+  card.querySelector('[data-acao="ofertas"]')?.setAttribute("disabled","");
+  try{
+    b.innerHTML=statusHTML("Lendo lojas… (na fila do navegador)");
+    const r = CACHE.get(norm(q)) || await precoAoVivo(q,ctl.signal); CACHE.set(norm(q),r);
+    if(!r.g){ b.innerHTML=`<p class="nota">Sem anúncio no Compras Paraguai agora.</p>${atalhosHTML(q)}`; return; }
+    const ofs = r.ofs || await ofertasAoVivo(r.g,ctl.signal); r.ofs=ofs;
+    if(run!==RUN) return;
+    b.innerHTML = (ofs[0]?`<div class="row" style="margin-bottom:4px">${ecoHTML(ofs[0].usd)}</div>`:"") + ofertasHTML(ofs,q,r.g);
+    card.querySelector('[data-acao="ofertas"]')?.remove(); resumoEco();
+  }catch(e){ card.querySelector('[data-acao="ofertas"]')?.removeAttribute("disabled"); if(e?.code==="cancelled"){ b.innerHTML=""; return;} b.innerHTML=erroHTML(e,q); }
+}
+
+/* ===================== sugestões ao digitar ===================== */
+let sugAtiva=-1, sugItens=[];
+function sugere(){
+  const v=$("#q").value; $("#limpar").hidden=!v;
+  const box=$("#sugest");
+  sugItens = v.trim().length>=2 ? procura(v,7) : [];
+  if(!sugItens.length){ fechaSug(); return; }
+  sugAtiva=-1;
+  box.innerHTML = sugItens.map((x,i)=>`<button type="button" role="option" id="sg${i}" data-i="${i}"><span><b>${esc(x.e.nome)}</b> <span class="marca">${esc(x.e.marca)}</span></span><small>${x.e.tipo==="o"?"original":"contratipo"}</small></button>`).join("");
+  box.hidden=false; $("#q").setAttribute("aria-expanded","true");
+}
+function fechaSug(){ $("#sugest").hidden=true; $("#q").setAttribute("aria-expanded","false"); sugAtiva=-1; }
+
+/* ===================== lista de compras (cota) ===================== */
+function salvaLista(){ ls.set("lista",S.lista); const n=S.lista.reduce((a,b)=>a+b.qtd,0); const bd=$("#badge"); bd.hidden=!n; bd.textContent=n; }
+function addLista(nome,usd,loja){
+  const ex=S.lista.find(x=>norm(x.nome)===norm(nome)&&(x.loja||"")===(loja||""));
+  if(ex){ ex.qtd++; if(usd&&!ex.usd) ex.usd=usd; } else S.lista.push({nome,usd:usd?+usd:null,loja:loja||"",qtd:1});
+  salvaLista(); toast("Na lista: "+nome);
+}
+function renderLista(){
+  const tot=S.lista.reduce((a,x)=>a+(x.usd||0)*x.qtd,0);
+  const sem=S.lista.filter(x=>!x.usd).length;
+  const pct=Math.min(100,tot/COTA_USD*100), over=tot>COTA_USD;
+  const iguais=S.lista.filter(x=>x.qtd>3);
+  $("#pgLista").innerHTML = `
+  <section><p class="eyebrow">Cota de compras por terra</p>
+   <div class="card cota">
+     <div class="row" style="justify-content:space-between"><span class="preco">${fmtUSD(tot)}<small>${brl(tot)}</small></span><span class="nota">de ${fmtUSD(COTA_USD)} por pessoa</span></div>
+     <div class="barra${over?" over":pct>=80?" quase":""}" role="progressbar" aria-valuemin="0" aria-valuemax="${COTA_USD}" aria-valuenow="${Math.round(tot)}" aria-label="Uso da cota"><i style="width:${pct}%"></i></div>
+     <p class="nota">${over?`Passou ${fmtUSD(tot-COTA_USD)} da cota: o excedente paga 50% de imposto de importação.`:`Ainda cabem ${fmtUSD(COTA_USD-tot)} (cota de US$ 500 a cada 30 dias, por pessoa).`}${sem?` ${sem} item(ns) sem preço.`:""}</p>
+     ${iguais.length?`<div class="aviso">Regra da Receita: no máximo 3 unidades iguais por pessoa. Ajuste: ${iguais.map(x=>esc(x.nome)).join(", ")}.</div>`:""}
+   </div></section>
+  <section><p class="eyebrow">Itens</p>
+   <div class="card">${S.lista.length?S.lista.map((x,i)=>`<div class="item">
+      <div class="nm">${esc(x.nome)}<small>${x.loja?esc(x.loja):"Loja a definir"}</small></div>
+      <label class="sr" for="u${i}">Preço em dólar de ${esc(x.nome)}</label>
+      <input class="usdin" id="u${i}" data-i="${i}" inputmode="decimal" placeholder="US$" value="${x.usd!=null?String(x.usd).replace(".",","):""}">
+      <div class="qtd"><button data-acao="menos" data-i="${i}" aria-label="Diminuir">−</button><span>${x.qtd}</span><button data-acao="mais" data-i="${i}" aria-label="Aumentar">+</button></div>
+      <div class="nota" style="text-align:right">${x.usd?brl(x.usd*x.qtd):""}</div>
+    </div>`).join(""):`<div class="vazio">Sua lista está vazia. Na busca, toque em <b>+ Lista</b> para somar perfumes e acompanhar a cota.<div style="margin-top:12px"><button class="btn pri" data-acao="irBusca">Ir para a busca</button></div></div>`}</div>
+   ${S.lista.length?`<div class="row" style="margin-top:10px"><button class="btn pri" data-acao="copiarLista">Copiar lista para o WhatsApp</button><button class="btn" data-acao="limparLista" id="btnLimparLista">Esvaziar lista</button></div>`:""}
+  </section>
+  <section><p class="eyebrow">Cotação do dólar</p>
+   <div class="card config"><label for="cot">US$ 1 =</label><span>R$</span><input id="cot" inputmode="decimal" value="${String(S.cot.toFixed(2)).replace(".",",")}"><span class="nota">Fonte: ${esc(S.cotFonte)}</span></div>
+  </section>`;
+}
+
+/* ===================== clássicos ===================== */
+const CL = { gen: ls.get("clGen","M"), precos: ls.get("clPrecos",{}), ctl:null, rodando:false };
+const chaveCl = c => norm(c.m+" "+c.n);
+function contaDupes(c){ const h=IDX.find(e=>e.tipo==="o"&&e.curta===norm(c.n)&&norm(e.marca)===norm(c.m)); return h?BASE[h.i][4].length:0; }
+const pct = (a,b) => Math.round((1-a/b)*100);
+function fichaHTML(c){
+  const F=c.ficha; if(!F) return "";
+  const brMin=Math.min(...F.br.map(x=>x[1])), pyR=F.py.min*S.cot, eqR=F.equiv.usd*S.cot;
+  return `<details class="ficha" id="ficha-${norm(c.n).replace(/ /g,"-")}">
+    <summary>Ficha completa do ${esc(c.n)}</summary>
+    <div class="fbody">
+      <p>${esc(F.resumo)}</p>
+      <dl class="kv"><dt>Perfumistas</dt><dd>${esc(F.autores)}</dd><dt>Família</dt><dd>${esc(c.f)}</dd><dt>Versão</dt><dd>${esc(c.v)}</dd></dl>
+      <h4>Pirâmide olfativa</h4>
+      <dl class="kv">${F.piramide.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+      <h4>Desempenho</h4>
+      <dl class="kv">${F.desempenho.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+      <p class="nota">${esc(F.versoes)}</p>
+
+      <h4>Quanto custa (100 ml)</h4>
+      <div class="cmp">
+        <div class="cmpl"><span>Brasil, menor preço</span><b>${fmtBRL(brMin)}</b></div>
+        <div class="cmpl"><span>Paraguai, original</span><b>${fmtUSD(F.py.min)}</b><small>≈ ${fmtBRL(pyR)} · ${pct(pyR,brMin)}% menos</small></div>
+        <div class="cmpl best"><span>Paraguai, contratipo</span><b>${fmtUSD(F.equiv.usd)}</b><small>≈ ${fmtBRL(eqR)} · ${pct(eqR,brMin)}% menos</small></div>
+      </div>
+      <p class="nota">Câmbio usado: ${fmtBRL(S.cot)} por dólar. Preços coletados em ${esc(F.data)}.</p>
+
+      <h4>No Paraguai: ${fmtUSD(F.py.min)} a ${fmtUSD(F.py.max)}</h4>
+      <ul class="tab">${F.py.lojas.map(([l,u,cid])=>`<li><span>${esc(l)}${cid?` <small>${esc(cid)}</small>`:""}</span><b>${fmtUSD(u)}</b></li>`).join("")}</ul>
+      <p class="nota">${esc(F.py.fonte)}. ${esc(F.py.nota)} ${ext(F.py.url,"Ver ofertas ↗")}</p>
+
+      <h4>No Brasil</h4>
+      <ul class="tab">${F.br.map(([l,v,u])=>`<li><span><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(l)}</a></span><b>${fmtBRL(v)}</b></li>`).join("")}</ul>
+
+      <h4>Melhor equivalente no Paraguai</h4>
+      <div class="eqv">
+        <div class="top"><div><h3>${esc(F.equiv.nome)}</h3><div class="marca">${esc(F.equiv.marca)} · ${esc(F.equiv.v)}</div></div><span class="tag alta">Muito parecido</span></div>
+        <div class="row"><span class="preco">${fmtUSD(F.equiv.usd)}<small>${fmtBRL(eqR)}</small></span><span class="eco">${pct(F.equiv.usd,F.py.min)}% mais barato que o original no Paraguai</span></div>
+        <p>${esc(F.equiv.porque)}</p>
+        <p class="nota">Ponto fraco: ${esc(F.equiv.contra)}</p>
+        <p class="nota">${esc(F.equiv.lojas)}.</p>
+        <div class="acoes2"><button class="btn sm pri" data-acao="buscar" data-q="${esc(F.equiv.marca+" "+F.equiv.nome)}">Lojas do contratipo</button><button class="btn sm" data-acao="lista" data-nome="${esc(F.equiv.marca+" "+F.equiv.nome+" "+F.equiv.v)}" data-usd="${F.equiv.usd}">+ Lista</button>${ext(F.equiv.url,"Ofertas ↗")}</div>
+      </div>
+      <h4>Outras opções vendidas lá</h4>
+      <ul class="tab">${F.outros.map(([n,m,pr,o])=>`<li class="col"><span><b>${esc(n)}</b> · ${esc(m)} · ${esc(pr)}</span><small>${esc(o)}</small></li>`).join("")}</ul>
+      <p class="nota">Fontes: ${F.fontes.map(([t,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`).join(" · ")}</p>
+    </div>
+  </details>`;
+}
+function precoCl(c){ const v=CL.precos[chaveCl(c)]; if(v&&v.usd) return {...v,vivo:true}; if(c.ref) return {usd:c.ref.usd,of:c.ref.of,url:c.ref.url,data:REF_DATA}; return null; }
+function renderClassicos(){
+  const lista=CLASSICOS.filter(c=>c.g===CL.gen).sort((a,b)=>a.a-b.a);
+  const semPreco=CLASSICOS.filter(c=>!precoCl(c)).length;
+  $("#pgClassicos").innerHTML = `
+  <section>
+    <p class="eyebrow">Os clássicos mais vendidos</p>
+    <h2 style="margin-bottom:6px">${CL.gen==="M"?"Masculinos":"Femininos"}</h2>
+    <p class="nota">${CLASSICOS.filter(x=>x.g===CL.gen).length} perfumes, do mais antigo ao mais recente dentro de cada bloco. Seleção cruzando rankings de mais vendidos e de clássicos. Preço de referência é o menor anunciado no Compras Paraguai na data indicada.</p>
+    <div class="seg" role="radiogroup" aria-label="Gênero">
+      <button role="radio" aria-checked="${CL.gen==="M"}" data-acao="clGen" data-g="M">Masculinos</button>
+      <button role="radio" aria-checked="${CL.gen==="F"}" data-acao="clGen" data-g="F">Femininos</button>
+    </div>
+    <div id="clAtualiza" class="card" style="margin-block:12px">${S.live
+      ? (CL.rodando ? statusHTML("Atualizando preços…") : `<div class="row" style="justify-content:space-between"><span class="nota">${semPreco?`${semPreco} clássicos ainda sem preço.`:"Todos com preço."} Leva alguns minutos; o navegador do app vai trocar de página sozinho.</span><button class="btn pri sm" data-acao="clAtualizar">Atualizar preços dos clássicos</button></div>`)
+      : `<p class="nota">Preços ao vivo funcionam quando você abre o app no Claude desktop. Aqui, toque em um perfume e use os botões das lojas.</p>`}</div>
+    <div class="dupes">${lista.map(c=>{
+      const p=precoCl(c), nd=contaDupes(c), q=c.m+" "+c.n;
+      return `<article class="card dupe cl">
+        <div class="top"><div><h3 class="clt">${esc(c.n)}</h3><div class="marca">${esc(c.m)} · ${c.a} · ${esc(c.f)}</div></div>
+          ${nd?`<span class="tag alta">${nd} contratipo${nd>1?"s":""}</span>`:""}</div>
+        <p class="nota">${esc(c.no)}</p>
+        ${c.ficha?`<span class="tag claude" style="justify-self:start">Ficha completa disponível</span>`:""}
+        <div class="row">${p?`<span class="preco">${fmtUSD(p.usd)}<small>${brl(p.usd)}</small></span><span class="nota">${esc(c.v)} · ${p.of||"?"} ofertas · ${esc(p.data)}</span>`:`<span class="nota">${esc(c.v)} · preço ainda não consultado</span>`}</div>
+        <div class="acoes2">
+          <button class="btn sm pri" data-acao="buscar" data-q="${esc(q)}">Lojas e contratipos</button>
+          <button class="btn sm" data-acao="lista" data-nome="${esc(q+" "+c.v)}"${p?` data-usd="${p.usd}"`:""}>+ Lista</button>
+          ${p?.url?ext(p.url,"Ofertas ↗"):ext(urlCP(c.bq),"Ofertas ↗")}
+        </div>
+        ${fichaHTML(c)}
+      </article>`;}).join("")}</div>
+    <p class="foot">Fontes da seleção: O Hoje, Magazine Feminina, Rituais de Banho, Curta Mais, Blog Matriz Group, Portal Zumm, Maiores e Melhores e Scent Grail. Preços mudam todo dia; confirme na loja.</p>
+  </section>`;
+}
+async function atualizaClassicos(){
+  if(CL.rodando||!S.live) return;
+  CL.rodando=true; const ctl=CL.ctl=new AbortController(); renderClassicos();
+  const hoje=new Date().toLocaleDateString("pt-BR"); let ok=0,n=0;
+  for(const c of CLASSICOS){
+    if(ctl.signal.aborted) break; n++;
+    const st=document.querySelector("#clAtualiza .status span:not(.spin)"); if(st) st.textContent=`Atualizando ${n}/${CLASSICOS.length}: ${c.n}…`;
+    try{ const r=await precoAoVivo(c.bq,ctl.signal,c.mq); if(r.g){ CL.precos[chaveCl(c)]={usd:r.g.usd,of:r.g.ofertas,url:r.g.url,data:hoje}; ok++; ls.set("clPrecos",CL.precos); } }
+    catch(e){ if(e?.code==="cancelled") break; if(fatal(e)){ toast("O navegador do app não respondeu. Tente mais tarde."); break; } }
+  }
+  CL.rodando=false; if(!$("#pgClassicos").hidden) renderClassicos(); toast(`${ok} preços atualizados`);
+}
+
+/* ===================== lojas ===================== */
+function renderLojas(){
+  $("#pgLojas").innerHTML = `<section><p class="eyebrow">Lojas com perfumaria</p>
+   <p class="nota" style="margin-bottom:12px">Endereços e horários conforme o Compras Paraguai (set/2026). Confira antes de ir: horários mudam em feriados.</p>
+   <div class="lojas">${LOJAS.map(l=>`<article class="card loja-c">
+     <h3>${esc(l.n)}</h3><div class="cid">${esc(l.cid)}</div>
+     <div>${esc(l.end)}</div><div class="nota">${esc(l.h)}${l.nota?" · "+esc(l.nota):""}</div>
+     <div class="row">${ext(urlMaps(l.n+" "+l.end+" "+l.cid.split(" · ")[0]+" Paraguai"),"Ver no mapa ↗")}${l.site?ext(l.site,"Site ↗"):""}${l.tel?`<button class="btn sm" data-acao="copiar" data-v="${esc(l.tel)}">WhatsApp ${esc(l.tel)}</button>`:""}${ext("https://www.comprasparaguai.com.br/lojas/"+l.slug+"/","Ficha da loja ↗")}</div>
+   </article>`).join("")}</div></section>
+   <section><div class="aviso">Dica: perfume árabe original vem lacrado e com selo; peça nota fiscal (factura) e teste no papel antes de pagar.</div></section>`;
+}
+
+/* ===================== navegação ===================== */
+function mostra(pg){
+  ["Buscar","Classicos","Lista","Lojas"].forEach(p=>{ $("#pg"+p).hidden = p!==pg; $("#tb"+p).setAttribute("aria-selected", p===pg?"true":"false"); });
+  if(pg==="Lista") renderLista(); if(pg==="Classicos") renderClassicos();
+  window.scrollTo({top:0,behavior:"auto"}); if(pg==="Lojas") renderLojas();
+  ls.set("aba",pg);
+}
+
+/* ===================== eventos ===================== */
+$("#formBusca").addEventListener("submit",e=>{e.preventDefault(); const v=$("#q").value; if(sugAtiva>=0&&sugItens[sugAtiva]){ escolhe(sugAtiva); return;} if(!v.trim()){ $("#q").focus(); toast("Digite o nome de um perfume"); return;} render(v); $("#q").blur();});
+function escolhe(i){ const x=sugItens[i]; if(!x) return; $("#q").value=x.e.marca+" "+x.e.nome; $("#limpar").hidden=false; render($("#q").value,x.e); $("#q").blur(); }
+$("#q").addEventListener("input",sugere);
+$("#q").addEventListener("focus",sugere);
+$("#q").addEventListener("keydown",e=>{
+  if($("#sugest").hidden) return;
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){ e.preventDefault(); sugAtiva=(sugAtiva+(e.key==="ArrowDown"?1:-1)+sugItens.length)%sugItens.length; document.querySelectorAll("#sugest button").forEach((b,i)=>b.classList.toggle("on",i===sugAtiva)); $("#q").setAttribute("aria-activedescendant","sg"+sugAtiva); }
+  if(e.key==="Escape") fechaSug();
+});
+$("#sugest").addEventListener("mousedown",e=>e.preventDefault());
+$("#sugest").addEventListener("click",e=>{const b=e.target.closest("button[data-i]"); if(b) escolhe(+b.dataset.i);});
+document.addEventListener("click",e=>{ if(!e.target.closest(".campo")) fechaSug(); });
+$("#limpar").addEventListener("click",()=>{ $("#q").value=""; $("#limpar").hidden=true; fechaSug(); $("#q").focus(); });
+$("#chips").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(!b) return; $("#q").value=b.dataset.q; $("#limpar").hidden=false; render(b.dataset.q);});
+document.querySelector("nav.tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-pg]"); if(b) mostra(b.dataset.pg);});
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-acao]"); if(!b) return;
+  const a=b.dataset.acao;
+  if(a==="buscar"){ $("#q").value=b.dataset.q; $("#limpar").hidden=false; render(b.dataset.q); }
+  else if(a==="lista") addLista(b.dataset.nome, b.dataset.usd?+b.dataset.usd:null, b.dataset.loja||"");
+  else if(a==="ofertas") abreOfertasDupe(+b.dataset.k.slice(1));
+  else if(a==="mais-of"){ b.closest(".precos").querySelectorAll(".of[hidden]").forEach(li=>li.hidden=false); b.remove(); }
+  else if(a==="clGen"){ CL.gen=b.dataset.g; ls.set("clGen",CL.gen); renderClassicos(); }
+  else if(a==="clAtualizar") atualizaClassicos();
+  else if(a==="irBusca"){ mostra("Buscar"); $("#q").focus(); }
+  else if(a==="vivo"){ if(S.ultimo){ const c=S.ctl=new AbortController(); S.exemplo=false; precosDaTela(S.R,S.ultimo.q,c.signal,RUN); } }
+  else if(a==="parar"){ S.ctl?.abort(); S.ctlD?.abort(); CL.ctl?.abort(); document.querySelectorAll(".status").forEach(s=>s.outerHTML='<p class="nota">Busca interrompida. Toque em Buscar para tentar de novo.</p>'); }
+  else if(a==="copiar"){ const v=b.dataset.v; try{ await navigator.clipboard.writeText(v); toast("Copiado: "+v);}catch(err){ toast(v); } }
+  else if(a==="copiarLista"){ const tot=S.lista.reduce((t,x)=>t+(x.usd||0)*x.qtd,0); const txt="Lista de perfumes (Paraguai)\n"+S.lista.map(x=>`• ${x.qtd}x ${x.nome}${x.loja?" ("+x.loja+")":""}${x.usd?" — "+fmtUSD(x.usd*x.qtd):""}`).join("\n")+`\nTotal: ${fmtUSD(tot)} ≈ ${brl(tot)}`; try{ await navigator.clipboard.writeText(txt); toast("Lista copiada. Cole no WhatsApp."); }catch(err){ b.closest("section").querySelector("textarea")?.remove(); const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("aria-label","Lista para copiar"); ta.style.cssText="width:100%;height:160px;margin-top:10px"; b.closest("section").append(ta); ta.select(); toast("Selecionei o texto: copie manualmente"); } }
+  else if(a==="mais"||a==="menos"){ const x=S.lista[+b.dataset.i]; if(!x) return; x.qtd+= a==="mais"?1:-1; if(x.qtd<=0) S.lista.splice(+b.dataset.i,1); salvaLista(); renderLista(); }
+  else if(a==="limparLista"){ if(b.dataset.conf==="1"){ S.lista=[]; salvaLista(); renderLista(); toast("Lista esvaziada"); } else { b.dataset.conf="1"; b.textContent="Toque de novo para confirmar"; setTimeout(()=>{ if(b.isConnected){ b.dataset.conf=""; b.textContent="Esvaziar lista"; } },3000); } }
+});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.classList.contains("usdin")){ const x=S.lista[+t.dataset.i]; if(!x) return; const n=parseNum(t.value); x.usd = n>0&&n<100000 ? n : null; salvaLista(); renderLista(); }
+  if(t.id==="cot"){ const n=parseNum(t.value); if(n>1&&n<20){ S.cot=n; S.cotFonte="digitada por você"; ls.set("cot",n); ls.set("cotFonte",S.cotFonte); toast("Cotação: "+fmtBRL(n)); } renderLista(); }
+});
+
+/* ===================== início ===================== */
+pintaChips(); salvaLista(); pintaModo();
+// estado inicial realista: exemplo da base
+(function(){ const aba=ls.get("aba","Buscar"); const q0=S.recentes[0]||"Dior Sauvage Elixir"; $("#q").value=q0; $("#limpar").hidden=false; render(q0,null,{exemplo:!S.recentes.length}); if(aba!=="Buscar") mostra(aba); })();
+iniciaCapacidades();
+</script>
+<script>
+(()=>{
+/* ===================== Nossas Viagens: Viagens + Salas VIP ===================== */
+const BR = {"W":400,"H":346,"d":"M183.7,342.3 181.3,337.4 185.1,333.3 180.1,327.4 173.3,322.6 164.3,317.0 161.1,317.2 152.4,310.5 146.7,311.4 158.3,299.6 168.2,291.1 174.0,287.6 181.3,282.8 181.5,275.9 177.1,270.8 172.8,272.5 174.5,267.5 175.7,262.4 175.7,257.6 172.6,256.0 169.3,257.4 166.1,257.0 165.1,253.7 164.3,245.7 162.6,243.1 156.8,240.8 153.2,242.5 144.0,240.8 144.6,229.0 142.0,224.1 144.7,222.3 143.9,217.4 146.3,213.6 147.8,206.7 145.8,201.3 141.0,198.9 140.1,195.5 141.4,190.4 124.7,190.1 121.4,179.9 123.9,179.8 123.8,176.1 122.1,173.5 121.7,168.5 116.7,165.9 111.2,166.0 107.6,163.5 101.7,161.7 98.3,158.5 88.6,157.1 79.1,149.3 79.8,143.4 78.7,140.1 79.7,133.6 68.3,135.1 63.7,138.3 56.1,141.8 54.2,144.5 49.7,144.7 43.2,143.9 38.3,145.4 34.4,144.4 34.9,131.2 27.8,136.3 20.1,136.1 16.8,131.5 11.1,131.0 12.9,127.2 8.1,122.0 4.5,114.1 6.8,112.5 6.7,108.9 12.0,106.3 11.1,101.6 13.4,98.6 14.0,94.6 23.9,88.6 31.1,87.0 32.2,85.7 40.1,86.1 44.0,62.2 44.2,58.5 42.8,53.5 39.0,50.3 39.0,44.0 43.9,42.6 45.6,43.5 45.9,40.1 40.8,39.2 40.7,33.8 57.7,34.0 60.5,31.0 63.0,33.7 64.7,38.9 66.3,37.8 71.1,42.4 77.8,41.8 79.5,39.2 86.0,37.1 89.6,35.7 90.6,32.0 96.8,29.6 96.3,27.7 89.0,27.0 87.7,21.5 88.1,15.7 84.2,13.4 85.8,12.6 92.3,13.7 99.2,15.9 101.7,13.9 108.0,12.5 117.7,9.2 120.9,5.9 119.7,3.5 124.2,3.1 126.3,5.1 125.1,8.9 128.1,10.2 130.1,14.3 127.7,17.3 126.3,24.7 128.5,29.1 129.2,33.2 134.5,37.2 138.8,37.7 139.7,36.0 142.5,35.6 146.4,34.1 149.3,31.8 154.1,32.5 156.2,32.2 160.9,32.9 161.7,31.1 160.2,29.4 161.1,26.9 164.6,27.6 168.7,26.8 173.7,28.6 177.5,30.4 180.2,28.0 182.1,28.4 183.3,30.8 187.5,30.2 190.8,26.9 193.5,20.5 198.6,12.6 201.6,12.1 203.7,17.0 208.6,32.2 213.3,33.6 213.5,39.6 207.0,46.8 209.7,49.4 225.0,50.7 225.4,59.5 232.0,53.8 242.9,56.9 257.3,62.2 261.6,67.3 260.2,72.1 270.3,69.4 287.2,74.0 300.2,73.7 313.0,80.9 324.1,90.6 330.8,93.1 338.3,93.5 341.4,96.2 344.4,107.3 345.8,112.5 342.4,126.9 337.9,132.6 325.7,144.7 320.1,154.5 313.7,162.1 311.5,162.2 309.1,168.6 309.7,184.9 307.3,198.3 306.4,204.1 303.6,207.5 302.1,219.1 293.3,230.5 291.8,239.5 284.7,243.2 282.7,248.4 273.3,248.4 259.6,251.8 253.5,255.6 243.7,258.2 233.5,265.1 226.1,273.7 224.9,280.2 226.3,285.0 224.7,293.8 222.7,298.0 216.6,302.8 207.0,318.1 199.3,325.0 193.4,329.1 189.5,337.4 183.7,342.3Z","lo0":-74.5,"la1":5.6,"s":8.695652173913043};
+const VIP0 = {"meta":{"nome":"Salas VIP — aeroportos brasileiros","versao":"1.1","atualizado_em":"2026-10-03","aba_app":"Salas VIP","status_legenda":{"ilimitado":"Grátis sem limite","condicional":"Grátis se cumprir gasto mínimo","cota":"Consome a cota anual","pago":"Entra pagando","nao":"Sem acesso pelo cartão"},"avisos":["Convênios mudam com frequência (C6 trocou LoungeKey por DragonPass em dez/2024; Inter trocou LoungeKey por Priority Pass em jun/2024; Mastercard passou a exigir gasto mínimo em GRU). Reconfirmar no app do banco antes de cada viagem.","Marcação LK foi inferida da lista Priority Pass (mesma rede no Brasil).","Localização: campo local_verificado=true indica portão/andar confirmado em fonte; false indica só o setor. Coordenadas são do terminal, não da sala (o app pode usar para o pin e abrir a planta oficial quando houver).","Restaurantes conveniados e serviços (Bluma, SiestaBOX) ficaram fora desta versão."],"fontes":["https://www.c6bank.com.br/salas-vip/","https://ajuda.inter.co/cartao/quais-sao-as-regras-de-acesso-a-sala-vip","https://www.cartoesdecredito.me/guias-salas-vip/guia-todas-as-salas-vip-dos-aeroportos-no-brasil/","https://www.cartoesdecredito.me/guias-salas-vip/salas-vip-dragonpass-no-brasil-2026/","https://www.melhorescartoes.com.br/priority-pass-salas-vip.html","https://www.melhoresdestinos.com.br/milhas/qual-a-melhor-e-a-pior-sala-vip-do-aeroporto-de-fortaleza","https://www.cartoesdecredito.me/salas/formas-de-acesso-as-salas-vip-w-premium-lounge/","https://www.gru.com.br/en/passenger/discover-gru/relax/vip-lounges","https://assets.bradesco/content/dam/portal-bradesco/assets/common/pdf/termos_condicoes_salas_vip.pdf","https://www.itatiaia.com.br/turismo/guia-atualizado-das-salas-vip-e-restaurantes-do-aeroporto-do-galeao-gig-confira/"],"changelog":[{"versao":"1.1","data":"2026-10-03","resumo":"Base inicial com localização descritiva e coordenadas."}]},"programas":{"PP":{"nome":"Priority Pass","dono":"Collinson","obs":"Acesso por QR Code (app do banco ou do PP) + documento + cartão de embarque. Restaurantes conveniados contam como 1 acesso."},"LK":{"nome":"LoungeKey","dono":"Collinson","obs":"No Brasil a rede de salas é praticamente igual à do Priority Pass (mesmo grupo). Marcação LK nesta base foi inferida da lista PP; confirmar no app Mastercard Airport Experiences."},"DP":{"nome":"DragonPass / Visa Airport Companion","dono":"DragonPass","obs":"Cartões Visa acessam pelo app Visa Airport Companion; Mastercard (ex.: C6) pelo QR Code do app do banco. Pelo C6 NÃO inclui restaurantes."},"WP":{"nome":"W Premium (convênio direto)","dono":"W Premium Group","obs":"C6 Carbon/Graphene entram com cartão físico ou carteira digital (Brasil) e QR Code (exterior)."},"INTER":{"nome":"Inter Lounge (sala própria)","dono":"Banco Inter","obs":"Exclusiva Inter Prime/Win; não aceita PP, LK nem DP. Avulso por pontos Inter Loop."},"C6":{"nome":"Espaço C6 Bank","dono":"C6 Bank","obs":"Só GRU T3, perto do portão 328, 24h."},"MCB":{"nome":"Salas Mastercard Black GRU","dono":"Mastercard","obs":"Sala VIP Lounge (mezanino) e Lounge Mastercard Black (térreo), GRU T3. Desde 2025/2026 a gratuidade exige R$ 15 mil em compras nos 3 meses anteriores (regra da bandeira)."},"DP_VISA":{"nome":"Visa Airport Companion (só cartões Visa)","dono":"Visa","obs":"Aparece na rede DragonPass, mas a entrada é para cartões Visa; marcado à parte para não contar como DragonPass do C6."},"AMEX":{"nome":"Cartões American Express","dono":"Amex","obs":""},"BRADESCO":{"nome":"Bradesco Lounge","dono":"Bradesco","obs":"Cartões Bradesco elegíveis."},"CIA":{"nome":"Companhia aérea / classe / status","dono":"cias","obs":"Executiva/primeira ou status de aliança."},"AVULSO":{"nome":"Pagamento avulso (day use)","dono":"-","obs":""}},"cartoes":{"c6_carbon":{"nome":"C6 Carbon Mastercard Black","emissor":"C6 Bank","bandeira":"Mastercard Black","regras":{"DP":{"status":"cota","detalhe":"4 acessos/ano somando DragonPass + W Premium + Espaço C6, divididos entre titular e convidados; do 5º em diante R$ 200 na fatura. Ilimitado no mês seguinte se a média de gastos dos últimos 3 meses for R$ 20 mil.","como":"App C6 > Cartões > Acesso Sala VIP > QR Code DragonPass (convidado: QR próprio, nome igual ao da passagem)."},"WP":{"status":"cota","detalhe":"Mesma cota de 4/ano (compartilhada com DragonPass e Espaço C6); R$ 200 a partir do 5º.","como":"Cartão físico ou carteira digital no Brasil; QR Code no exterior."},"C6":{"status":"cota","detalhe":"Mesma cota de 4/ano.","como":"Cartão físico ou carteira digital + cartão de embarque."},"MCB":{"status":"condicional","detalhe":"Ilimitado se somar R$ 15 mil no crédito nos 3 meses anteriores ao mês do acesso; até 3 acompanhantes pagos.","como":"Somente cartão físico."},"LK":{"status":"pago","detalhe":"US$ 35 por acesso, cobrado pela Mastercard na fatura (desde fev/2025).","como":"Somente cartão físico."},"PP":{"status":"nao","detalhe":"Sem Priority Pass."},"INTER":{"status":"nao","detalhe":""}},"variante_1mi":"Com R$ 1 milhão investido no C6: DragonPass, W Premium, Espaço C6 e LoungeKey ilimitados para titular, adicionais e acompanhantes; Mastercard Black ilimitado para o portador (reembolso na fatura).","fonte":"https://www.c6bank.com.br/salas-vip/"},"inter_prime":{"nome":"Inter Prime Mastercard (Black)","emissor":"Banco Inter","bandeira":"Mastercard (Black na maioria dos casos — confirmar no seu cartão)","regras":{"INTER":{"status":"ilimitado","detalhe":"Ilimitado para titular e adicionais (adicional Prime não tem QR próprio, entra junto com o titular). Salas em GRU, CNF, CWB e FOR.","como":"Super App Inter > Sala VIP > QR Code. Pode haver pré-autorização de US$ 1; exige R$ 50 de limite livre e compras online habilitadas."},"PP":{"status":"cota","detalhe":"6 acessos gratuitos a cada 12 meses, compartilhados entre titular e adicionais; depois disso, cobrança integral no cartão do titular.","como":"QR Code no Super App Inter + documento + cartão de embarque. Não vale no desembarque."},"MCB":{"status":"condicional","detalhe":"Só se o cartão for Mastercard Black. A regra da bandeira exige R$ 15 mil em compras no trimestre; o Inter não publicou regra própria — confirmar.","como":"Cartão físico + cartão de embarque."},"LK":{"status":"nao","detalhe":"Inter trocou LoungeKey por Priority Pass em jun/2024."},"DP":{"status":"nao","detalhe":""},"WP":{"status":"nao","detalhe":"Só entra em W Premium que aceite Priority Pass (consome a cota de 6)."},"C6":{"status":"nao","detalhe":""}},"fonte":"https://ajuda.inter.co/cartao/quais-sao-as-regras-de-acesso-a-sala-vip"}},"aeroportos":[{"iata":"FOR","nome":"Pinto Martins","cidade":"Fortaleza","uf":"CE","salas":[{"nome":"Inter Lounge","tipo":"sala","setor":"domestico","local":"Logo após o raio-x, em frente ao portão 12","horario":"06h–22h","acessos":["INTER"],"avulso":"4.000 pontos Inter Loop","obs":"Duchas sem custo, espaço kids. Inaugurada em 04/03/2026.","local_verificado":true,"id":"FOR-01","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"ilimitado","via":"INTER"}}},{"nome":"Ambaar Club","tipo":"sala","setor":"domestico","local":"Terminal 1, após o raio-x vire à esquerda depois da Dufry; perto do portão 8","horario":"24h","acessos":["PP","LK","AMEX"],"avulso":"R$ 220 / 4h","obs":"Aceita também Bradesco Aeternum e Elo Diners. Costuma lotar.","local_verificado":true,"id":"FOR-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Ambaar Club","tipo":"sala","setor":"internacional","local":"Após o controle de passaportes, em frente ao portão 3","horario":"Conforme os voos internacionais (fonte antiga indicava 04h–22h)","acessos":["PP","LK"],"local_verificado":true,"id":"FOR-03","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Premium Lounge","tipo":"sala","setor":"domestico","local":"Área de embarque, após a segurança, perto do portão 14","horario":"24h","acessos":["DP","WP","AMEX"],"avulso":"W Pass R$ 220 (kids R$ 110)","local_verificado":true,"id":"FOR-04","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"W Premium Lounge – Iracema","tipo":"sala","setor":"internacional","acessos":["DP","WP"],"avulso":"W Pass R$ 320","local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"FOR-05","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"W Premium Lounge – Beira-Mar","tipo":"sala","setor":"internacional","acessos":["DP","WP"],"local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"FOR-06","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"W Arrival Lounge","tipo":"sala","setor":"desembarque","horario":"24h","acessos":["DP","WP"],"avulso":"W Pass R$ 160","local":"Área pública do desembarque","local_verificado":true,"id":"FOR-07","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"W Airport Rooms","tipo":"descanso","setor":"publica","acessos":["DP","WP"],"obs":"Quartos para descanso.","local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"FOR-08","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-3.7763,"lng":-38.5326,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-3.7763,-38.5326"}},{"iata":"GIG","nome":"Galeão – Tom Jobim","cidade":"Rio de Janeiro","uf":"RJ","salas":[{"nome":"Plaza Premium Lounge","tipo":"sala","setor":"publica","terminal":"T2","local":"2º andar do edifício-garagem","horario":"24h","acessos":["PP","LK","DP","AMEX"],"avulso":"R$ 205 adulto / R$ 78 criança 2–12","local_verificado":true,"id":"GIG-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Plaza Premium Lounge","tipo":"sala","setor":"domestico","terminal":"T2","local":"Portões B27/B28","horario":"24h","acessos":["PP","LK","DP","AMEX"],"avulso":"R$ 240 adulto / R$ 82 criança","local_verificado":true,"id":"GIG-02","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Plaza Premium Lounge","tipo":"sala","setor":"internacional","terminal":"T2","horario":"24h","acessos":["PP","LK","DP","AMEX"],"local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"GIG-03","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Lounge GOL Smiles","tipo":"sala","setor":"domestico","terminal":"T2","local":"Portões B36/B37","horario":"06h–22h (qua e sex até 23h)","acessos":["PP","LK","DP","CIA"],"local_verificado":true,"id":"GIG-04","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Lounge GOL Smiles","tipo":"sala","setor":"internacional","terminal":"T2","local":"3º andar do Píer Sul","horario":"05h–23h","acessos":["PP","LK","DP","CIA"],"local_verificado":true,"id":"GIG-05","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Admirals Club","tipo":"sala","setor":"internacional","terminal":"T2","horario":"14h–23h30","acessos":["CIA","AVULSO"],"obs":"Executiva American ou status oneworld.","local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"GIG-06","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Star Alliance Lounge","tipo":"sala","setor":"internacional","terminal":"T2","acessos":["CIA"],"local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"GIG-07","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-22.809,"lng":-43.2506,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-22.809,-43.2506"}},{"iata":"SDU","nome":"Santos Dumont","cidade":"Rio de Janeiro","uf":"RJ","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"SDU-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"ADVT VIP Lounge Consulado","tipo":"sala","setor":"publica","acessos":["PP","LK"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"SDU-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Bradesco Lounge","tipo":"sala","setor":"publica","acessos":["BRADESCO"],"local":"Pré-embarque, 1º andar","horario":"05h30–22h30","local_verificado":true,"id":"SDU-03","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Emerald VIP Lounge","tipo":"sala","setor":"publica","acessos":["DP"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"SDU-04","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Harmony Lounge","tipo":"sala","setor":"publica","acessos":["DP"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"SDU-05","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-22.9105,"lng":-43.1631,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-22.9105,-43.1631"}},{"iata":"GRU","nome":"Guarulhos","cidade":"São Paulo","uf":"SP","salas":[{"nome":"W Premium Lounge","tipo":"sala","setor":"domestico","terminal":"T1","acessos":["PP","LK","DP","WP"],"local":"Terminal 1, mezanino","horario":"24h","avulso":"R$ 200","local_verificado":true,"id":"GRU-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Banco Inter VIP Lounge","tipo":"sala","setor":"domestico","terminal":"T2","acessos":["INTER"],"local":"T2 doméstico, mezanino","horario":"24h","local_verificado":true,"id":"GRU-02","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"ilimitado","via":"INTER"}}},{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","terminal":"T2","acessos":["PP","LK"],"local":"T2 doméstico, após o controle de segurança, à direita","horario":"24h","avulso":"R$ 180 / 3h","local_verificado":true,"id":"GRU-03","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"The Lounge São Paulo Nacional","tipo":"sala","setor":"domestico","terminal":"T2","acessos":["PP","LK"],"local":"T2 doméstico, mezanino, entre as salas da GOL e do Bradesco","horario":"24h","avulso":"R$ 200","obs":"Crianças até 11 anos grátis (1 por adulto pagante); sem limite de permanência.","local_verificado":true,"id":"GRU-04","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Premium Lounge – The West","tipo":"sala","setor":"domestico","terminal":"T2","acessos":["PP","LK","DP","WP"],"avulso":"W Pass R$ 220","local":"T2 embarque doméstico Oeste, ao lado da Dufry, perto do portão 201","horario":"24h","local_verificado":true,"id":"GRU-05","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Plaza Premium Lounge","tipo":"sala","setor":"domestico","terminal":"T2","acessos":["DP"],"local":"T2, logo após o raio-x, ao lado da Casa do Pão de Queijo (portões 209–224)","horario":"05h–23h","avulso":"R$ 240 / 3h","local_verificado":true,"id":"GRU-06","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Lounge GOL Smiles","tipo":"sala","setor":"domestico","terminal":"T2","acessos":["DP","CIA"],"local":"T2 doméstico, mezanino","horario":"06h–00h","local_verificado":true,"id":"GRU-07","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Bradesco Lounge","tipo":"sala","setor":"domestico","terminal":"T2","acessos":["BRADESCO"],"local":"T2 doméstico Oeste, mezanino (1º andar)","obs":"Site do GRU informa fechamento temporário para obras.","local_verificado":true,"id":"GRU-08","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Plaza Premium Lounge","tipo":"sala","setor":"publica","terminal":"T2","acessos":["DP"],"local":"T2, área pública, Check-in D","horario":"05h–22h","avulso":"R$ 195 / 3h","local_verificado":true,"id":"GRU-09","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Urban Lounge & Cowork","tipo":"sala","setor":"publica","terminal":"T2","acessos":["PP","LK"],"local":"T2, Check-in E, 2º andar, acima da LATAM","horario":"24h","avulso":"R$ 165 / 3h","local_verificado":true,"id":"GRU-10","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"The Lounge | SkyTeam","tipo":"sala","setor":"internacional","terminal":"T2","acessos":["PP","LK","CIA"],"local":"T2 internacional, mezanino, logo após o controle de passaporte","horario":"24h","local_verificado":true,"id":"GRU-11","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Lounge GOL Smiles","tipo":"sala","setor":"internacional","terminal":"T2","acessos":["DP","CIA"],"local":"T2 internacional, área de embarque","horario":"05h–01h","local_verificado":true,"id":"GRU-12","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"W Premium Lounge – The Pier","tipo":"sala","setor":"internacional","terminal":"T3","acessos":["PP","LK","DP","WP","AMEX","CIA"],"avulso":"W Pass R$ 320","obs":"Preferencial Amex; aceita também executiva Air France/KLM.","local":"T3 embarque internacional, perto dos portões 323–324","horario":"24h","local_verificado":true,"id":"GRU-13","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Espaço C6 Bank","tipo":"sala","setor":"internacional","terminal":"T3","local":"T3, perto do portão 328","horario":"24h","acessos":["C6"],"avulso":"R$ 200 (C6 Black)","local_verificado":true,"id":"GRU-14","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"C6"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Sala VIP Lounge (Mastercard)","tipo":"sala","setor":"internacional","terminal":"T3","local":"T3, mezanino (Black 1)","acessos":["MCB"],"horario":"10h–23h30","obs":"Dependentes diretos até 12 anos entram grátis; acompanhante R$ 200.","local_verificado":true,"id":"GRU-15","acesso_cartoes":{"c6_carbon":{"status":"condicional","via":"MCB"},"inter_prime":{"status":"condicional","via":"MCB"}}},{"nome":"Lounge Mastercard Black","tipo":"sala","setor":"internacional","terminal":"T3","local":"T3, piso de embarque, corredor comercial (Black 2)","acessos":["MCB"],"horario":"10h–23h30","obs":"Dependentes diretos até 12 anos entram grátis; acompanhante R$ 200.","local_verificado":true,"id":"GRU-16","acesso_cartoes":{"c6_carbon":{"status":"condicional","via":"MCB"},"inter_prime":{"status":"condicional","via":"MCB"}}},{"nome":"W Premium Lounge – 5th Avenue","tipo":"sala","setor":"internacional","terminal":"T3","acessos":["AMEX"],"local":"T3, entre as lojas Havaianas e Heineken","horario":"24h","local_verificado":true,"id":"GRU-17","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"LATAM Lounge São Paulo","tipo":"sala","setor":"internacional","terminal":"T3","acessos":["CIA","DP"],"obs":"O site do GRU lista clientes de cartão DragonPass entre os elegíveis; confirmar no app C6 antes de contar com ela.","local":"T3, mezanino","horario":"24h","local_verificado":true,"id":"GRU-18","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Visa Infinite Lounge","tipo":"sala","setor":"internacional","terminal":"T3","acessos":["DP_VISA"],"obs":"Para cartões Visa Infinite; via C6 (Mastercard) provavelmente não vale.","horario":"24h","local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"GRU-19","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Admirals Club","tipo":"sala","setor":"internacional","terminal":"T3","acessos":["CIA"],"local":"T3, mezanino","horario":"11h15–23h45","local_verificado":true,"id":"GRU-20","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Nubank Ultravioleta Lounge","tipo":"sala","setor":"internacional","terminal":"T3","acessos":[],"obs":"Exclusiva Nubank.","local":"T3, perto do portão 329","horario":"06h–23h","local_verificado":true,"id":"GRU-21","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Pedra Preta Itaú","tipo":"sala","setor":"internacional","terminal":"T3","acessos":[],"obs":"Exclusiva Itaú alta renda.","local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"GRU-22","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Bradesco Lounge","tipo":"sala","setor":"internacional","terminal":"T3","acessos":["BRADESCO"],"local":"T3, 1º andar","horario":"24h","local_verificado":true,"id":"GRU-23","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Casa BB","tipo":"sala","setor":"internacional","terminal":"T3","acessos":[],"obs":"Exclusiva Banco do Brasil.","local":"T3, mezanino","horario":"24h","local_verificado":true,"id":"GRU-24","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Nomad Lounge","tipo":"sala","setor":"internacional","terminal":"T3","acessos":[],"obs":"Exclusiva Nomad.","local":"T3, ao lado do portão 303","horario":"24h","local_verificado":true,"id":"GRU-25","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-23.4356,"lng":-46.4731,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-23.4356,-46.4731","planta_oficial":{"T1":"https://www.gru.com.br/en/passenger/discover-gru/airport-maps/terminal-1","T2":"https://www.gru.com.br/en/passenger/discover-gru/airport-maps/terminal-2","T3":"https://www.gru.com.br/en/passenger/discover-gru/airport-maps/terminal-3"}}},{"iata":"CGH","nome":"Congonhas","cidade":"São Paulo","uf":"SP","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local":"1º andar, logo após a conferência do cartão de embarque e ANTES do raio-x (tem fast track)","local_verificado":true,"id":"CGH-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Ambaar Club","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local":"Área de embarque, em frente ao portão 8","horario":"04h–23h","local_verificado":true,"id":"CGH-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Premium Lounge Congonhas","tipo":"sala","setor":"publica","local":"Pré-embarque, nível 1, ao lado dos Achados e Perdidos","acessos":["DP","WP"],"horario":"04h–23h","local_verificado":true,"id":"CGH-03","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Emerald VIP Lounge","tipo":"sala","setor":"publica","acessos":["DP"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"CGH-04","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Bradesco Lounge – portão 5","tipo":"sala","setor":"domestico","acessos":["BRADESCO"],"local":"Pós-embarque, em frente ao portão 5","horario":"04h–23h","local_verificado":true,"id":"CGH-05","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}},{"nome":"Bradesco Lounge – portão 8","tipo":"sala","setor":"domestico","acessos":["BRADESCO"],"local":"Pós-embarque, em frente ao portão 8","horario":"04h–23h","local_verificado":true,"id":"CGH-06","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-23.6261,"lng":-46.6564,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-23.6261,-46.6564"}},{"iata":"VCP","nome":"Viracopos","cidade":"Campinas","uf":"SP","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"VCP-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Ambaar Club","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local":"Após o raio-x, perto do corredor de acesso aos portões","horario":"24h","local_verificado":true,"id":"VCP-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"The Lounge Viracopos","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"VCP-03","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Lounge Azul","tipo":"sala","setor":"internacional","acessos":["PP","LK","CIA"],"local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"VCP-04","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"BRT Lounges","tipo":"sala","setor":"internacional","acessos":["DP"],"local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"VCP-05","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-23.0074,"lng":-47.1345,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-23.0074,-47.1345"}},{"iata":"BSB","nome":"Juscelino Kubitschek","cidade":"Brasília","uf":"DF","salas":[{"nome":"Aeroportos VIP Club","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP"],"local":"Pós-embarque, 2º andar","horario":"24h","local_verificado":true,"id":"BSB-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Aeroportos VIP Club","tipo":"sala","setor":"internacional","acessos":["PP","LK","DP"],"local":"Pós-embarque, térreo, abaixo do raio-x","horario":"Conforme os voos internacionais","local_verificado":true,"id":"BSB-02","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"VIP Express Club Píer Norte","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP"],"local":"Píer Norte, perto do portão 11","horario":"06h–22h","local_verificado":true,"id":"BSB-03","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"VIP Express Club Píer Sul","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP"],"local":"Píer Sul, perto do portão 43","horario":"06h–22h","local_verificado":true,"id":"BSB-04","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"BRB VIP Club","tipo":"sala","setor":"domestico","acessos":[],"obs":"Cartões BRB.","local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"BSB-05","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-15.8697,"lng":-47.9208,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-15.8697,-47.9208"}},{"iata":"CNF","nome":"Confins – Tancredo Neves","cidade":"Belo Horizonte","uf":"MG","salas":[{"nome":"BRT / Banco Inter Lounge","tipo":"sala","setor":"domestico","acessos":["INTER","DP"],"obs":"Sala Inter compartilhada com a BRT; Inter Prime entra pelo QR do Inter.","local":"Embarque doméstico, perto do portão 1","horario":"24h","local_verificado":true,"id":"CNF-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"ilimitado","via":"INTER"}}},{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local":"2º andar: elevador/escada em frente ao portão 2 (quem embarca em BH entra pelo fast track, ao lado do terraço panorâmico)","horario":"24h","local_verificado":true,"id":"CNF-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Ambaar Lounge Confins","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP"],"local":"Após o raio-x, à direita, perto do portão 7 e do embarque remoto","horario":"24h (fonte Bradesco: 04h30–23h)","local_verificado":true,"id":"CNF-03","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Ambaar Lounge Confins 2","tipo":"sala","setor":"domestico","acessos":["DP"],"local":"Após o raio-x, à esquerda, em frente ao portão 2, ao lado da Dufry","horario":"04h30–23h","local_verificado":true,"id":"CNF-04","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Ambaar Lounge Confins","tipo":"sala","setor":"internacional","acessos":["PP","LK","DP"],"local":"Terminal 2, após o controle de passaportes, perto do portão 60","local_verificado":true,"id":"CNF-05","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"BRT Lounges","tipo":"sala","setor":"publica","acessos":["DP"],"local":"Lado terra, mezanino/2º andar, perto do acesso ao embarque doméstico","horario":"24h","local_verificado":true,"id":"CNF-06","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-19.6244,"lng":-43.9719,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-19.6244,-43.9719"}},{"iata":"CWB","nome":"Afonso Pena","cidade":"Curitiba","uf":"PR","salas":[{"nome":"Banco Inter VIP Lounge","tipo":"sala","setor":"domestico","acessos":["INTER"],"local":"Saguão de embarque doméstico, em frente ao portão 13","horario":"06h–22h","local_verificado":true,"id":"CWB-01","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"ilimitado","via":"INTER"}}},{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local":"Após a validação do cartão de embarque, ANTES do raio-x, à esquerda","local_verificado":true,"id":"CWB-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"internacional","acessos":["PP","LK"],"local":"Após segurança e imigração, à direita","local_verificado":true,"id":"CWB-03","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Premium Lounge Curitiba","tipo":"sala","setor":"domestico","acessos":["DP","WP"],"local":"Logo após o raio-x, à esquerda, em frente ao portão 5","horario":"24h","local_verificado":true,"id":"CWB-04","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Break Travel Lounge","tipo":"sala","setor":"publica","acessos":["DP"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"CWB-05","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}},{"nome":"Bradesco Lounge","tipo":"sala","setor":"domestico","acessos":["BRADESCO"],"local":"Pós-embarque, terminal doméstico","horario":"05h30–22h30","local_verificado":true,"id":"CWB-06","acesso_cartoes":{"c6_carbon":{"status":"nao","via":null},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-25.5285,"lng":-49.1758,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-25.5285,-49.1758"}},{"iata":"SSA","nome":"Luís Eduardo Magalhães","cidade":"Salvador","uf":"BA","salas":[{"nome":"Ambaar Club","tipo":"sala","setor":"publica","acessos":["PP","LK"],"local":"Antes do raio-x, perto do acesso aos portões, à direita","horario":"07h–19h","local_verificado":true,"id":"SSA-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Ambaar Club","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local":"Após o raio-x, saindo da Dufry, à direita, sentido portões 18–23","horario":"24h","local_verificado":true,"id":"SSA-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"obs":"DragonPass em SSA só tem restaurantes — e pelo C6 restaurante não vale.","mapa":{"lat":-12.9086,"lng":-38.3225,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-12.9086,-38.3225"}},{"iata":"POA","nome":"Salgado Filho","cidade":"Porto Alegre","uf":"RS","salas":[{"nome":"Ambaar Club","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local":"Após o raio-x, perto dos portões 117 e 118 (mezanino)","horario":"05h–23h","local_verificado":true,"id":"POA-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Ambaar Club","tipo":"sala","setor":"internacional","acessos":["PP","LK"],"local":"Terminal internacional, 2º andar, perto dos portões 101 e 102","horario":"Conforme os voos internacionais","local_verificado":true,"id":"POA-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Premium Lounge Porto Alegre","tipo":"sala","setor":"domestico","acessos":["DP","WP"],"avulso":"W Pass R$ 220","local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"POA-03","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-29.9939,"lng":-51.1711,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-29.9939,-51.1711"}},{"iata":"FLN","nome":"Hercílio Luz","cidade":"Florianópolis","uf":"SC","salas":[{"nome":"The Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local":"2º andar, em frente ao portão 6 (após a inspeção, à esquerda; escada/elevador)","horario":"04h–21h","avulso":"a partir de R$ 180","local_verificado":true,"id":"FLN-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"The Lounge","tipo":"sala","setor":"internacional","acessos":["PP","LK"],"local":"2º andar, à esquerda após o controle de passaportes","horario":"06h–00h (varia com os voos)","local_verificado":true,"id":"FLN-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"AMAE Lounge","tipo":"sala","setor":"publica","acessos":["DP"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"FLN-03","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-27.6702,"lng":-48.5477,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-27.6702,-48.5477"}},{"iata":"REC","nome":"Guararapes","cidade":"Recife","uf":"PE","salas":[{"nome":"W Premium Lounge – São João","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP","WP"],"avulso":"W Pass R$ 220","local":"Após a segurança, vire à esquerda; em frente ao portão 7","horario":"24h","local_verificado":true,"id":"REC-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Premium Lounge – Frevo","tipo":"sala","setor":"internacional","acessos":["PP","LK","DP","WP"],"avulso":"W Pass R$ 320","local":"2º andar, acima do portão B17","horario":"24h","local_verificado":true,"id":"REC-02","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Airport Rooms","tipo":"descanso","setor":"publica","acessos":["DP","WP"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"REC-03","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-8.1265,"lng":-34.9236,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-8.1265,-34.9236"}},{"iata":"NAT","nome":"Aluízio Alves","cidade":"Natal","uf":"RN","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"NAT-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"internacional","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"NAT-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-5.7681,"lng":-35.3761,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-5.7681,-35.3761"}},{"iata":"JPA","nome":"Castro Pinto","cidade":"João Pessoa","uf":"PB","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"publica","acessos":["PP","LK"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"JPA-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-7.1458,"lng":-34.9486,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-7.1458,-34.9486"}},{"iata":"MCZ","nome":"Zumbi dos Palmares","cidade":"Maceió","uf":"AL","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"publica","acessos":["PP","LK"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"MCZ-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-9.5108,"lng":-35.7917,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-9.5108,-35.7917"}},{"iata":"AJU","nome":"Santa Maria","cidade":"Aracaju","uf":"SE","salas":[{"nome":"Ambaar Lounge","tipo":"sala","setor":"domestico","acessos":["DP"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"AJU-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-10.984,"lng":-37.0703,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-10.984,-37.0703"}},{"iata":"JJD","nome":"Comandante Ariston Pessoa","cidade":"Jericoacoara (Cruz)","uf":"CE","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"JJD-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-2.9067,"lng":-40.3581,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-2.9067,-40.3581"}},{"iata":"JDO","nome":"Orlando Bezerra","cidade":"Juazeiro do Norte","uf":"CE","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"JDO-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-7.2189,"lng":-39.2701,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-7.2189,-39.2701"}},{"iata":"SLZ","nome":"Cunha Machado","cidade":"São Luís","uf":"MA","salas":[{"nome":"The Lounge São Luís","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"SLZ-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-2.5854,"lng":-44.2341,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-2.5854,-44.2341"}},{"iata":"THE","nome":"Petrônio Portella","cidade":"Teresina","uf":"PI","salas":[{"nome":"The Lounge Teresina","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"THE-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-5.0599,"lng":-42.8235,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-5.0599,-42.8235"}},{"iata":"BEL","nome":"Val de Cans","cidade":"Belém","uf":"PA","salas":[{"nome":"W Premium Lounge Belém","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP","WP"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"BEL-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Premium Lounge Belém","tipo":"sala","setor":"internacional","acessos":["PP","LK","DP","WP"],"local_verificado":false,"local":"Embarque internacional (após o controle de passaportes); ponto exato não verificado","id":"BEL-02","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-1.3792,"lng":-48.4763,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-1.3792,-48.4763"}},{"iata":"MAO","nome":"Eduardo Gomes","cidade":"Manaus","uf":"AM","salas":[{"nome":"Harmony Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"MAO-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-3.0386,"lng":-60.0497,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-3.0386,-60.0497"}},{"iata":"VIX","nome":"Eurico de Aguiar Salles","cidade":"Vitória","uf":"ES","salas":[{"nome":"The Lounge Vitória","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"VIX-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-20.2581,"lng":-40.2864,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-20.2581,-40.2864"}},{"iata":"GYN","nome":"Santa Genoveva","cidade":"Goiânia","uf":"GO","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"GYN-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"W Premium Lounge Goiânia","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP","WP"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"GYN-02","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-16.632,"lng":-49.2207,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-16.632,-49.2207"}},{"iata":"IGU","nome":"Cataratas","cidade":"Foz do Iguaçu","uf":"PR","salas":[{"nome":"ADVT VIP Lounge","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"IGU-01","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"The Lounge Cataratas","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"IGU-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"Emerald VIP Lounge","tipo":"sala","setor":"domestico","acessos":["DP"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"IGU-03","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"nao","via":null}}}],"mapa":{"lat":-25.6003,"lng":-54.485,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-25.6003,-54.485"}},{"iata":"NVT","nome":"Victor Konder","cidade":"Navegantes","uf":"SC","salas":[{"nome":"W Premium Lounge Navegantes","tipo":"sala","setor":"domestico","acessos":["PP","LK","DP","WP"],"avulso":"W Pass R$ 180","local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"NVT-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}},{"nome":"The Lounge Navegantes","tipo":"sala","setor":"domestico","acessos":["PP","LK"],"local_verificado":false,"local":"Embarque doméstico (após o raio-x); ponto exato não verificado","id":"NVT-02","acesso_cartoes":{"c6_carbon":{"status":"pago","via":"LK"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-26.88,"lng":-48.6514,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-26.88,-48.6514"}},{"iata":"FEN","nome":"Carlos Wilson","cidade":"Fernando de Noronha","uf":"PE","salas":[{"nome":"Blue Lounge","tipo":"sala","setor":"publica","acessos":["PP","LK","DP"],"local_verificado":false,"local":"Área pública, antes do raio-x; ponto exato não verificado","id":"FEN-01","acesso_cartoes":{"c6_carbon":{"status":"cota","via":"DP"},"inter_prime":{"status":"cota","via":"PP"}}}],"mapa":{"lat":-3.8549,"lng":-32.4233,"precisao":"terminal (aprox.)","google_maps":"https://www.google.com/maps/search/?api=1&query=-3.8549,-32.4233"}}]};
+const q = s => document.querySelector(s);
+const h = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const nz = s => String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+const LS = {get(k,d){try{const v=localStorage.getItem("nv_"+k);return v==null?d:JSON.parse(v)}catch(e){return d}}, set(k,v){try{localStorage.setItem("nv_"+k,JSON.stringify(v))}catch(e){}}};
+const aviso = m => { const t=q("#toast"); if(!t) return; t.textContent=m; t.hidden=false; clearTimeout(aviso._t); aviso._t=setTimeout(()=>t.hidden=true,2400); };
+const MESES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const SEM=["dom","seg","ter","qua","qui","sex","sáb"];
+const dt = s => { if(!s) return null; const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); };
+const hoje = () => { const n=new Date(); return new Date(n.getFullYear(),n.getMonth(),n.getDate()); };
+const fdata = s => { const d=dt(s); return d ? `${SEM[d.getDay()]}, ${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}` : ""; };
+const fcurta = s => { const d=dt(s); return d ? `${d.getDate()} ${MESES[d.getMonth()]}` : ""; };
+const dias = (a,b) => Math.round((b-a)/86400000);
+const ver = v => String(v||"0").split(".").map(Number);
+const maisNova = (a,b) => { const x=ver(a), y=ver(b); for(let i=0;i<Math.max(x.length,y.length);i++){ if((x[i]||0)!==(y[i]||0)) return (x[i]||0)>(y[i]||0); } return false; };
+
+const ST = { mod: LS.get("mod","Viagens"), db:null, sync:"carregando", viagens: LS.get("cacheViagens",[]),
+  vip: VIP0, vipFonte:"cópia embutida", cartao: LS.get("vipCartao","todos"), setor:"", busca:"", aberta:null, editando:null, excluir:null };
+
+/* ---------- módulos ---------- */
+function modulo(m){
+  ["Viagens","Vip","Perf"].forEach(x => { q("#mod"+x).hidden = x!==m; });
+  document.querySelectorAll("nav.appnav button").forEach(b => b.setAttribute("aria-selected", b.dataset.mod===m ? "true":"false"));
+  ST.mod=m; LS.set("mod",m); window.scrollTo({top:0,behavior:"auto"});
+  if(m==="Vip") renderVip();
+}
+q("nav.appnav").addEventListener("click", e => { const b=e.target.closest("button[data-mod]"); if(b) modulo(b.dataset.mod); });
+
+
+/* ---------- banco local (versão GitHub Pages) ---------- */
+const SEED_VIAGENS = {};
+const LocalDB = (() => {
+  let docs = LS.get("localdb_viagens", null);
+  if(!docs || typeof docs!=="object"){ docs = JSON.parse(JSON.stringify(SEED_VIAGENS)); LS.set("localdb_viagens", docs); }
+  const subs = [];
+  const snap = () => ({ docs: Object.entries(docs).map(([id,d]) => ({ id, data: () => d })) });
+  const emit = () => { const s=snap(); subs.forEach(f => { try{ f(s); }catch(e){} }); };
+  const grava = () => { LS.set("localdb_viagens", docs); emit(); };
+  return {
+    local: true,
+    todos: () => docs,
+    substitui: novo => { docs = novo; grava(); },
+    collection(){ return {
+      onSnapshot(cb){ subs.push(cb); setTimeout(() => cb(snap()), 0); return () => {}; },
+      doc(id){ return {
+        async set(d){ docs[id]=d; grava(); },
+        async delete(){ delete docs[id]; grava(); },
+        async update(p){ docs[id]={...(docs[id]||{}), ...p}; grava(); }
+      }; }
+    }; },
+    doc(){ return { onSnapshot(cb){
+      fetch("dados/salas-vip.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null)
+        .then(d => cb(d ? {exists:true, data:() => d} : {exists:false})).catch(() => cb({exists:false}));
+      return () => {};
+    } }; }
+  };
+})();
+
+/* ---------- banco de dados ---------- */
+(async () => {
+  await null;
+  let db=null;
+  try{ db = window.claude?.use ? await window.claude.use("db") : null; }catch(e){ db=null; }
+  if(!db){ db = LocalDB; ST.dbLocal = true; q("#vExp").hidden = false; q("#vImp").hidden = false; }
+  ST.db=db;
+  db.collection("viagens").onSnapshot(snap => {
+    ST.viagens = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    LS.set("cacheViagens", ST.viagens); ST.sync="ok"; renderViagens(); if(ST.mod==="Vip") renderVip();
+  }, e => { ST.sync="erro"; ST.syncErro=e?.code||""; renderViagens(); });
+  db.doc("salasvip/base").onSnapshot(s => {
+    if(!s.exists) return; const d=s.data();
+    if(d?.aeroportos && (maisNova(d.meta?.versao, VIP0.meta.versao) || d.meta?.versao===VIP0.meta.versao)){ ST.vip=d; ST.vipFonte = ST.dbLocal ? "dados/salas-vip.json" : "banco do app"; if(ST.mod==="Vip") renderVip(); }
+  }, ()=>{});
+})();
+
+/* ---------- viagens ---------- */
+const proximas = () => ST.viagens.filter(v => !v.fim || dt(v.fim) >= hoje()).sort((a,b) => (a.inicio||"").localeCompare(b.inicio||""));
+const passadas = () => ST.viagens.filter(v => v.fim && dt(v.fim) < hoje()).sort((a,b) => (b.inicio||"").localeCompare(a.inicio||""));
+const aviaoSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12h20"/><path d="m15 5 7 7-7 7"/></svg>';
+
+function syncTxt(){
+  if(ST.sync==="ok") return ST.dbLocal ? `${ST.viagens.length} viagem(ns) · salvas neste aparelho (use Exportar/Importar para levar a outro)` : `${ST.viagens.length} viagem(ns) · sincronizado entre seus aparelhos`;
+  if(ST.sync==="local") return "Só leitura: abra pelo app Claude, conectado, para editar e sincronizar";
+  if(ST.sync==="erro") return "Não foi possível ler o banco agora" + (ST.syncErro?` (${ST.syncErro})`:"") + "; mostrando a última cópia";
+  return "Carregando…";
+}
+function contagem(v){
+  const i=dt(v.inicio), f=dt(v.fim)||i, t=hoje(); if(!i) return {n:"", l:""};
+  if(t<i){ const n=dias(t,i); return {n, l: n===1?"dia para embarcar":"dias para embarcar"}; }
+  if(t<=f) return {n: dias(i,t)+1, l:`º dia de ${dias(i,f)+1}`};
+  return {n:"", l:"concluída"};
+}
+function cartaoEmbarque(v){
+  const c=contagem(v), o=h(v.sigla_origem||""), d=h(v.sigla_destino||v.destino||"");
+  const pend=(v.pendencias||[]).filter(p=>!p.ok).length;
+  return `<button class="pass" data-v="${h(v.id)}" aria-label="Abrir ${h(v.titulo)}">
+    <div class="main">
+      <div class="rota">${o?`<span>${o}</span>${aviaoSvg}`:""}<span>${d}</span></div>
+      <div class="dest">${h(v.titulo)}</div>
+      <div class="datas">${fcurta(v.inicio)} a ${fcurta(v.fim)} ${(v.fim||v.inicio||"").slice(0,4)}${pend?` · ${pend} pendência(s)`:""}</div>
+    </div>
+    <div class="stub"><div class="n">${c.n}</div><div class="l">${h(c.l)}</div></div>
+  </button>`;
+}
+function linhaViagem(v){
+  return `<button class="trip" data-v="${h(v.id)}"><span class="dt">${fcurta(v.inicio)}</span><span><span class="t">${h(v.titulo)}</span><small>${h(v.destino||"")}</small></span></button>`;
+}
+function renderViagens(){
+  q("#vSync").textContent = syncTxt();
+  q("#vNova").disabled = !ST.db;
+  const M=q("#vMain");
+  if(ST.editando){ M.innerHTML = formulario(ST.editando==="nova"?null:ST.viagens.find(v=>v.id===ST.editando)); return; }
+  if(ST.aberta){ const v=ST.viagens.find(x=>x.id===ST.aberta); if(v){ M.innerHTML = detalhe(v); return; } ST.aberta=null; }
+  const P=proximas(), A=passadas();
+  if(!ST.viagens.length){ M.innerHTML = `<div class="vazio"><p>Nenhuma viagem cadastrada ainda.</p>${ST.db?'<button class="btn pri" data-acao-v="nova" type="button">Cadastrar a primeira viagem</button>':""}</div>`; return; }
+  M.innerHTML = `
+   ${P.length?`<section class="nv-sec">${cartaoEmbarque(P[0])}</section>`:""}
+   ${P.length>1?`<section class="nv-sec"><h3>Depois</h3><div class="nv-list">${P.slice(1).map(linhaViagem).join("")}</div></section>`:""}
+   ${A.length?`<section class="nv-sec"><h3>Já fizemos</h3><div class="nv-list">${A.map(linhaViagem).join("")}</div></section>`:""}`;
+}
+function blocoVip(v){
+  const cods=(v.aeroportos||[]).map(x=>String(x).toUpperCase());
+  if(!cods.length) return "";
+  const partes = cods.map(c => {
+    const ap = ST.vip.aeroportos.find(a=>a.iata===c);
+    if(!ap) return `<p class="nv-note">${h(c)}: sem salas na base.</p>`;
+    const boas = ap.salas.filter(s => Object.values(s.acesso_cartoes||{}).some(x=>x.status!=="nao"));
+    return `<div class="sala"><div class="nv-row"><h3>${h(c)} · ${h(ap.cidade)}</h3><span class="nv-sp"></span><button class="btn sm" type="button" data-vip="${h(c)}">Ver salas</button></div>
+      ${boas.length? boas.map(s=>`<div class="meta"><b>${h(s.nome)}</b> (${setorTxt(s.setor)}) — ${badgesCurtos(s)}</div>`).join("") : '<p class="nv-note">Nenhuma sala grátis ou na cota com seus cartões.</p>'}</div>`;
+  }).join("");
+  return `<section class="nv-sec"><h3>Salas VIP no trajeto</h3>${partes}</section>`;
+}
+function detalhe(v){
+  const kv=[["Quando",`${fdata(v.inicio)} a ${fdata(v.fim)}`],["Destino",v.destino],["Transporte",v.transporte],["Quem vai",v.viajantes],["Hospedagem",v.hospedagem],["Reserva",v.reserva]].filter(x=>x[1]);
+  const voos=v.voos||[], rot=v.roteiro||[], pend=v.pendencias||[];
+  return `<div class="det">
+   <div class="nv-row" style="margin-top:12px"><button class="btn sm" type="button" data-acao-v="voltar">Voltar</button><span class="nv-sp"></span>
+     ${ST.db?`<button class="btn sm" type="button" data-acao-v="editar">Editar</button><button class="btn sm" type="button" data-acao-v="excluir">${ST.excluir===v.id?"Confirmar exclusão":"Excluir"}</button>`:""}</div>
+   <section class="nv-sec">${cartaoEmbarque(v)}</section>
+   <section class="nv-sec card"><dl class="kv">${kv.map(([k,x])=>`<dt>${h(k)}</dt><dd>${h(x)}</dd>`).join("")}</dl></section>
+   ${voos.length?`<section class="nv-sec"><h3>Voos</h3><div class="tbl"><table><thead><tr><th>Voo</th><th>Trecho</th><th>Saída</th><th>Chegada</th></tr></thead><tbody>${voos.map(x=>`<tr><td>${h(x.voo)}</td><td>${h(x.trecho)}</td><td>${h(x.saida)}</td><td>${h(x.chegada)}</td></tr>`).join("")}</tbody></table></div></section>`:""}
+   ${blocoVip(v)}
+   ${pend.length?`<section class="nv-sec"><h3>Pendências</h3>${pend.map((p,i)=>`<label class="pend ${p.ok?"ok":""}"><input type="checkbox" data-pend="${i}" ${p.ok?"checked":""} ${ST.db?"":"disabled"}><span>${h(p.txt)}</span></label>`).join("")}</section>`:""}
+   ${rot.length?`<section class="nv-sec"><h3>Roteiro</h3>${rot.map(r=>`<div class="dia"><b>${h(r.dia)}</b><span>${h(r.texto)}</span></div>`).join("")}</section>`:""}
+   ${v.notas?`<section class="nv-sec"><h3>Notas</h3><div class="card" style="white-space:pre-wrap">${h(v.notas)}</div></section>`:""}
+  </div>`;
+}
+const linhas = s => String(s||"").split("\n").map(x=>x.trim()).filter(Boolean);
+function formulario(v){
+  v = v || {};
+  const voos=(v.voos||[]).map(x=>[x.voo,x.trecho,x.saida,x.chegada].join(" | ")).join("\n");
+  const rot=(v.roteiro||[]).map(r=>`${r.dia} | ${r.texto}`).join("\n");
+  const pend=(v.pendencias||[]).map(p=>(p.ok?"[x] ":"")+p.txt).join("\n");
+  const f=(id,rot,val,extra="")=>`<label for="${id}">${rot}</label><input id="${id}" value="${h(val||"")}" ${extra}>`;
+  const t=(id,rot,val,dica)=>`<label for="${id}">${rot} <small>${dica||""}</small></label><textarea id="${id}">${h(val||"")}</textarea>`;
+  return `<form class="form-v" id="vForm">
+   <h2 style="margin-top:14px">${v.id?"Editar viagem":"Nova viagem"}</h2>
+   ${f("fTitulo","Nome da viagem",v.titulo,'required maxlength="90"')}
+   ${f("fDestino","Destino",v.destino,'maxlength="120"')}
+   <div class="duo"><div>${f("fIni","Ida",v.inicio,'type="date" required')}</div><div>${f("fFim","Volta",v.fim,'type="date"')}</div></div>
+   <div class="duo"><div>${f("fOri","Sigla de saída",v.sigla_origem,'maxlength="5" placeholder="FOR"')}</div><div>${f("fDst","Sigla do destino",v.sigla_destino,'maxlength="5" placeholder="MIA"')}</div></div>
+   ${f("fAer","Aeroportos para salas VIP",(v.aeroportos||[]).join(", "),'placeholder="FOR, GRU"')}
+   ${f("fTrans","Transporte",v.transporte)}
+   ${f("fQuem","Quem vai",v.viajantes)}
+   ${f("fHosp","Hospedagem",v.hospedagem)}
+   ${f("fRes","Reserva / localizador",v.reserva)}
+   ${t("fVoos","Voos",voos,"um por linha: voo | trecho | saída | chegada")}
+   ${t("fRot","Roteiro",rot,"um por linha: dia | programa")}
+   ${t("fPend","Pendências",pend,"uma por linha; [x] no início marca como feita")}
+   ${t("fNotas","Notas",v.notas,"")}
+   <div class="nv-row" style="margin:16px 0 8px"><button class="btn pri" type="submit">Salvar viagem</button><button class="btn" type="button" data-acao-v="cancelar">Cancelar</button></div>
+  </form>`;
+}
+async function salvar(){
+  if(!ST.db){ aviso("Sem conexão com o banco: não dá para salvar agora"); return; }
+  const g=id=>q("#"+id).value.trim();
+  if(!g("fTitulo")||!g("fIni")){ aviso("Preencha o nome e a data de ida"); return; }
+  if(g("fFim") && g("fFim")<g("fIni")){ aviso("A volta está antes da ida"); return; }
+  const dados = {
+    titulo:g("fTitulo"), destino:g("fDestino"), inicio:g("fIni"), fim:g("fFim")||g("fIni"),
+    sigla_origem:g("fOri").toUpperCase(), sigla_destino:g("fDst").toUpperCase(),
+    aeroportos:g("fAer").toUpperCase().split(/[\s,;]+/).filter(Boolean),
+    transporte:g("fTrans"), viajantes:g("fQuem"), hospedagem:g("fHosp"), reserva:g("fRes"),
+    voos:linhas(q("#fVoos").value).map(l=>{const p=l.split("|").map(x=>x.trim()); return {voo:p[0]||"",trecho:p[1]||"",saida:p[2]||"",chegada:p[3]||""};}),
+    roteiro:linhas(q("#fRot").value).map(l=>{const i=l.indexOf("|"); return i<0?{dia:"",texto:l}:{dia:l.slice(0,i).trim(),texto:l.slice(i+1).trim()};}),
+    pendencias:linhas(q("#fPend").value).map(l=>/^\[x\]\s*/i.test(l)?{txt:l.replace(/^\[x\]\s*/i,""),ok:true}:{txt:l,ok:false}),
+    notas:q("#fNotas").value.trim(), atualizado:new Date().toISOString()
+  };
+  const id = ST.editando!=="nova" ? ST.editando : (nz(dados.titulo).replace(/ /g,"-").slice(0,40)+"-"+Date.now().toString(36));
+  try{ await ST.db.collection("viagens").doc(id).set(dados); ST.editando=null; ST.aberta=id; aviso("Viagem salva"); renderViagens(); window.scrollTo({top:0}); }
+  catch(e){ aviso("Não salvou: "+(e?.code||"erro")+". Tente de novo."); }
+}
+q("#vMain").addEventListener("submit", e => { if(e.target.id==="vForm"){ e.preventDefault(); salvar(); } });
+q("#vNova").addEventListener("click", () => { ST.editando="nova"; ST.aberta=null; renderViagens(); window.scrollTo({top:0}); });
+q("#vMain").addEventListener("click", async e => {
+  const vip=e.target.closest("[data-vip]"); if(vip){ ST.busca=vip.dataset.vip; q("#vipQ").value=ST.busca; modulo("Vip"); return; }
+  const b=e.target.closest("[data-v]"); if(b){ ST.aberta=b.dataset.v; ST.excluir=null; renderViagens(); window.scrollTo({top:0}); return; }
+  const a=e.target.closest("[data-acao-v]"); if(!a) return;
+  const ac=a.dataset.acaoV;
+  if(ac==="voltar"){ ST.aberta=null; ST.excluir=null; renderViagens(); }
+  else if(ac==="nova"){ ST.editando="nova"; renderViagens(); }
+  else if(ac==="editar"){ ST.editando=ST.aberta; renderViagens(); window.scrollTo({top:0}); }
+  else if(ac==="cancelar"){ ST.editando=null; renderViagens(); }
+  else if(ac==="excluir"){
+    if(ST.excluir!==ST.aberta){ ST.excluir=ST.aberta; renderViagens(); setTimeout(()=>{ if(ST.excluir){ ST.excluir=null; renderViagens(); } },5000); return; }
+    try{ await ST.db.collection("viagens").doc(ST.aberta).delete(); ST.aberta=null; ST.excluir=null; aviso("Viagem excluída"); renderViagens(); }
+    catch(err){ aviso("Não excluiu: "+(err?.code||"erro")); }
+  }
+});
+q("#vMain").addEventListener("change", async e => {
+  const c=e.target.closest("input[data-pend]"); if(!c||!ST.db) return;
+  const v=ST.viagens.find(x=>x.id===ST.aberta); if(!v) return;
+  const pend=(v.pendencias||[]).map((p,i)=> i===+c.dataset.pend ? {...p, ok:c.checked} : p);
+  try{ await ST.db.collection("viagens").doc(v.id).update({pendencias:pend}); }
+  catch(err){ c.checked=!c.checked; aviso("Não salvou a marcação"); }
+});
+
+
+q("#vExp").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify({app:"nossas-viagens", exportado:new Date().toISOString(), viagens:LocalDB.todos()}, null, 2)], {type:"application/json"});
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+  a.download = "nossas-viagens-" + new Date().toISOString().slice(0,10) + ".json"; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); aviso("Arquivo exportado");
+});
+q("#vImp").addEventListener("click", () => q("#vImpF").click());
+q("#vImpF").addEventListener("change", async e => {
+  const f = e.target.files?.[0]; e.target.value = ""; if(!f) return;
+  try{
+    const d = JSON.parse(await f.text()); const v = d?.viagens;
+    if(!v || typeof v!=="object" || Array.isArray(v)) throw new Error("formato");
+    if(!confirm(`Substituir as viagens deste aparelho pelas ${Object.keys(v).length} do arquivo?`)) return;
+    LocalDB.substitui(v); aviso("Viagens importadas");
+  }catch(err){ aviso("Arquivo inválido: use um JSON exportado por este app"); }
+});
+
+/* ---------- salas VIP ---------- */
+const ROT={ilimitado:"Grátis",condicional:"Grátis com gasto mínimo",cota:"Usa a cota",pago:"Pago",nao:"Sem acesso"};
+const ORD={ilimitado:5,condicional:4,cota:3,pago:2,nao:0};
+const COR={ilimitado:"var(--ok)",condicional:"var(--plum)",cota:"var(--oud)",pago:"var(--muted)",nao:"var(--line)"};
+const CART={c6_carbon:"C6",inter_prime:"Inter"};
+const setorTxt = s => ({domestico:"embarque doméstico",internacional:"embarque internacional",publica:"antes do raio-x",desembarque:"desembarque"}[s]||s);
+const CURTO={PP:"Priority Pass",LK:"LoungeKey",DP:"DragonPass",DP_VISA:"Visa Airport Companion",WP:"W Premium",INTER:"Inter Lounge",C6:"Espaço C6",MCB:"Mastercard Black",AMEX:"Amex",BRADESCO:"Bradesco",CIA:"Companhia aérea",AVULSO:"Avulso"};
+const progNome = c => CURTO[c] || ST.vip.programas?.[c]?.nome || c;
+function badgesCurtos(s){
+  return Object.entries(s.acesso_cartoes||{}).filter(([,x])=>x.status!=="nao").map(([c,x])=>`${CART[c]||c}: ${ROT[x.status].toLowerCase()}`).join("; ");
+}
+function cartoesAtivos(){ return ST.cartao==="c6_carbon"||ST.cartao==="inter_prime" ? [ST.cartao] : ["c6_carbon","inter_prime"]; }
+function melhor(s){ return cartoesAtivos().map(c=>s.acesso_cartoes?.[c]?.status||"nao").sort((a,b)=>ORD[b]-ORD[a])[0]; }
+function salaPassa(s){
+  if(ST.setor && s.setor!==ST.setor) return false;
+  if(ST.cartao!=="todos" && melhor(s)==="nao") return false;
+  return true;
+}
+function apsFiltrados(){
+  const qn=nz(ST.busca);
+  return ST.vip.aeroportos.map(ap => {
+    const apTxt=nz([ap.iata,ap.cidade,ap.uf,ap.nome].join(" "));
+    const casaAp = !qn || apTxt.includes(qn) || nz(ap.iata)===qn;
+    const salas = ap.salas.filter(s => salaPassa(s) && (casaAp || nz(s.nome).includes(qn)));
+    return {ap, salas};
+  }).filter(x=>x.salas.length);
+}
+function meusAeroportos(){ return [...new Set(proximas().flatMap(v=>(v.aeroportos||[]).map(x=>String(x).toUpperCase())))]; }
+function renderMapa(lista){
+  const W=BR.W, H=BR.H, meus=meusAeroportos();
+  const pins=lista.map(({ap,salas})=>{
+    const x=(ap.mapa.lng-BR.lo0)*BR.s, y=(BR.la1-ap.mapa.lat)*BR.s;
+    const st=salas.map(melhor).sort((a,b)=>ORD[b]-ORD[a])[0];
+    const sel = nz(ST.busca)===nz(ap.iata);
+    return `<g class="pin ${sel?"sel":""}" data-ap="${h(ap.iata)}" role="button" tabindex="0" aria-label="${h(ap.iata)} ${h(ap.cidade)}, ${salas.length} sala(s)">
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${sel?7:5.5}" fill="${COR[st]}"></circle></g>`;
+  }).join("");
+  const rots=lista.map(({ap})=>{ const x=(ap.mapa.lng-BR.lo0)*BR.s, y=(BR.la1-ap.mapa.lat)*BR.s, sel=nz(ST.busca)===nz(ap.iata);
+    return (sel || meus.includes(ap.iata) || ["GRU","GIG","BSB","FOR","REC","SSA","POA","CNF","MAO","BEL"].includes(ap.iata)) ? `<text class="rot" x="${(x+8).toFixed(1)}" y="${(y+3).toFixed(1)}">${h(ap.iata)}</text>` : ""; }).join("");
+  q("#vipMapa").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Mapa do Brasil com os aeroportos que têm salas VIP"><path class="pais" d="${BR.d}"></path>${pins}<g aria-hidden="true">${rots}</g></svg>
+   <div class="leg"><span><i style="background:${COR.ilimitado}"></i>Grátis</span><span><i style="background:${COR.condicional}"></i>Com gasto mínimo</span><span><i style="background:${COR.cota}"></i>Na cota</span><span><i style="background:${COR.pago}"></i>Pago</span><span><i style="background:${COR.nao};border:1px solid var(--muted)"></i>Sem acesso</span></div>`;
+}
+function salaCard(s){
+  const acc = Object.entries(s.acesso_cartoes||{}).map(([c,x])=>`<span class="st ${x.status}">${CART[c]||c}: ${ROT[x.status]}${x.via?` (${h(progNome(x.via))})`:""}</span>`).join("");
+  const meta=[s.terminal?`Terminal ${s.terminal.replace(/^T/,"")}`:"", setorTxt(s.setor), s.horario?`Horário: ${s.horario}`:"", s.avulso?`Avulso: ${s.avulso}`:""].filter(Boolean).map(h).join(" · ");
+  return `<article class="sala"><h3>${h(s.nome)}</h3>
+    <div class="onde ${s.local_verificado?"":"nv"}">${h(s.local)}</div>
+    <div class="meta">${meta}</div>
+    <div class="acc">${acc}</div>
+    <div class="acc">${(s.acessos||[]).map(c=>`<span class="prog">${h(progNome(c))}</span>`).join("")}</div>
+    ${s.obs?`<div class="obs">${h(s.obs)}</div>`:""}</article>`;
+}
+function renderVip(){
+  const m=ST.vip.meta||{};
+  q("#vipBase").textContent = `Base v${m.versao||"?"} de ${fcurta(m.atualizado_em)||"?"} ${m.atualizado_em?.slice(0,4)||""} · ${ST.vipFonte}`;
+  document.querySelectorAll("#vipCartao button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.c===ST.cartao?"true":"false"));
+  document.querySelectorAll("#vipSetor button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.s===ST.setor?"true":"false"));
+  const meus=meusAeroportos();
+  q("#vipMeus").innerHTML = meus.length ? meus.map(c=>`<button type="button" data-meu="${h(c)}" aria-pressed="${nz(ST.busca)===nz(c)}">${h(c)} · próxima viagem</button>`).join("") : "";
+  q("#vipMeus").hidden = !meus.length;
+  let lista=apsFiltrados();
+  lista.sort((a,b)=> (meus.includes(b.ap.iata)-meus.includes(a.ap.iata)) || a.ap.cidade.localeCompare(b.ap.cidade));
+  renderMapa(lista);
+  const nS=lista.reduce((t,x)=>t+x.salas.length,0);
+  q("#vipRes").innerHTML = !lista.length ? `<div class="vazio"><p>Nenhuma sala com esses filtros.</p><button class="btn" type="button" id="vipZera">Mostrar todas</button></div>` :
+   `<p class="nv-note" style="margin-top:12px">${nS} sala(s) em ${lista.length} aeroporto(s).</p>` +
+   lista.map(({ap,salas})=>`<section class="ap"><div class="ap-h"><span class="iata">${h(ap.iata)}</span><span class="cid">${h(ap.cidade)} · ${h(ap.uf)}</span><span class="nm">${h(ap.nome)}</span></div>
+     <div class="links"><a class="btn sm" href="${h(ap.mapa.google_maps)}" target="_blank" rel="noopener noreferrer">Abrir no Google Maps ↗</a>${Object.entries(ap.mapa.planta_oficial||{}).map(([t,u])=>`<a class="btn sm" href="${h(u)}" target="_blank" rel="noopener noreferrer">Planta ${h(t)} ↗</a>`).join("")}</div>
+     ${ap.obs?`<p class="nv-note">${h(ap.obs)}</p>`:""}${salas.map(salaCard).join("")}</section>`).join("");
+  const C=ST.vip.cartoes||{};
+  q("#vipRegras").innerHTML = `<summary>Regras dos cartões</summary>` + Object.values(C).map(c=>`<div class="card" style="margin-top:8px"><h3>${h(c.nome)}</h3>
+     ${Object.entries(c.regras).filter(([,r])=>r.status!=="nao").map(([k,r])=>`<div class="r"><b>${h(progNome(k))}</b> · <span class="st ${r.status}">${ROT[r.status]}</span><div>${h(r.detalhe)}</div>${r.como?`<div class="nv-note">${h(r.como)}</div>`:""}</div>`).join("")}
+     ${c.variante_1mi?`<p class="nv-note">${h(c.variante_1mi)}</p>`:""}</div>`).join("") + `<div class="nv-aviso" style="margin-top:8px">${(ST.vip.meta?.avisos||[]).map(h).join("<br>")}</div>`;
+}
+q("#vipForm").addEventListener("submit", e => { e.preventDefault(); q("#vipQ").blur(); });
+q("#vipQ").addEventListener("input", e => { ST.busca=e.target.value; renderVip(); });
+q("#vipLimpa").addEventListener("click", () => { ST.busca=""; q("#vipQ").value=""; renderVip(); });
+q("#vipCartao").addEventListener("click", e => { const b=e.target.closest("button[data-c]"); if(!b) return; ST.cartao=b.dataset.c; LS.set("vipCartao",ST.cartao); renderVip(); });
+q("#vipSetor").addEventListener("click", e => { const b=e.target.closest("button[data-s]"); if(!b) return; ST.setor=b.dataset.s; renderVip(); });
+q("#vipMeus").addEventListener("click", e => { const b=e.target.closest("button[data-meu]"); if(!b) return; ST.busca = nz(ST.busca)===nz(b.dataset.meu) ? "" : b.dataset.meu; q("#vipQ").value=ST.busca; renderVip(); });
+q("#vipRes").addEventListener("click", e => { if(e.target.id==="vipZera"){ ST.busca=""; ST.setor=""; ST.cartao="todos"; q("#vipQ").value=""; renderVip(); } });
+const escolhePin = el => { const c=el.dataset.ap; ST.busca = nz(ST.busca)===nz(c) ? "" : c; q("#vipQ").value=ST.busca; renderVip(); if(ST.busca) q("#vipRes").scrollIntoView({behavior:"smooth",block:"start"}); };
+q("#vipMapa").addEventListener("click", e => { const g=e.target.closest(".pin"); if(g) escolhePin(g); });
+q("#vipMapa").addEventListener("keydown", e => { const g=e.target.closest(".pin"); if(g && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); escolhePin(g); } });
+
+/* ---------- início ---------- */
+renderViagens();
+modulo(["Viagens","Vip","Perf"].includes(ST.mod) ? ST.mod : "Viagens");
+})();
+
+</script>
+
+<script>if("serviceWorker" in navigator && (location.protocol==="https:"||location.hostname==="localhost")){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script></body></html>
